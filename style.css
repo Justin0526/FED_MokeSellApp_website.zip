@@ -1,3 +1,4 @@
+/* Body styles */
 body {
     background-color: #B3C8CF;
     font-family: Arial, sans-serif;
@@ -6,7 +7,47 @@ body {
     color: #b6cbd2;
 }
 
-/* Login container styles */
+/* Navigation Bar */
+.navbar {
+    background-color: #89A8B2; /* Match the background color */
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    margin-right: 10px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: darkblue!important; /* Light hover effect */
+}
+
+/* Logo styles */
+.navbar-brand img, /* For homepage */
+.logo img { /* For login page */
+    height: 80px; /* Adjust the height for the enlarged logo */
+    max-width: 100%;
+}
+
+/* Search Bar */
+form input {
+    border-radius: 50px; /* Rounded corners for search bar */
+    border: 1px solid #ccc; /* Add border for better visibility */
+    padding: 10px; /* Add padding for comfortable input */
+}
+
+form button {
+    border-radius: 50px; /* Rounded corners for search button */
+    background-color: #89A8B2; /* Match the navbar color */
+    color: white; /* Button text color */
+    padding: 10px 20px; /* Adjust padding for better appearance */
+    border: none; /* Remove default border */
+}
+
+form button:hover {
+    background-color: #6c8891; /* Darken the button on hover */
+}
+
+/* Login Container Styles */
 .login-container {
     display: flex;
     justify-content: center;
@@ -16,7 +57,7 @@ body {
     padding: 10px;
 }
 
-/* Login box styles */
+/* Login Box Styles */
 .login-box {
     background-color: #d9e6ec;
     padding: 30px;
@@ -27,7 +68,7 @@ body {
     box-sizing: border-box;
 }
 
-/* Input fields */
+/* Input Fields */
 .login-box input[type="email"],
 .login-box input[type="password"] {
     background-color: #f5f5f5;
@@ -39,7 +80,7 @@ body {
     box-sizing: border-box;
 }
 
-/* Submit button styles */
+/* Submit Button Styles */
 .login-box .btn {
     background-color: #89A8B2;
     color: #fff;
@@ -54,7 +95,7 @@ body {
     background-color: #6c8891;
 }
 
-/* Social login button styles */
+/* Social Login Button Styles */
 .social-login {
     display: flex;
     justify-content: space-between;
@@ -77,18 +118,7 @@ body {
     margin-right: 10px;
 }
 
-/* Logo styles */
-.logo {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.logo img {
-    height: 130px;
-    max-width: 100%;
-}
-
-/* Link styles */
+/* Link Styles */
 .login-box a {
     color: #B3C8CF;
     text-decoration: none;
