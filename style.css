@@ -412,6 +412,10 @@ html, body {
     font-size: 1rem;
 }
 
+#create-listing .create-listing-title{
+    color: black;
+}
+
 /* Submit Button */
 #create-listing .btn {
     background-color: #89A8B2;
