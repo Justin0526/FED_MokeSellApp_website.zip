@@ -396,6 +396,38 @@ html, body {
     margin-bottom: 1.5rem; /* Space between rows */
 }
 
+/* create-list page */
+/* Encapsulation for Create Listing Section */
+#create-listing {
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+/* Form Inputs */
+#create-listing .form-control,
+#create-listing .form-select {
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+/* Submit Button */
+#create-listing .btn {
+    background-color: #89A8B2;
+    border: none;
+    border-radius: 15px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+#create-listing .btn:hover {
+    background-color: #6c8891;
+    color: white;
+    background: linear-gradient(to right, #4a4a68, #81849f);
+    transform: scale(1.1);
+}
+
 /* Responsive Design */
 
 @media (max-width: 768px) {
