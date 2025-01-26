@@ -30,20 +30,20 @@ html, body {
     max-width: 100%;
 }
 
-/* Search Bar */
-.container form input {
-    border-radius: 25px; /* Rounded corners for search bar */
-    border: 1px solid #ccc; /* Add border for better visibility */
-    padding: 10px; /* Add padding for comfortable input */
-}
-
 /* Search Button */
 .container form button {
     border-radius: 25px; /* Rounded corners */
     background-color: #89A8B2; /* Change to your desired color (green in this case) */
     color: white; /* Button text color */
     padding: 10px 20px; /* Adjust padding for better appearance */
-    border: none; /* Remove default border */
+    border: 1.5px solid #7a959d; /* Add border */
+}
+
+.container form button:hover {
+    background-color: #6c8891; /* Darken the button on hover */
+    transform: scale(1.1); /* Slightly enlarge the button */
+    border-color: white;
+    color: white;
 }
 
 .container form button:hover {
