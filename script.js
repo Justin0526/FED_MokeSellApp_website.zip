@@ -26,12 +26,12 @@ document.addEventListener("DOMContentLoaded", function(){
                 "x-apikey": APIKEY,
                 "Cache-Control": "no-cache"
             },
-            body: JSON.stringify(jsondata)
-            // beforeSend: function(){
-            //     // can add loading bar
-            //     // disable the button or show loading bar
-            //     document.getElementById("user-login").disabled = true;
-            // }
+            body: JSON.stringify(jsondata),
+            beforeSend: function(){
+                // can add loading bar
+                // disable the button or show loading bar
+                document.getElementById("user-login").disabled = true;
+            }
         }
 
         // Step 5: Send AJAX request over to the DB and print response of the RESTDB storage to console
@@ -39,11 +39,11 @@ document.addEventListener("DOMContentLoaded", function(){
           .then(response => response.json())
           .then(data => {
             console.log(data);
-            document.getElementById("user-submit").disabled = false;
+            document.getElementById("user-login").disabled = false;
 
           })
 
-        
     });
     // ------------------  // 
+    // --------------------- //
 })
