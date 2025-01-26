@@ -1,10 +1,14 @@
 document.addEventListener("DOMContentLoaded", function(){
     const APIKEY = "678fbb8a58174779225315d5";
-    const loginForm = document.getElementById("login-form");
-    const createListing = document.getElementById("create-listing")
+    
+    const page = window.location.href
     // ---- Login API ---- //
-    // Step 1: Create login listener
-    if (loginForm){
+    if (page == "home.html"){
+        LoginPage();
+    }
+
+    // ---- Login Function ---- //
+    function LoginPage(){
         document.getElementById("login-form").addEventListener("submit", function (e) {
             e.preventDefault();
         
@@ -61,18 +65,19 @@ document.addEventListener("DOMContentLoaded", function(){
                 .finally(() => {
                     loginButton.disabled = false; // Re-enable the login button
                 });
-        });
-        
-        function validateInput(password){
-            if (password.length < 6){
-                alert("Password must be at least 6 characters long.");
-                return false;
-            }
-            return true;
-        }
-        // ------------------  // 
+
+                function validateInput(password){
+                    if (password.length < 6){
+                        alert("Password must be at least 6 characters long.");
+                        return false;
+                    }
+                    return true;
+                }
+        })
     }
-    else if (createListing){
+
+    
+    function createListingPage(){
         const createListingUrl = "https://fedassg2-66ea.restdb.io/rest/create-listing";
         // getProducts();
 
@@ -91,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function(){
             let quantity = document.getElementById("quantity-error");
             let price = document.getElementById('price-error');
             let isValid = true;
-
 
             // isNan() checks whether if the product is a number
             // returns true if it cannot be converted to a number, false otherwise
@@ -312,7 +316,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
 
     }
-    else{
+    function reverblistingPage(){
         // ---- Listing (Reverb API) ---- //
         const reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=1";
         const listingUrl = "https://fedassg2-66ea.restdb.io/rest/reverblisting";
