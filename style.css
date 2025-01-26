@@ -1,10 +1,12 @@
+
 /* Body styles */
-body {
+html, body {
     background-color: #B3C8CF;
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     color: #b6cbd2;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* Navigation Bar */
@@ -18,7 +20,7 @@ body {
 }
 
 .navbar-nav .nav-link:hover {
-    color: darkblue!important; /* Light hover effect */
+    color: black!important; /* Light hover effect */
 }
 
 /* Logo styles */
@@ -29,23 +31,25 @@ body {
 }
 
 /* Search Bar */
-form input {
-    border-radius: 50px; /* Rounded corners for search bar */
+.container form input {
+    border-radius: 25px; /* Rounded corners for search bar */
     border: 1px solid #ccc; /* Add border for better visibility */
     padding: 10px; /* Add padding for comfortable input */
 }
 
-form button {
-    border-radius: 50px; /* Rounded corners for search button */
-    background-color: #89A8B2; /* Match the navbar color */
+/* Search Button */
+.container form button {
+    border-radius: 25px; /* Rounded corners */
+    background-color: #89A8B2; /* Change to your desired color (green in this case) */
     color: white; /* Button text color */
     padding: 10px 20px; /* Adjust padding for better appearance */
     border: none; /* Remove default border */
 }
 
-form button:hover {
+.container form button:hover {
     background-color: #6c8891; /* Darken the button on hover */
 }
+
 
 /* Login Container Styles */
 .login-container {
@@ -127,4 +131,367 @@ form button:hover {
 .login-box a:hover {
     color: #84989e;
     text-decoration: underline;
+}
+
+/* Full-Width Slideshow Styling */
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    
+    padding: 10px;
+}
+
+.carousel {
+    width: 100%; /* Full width */
+    margin-top: 20px; /* Add spacing between the search bar and the slideshow */
+    margin-bottom: 0;
+}
+
+
+.carousel-item img {
+    width: 100%; /* Ensure images fill the container width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure proper image fit */
+   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for better aesthetics */
+}
+
+
+/* Browsing Categories */
+.browsing-category .fw-bold {
+    font-weight: bold;
+    color: white;
+    font-size: 2.5rem; /* Increased font size for better visibility */
+}
+
+.browsing-category .category-btn {
+    background-color: #89A8B2;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.5rem; /* Increased font size for better visibility */
+    height: 100px; /* Increased height for larger buttons */
+    padding: 20px 30px; /* Increased padding for larger buttons */
+    width: 100%; /* Ensure full-width buttons */
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.browsing-category .category-btn:hover {
+    background-color: #6c8891;
+    transform: scale(1.1); /* Increased hover scaling for emphasis */
+}
+
+.browsing-category .category-btn:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Enhanced focus shadow */
+}
+
+.browsing-category .category-btn:active {
+    transform: scale(0.9); /* Slightly reduce size when clicked */
+}
+
+
+
+
+/* Gamification Section */
+/* Gamification Section Wrapper */
+.gamification-section {
+    background-color: #89A8B2; /* Background color for the gamification section */
+    border-radius: 15px; /* Rounded corners for the section */
+    margin-top: 20px; /* Space above the section */
+    padding: 30px; /* Inner padding for the section */
+}
+
+/* Reward Box Styling */
+.gamification-section .reward-box {
+    background-color: #6c8891; /* Background color for the reward box */
+    border-radius: 20px; /* Rounded corners for the reward box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for the box */
+}
+
+/* Reward Box Heading */
+.gamification-section .reward-box h2 {
+    font-size: 1.8rem; /* Font size for the heading */
+    color: #ffffff; /* Text color */
+}
+
+/* Reward Box Button */
+.gamification-section .reward-box button {
+    font-size: 1.2rem; /* Font size for the button text */
+    border-radius: 10px; /* Rounded corners for the button */
+    border: none; /* No border for a clean look */
+    transition: transform 0.2s, background-color 0.3s; /* Smooth transition effects */
+}
+
+/* Button Hover Effect */
+.gamification-section .reward-box button:hover {
+    background-color: #89A8B2; /* Lighter background color on hover */
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+/* Button Focus Effect */
+.gamification-section .reward-box button:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Glow effect on focus */
+}
+
+/* Image Gallery Heading */
+.image-gallery h2.text-center.mb-4 {
+    font-weight: bold;
+    color: white; /* Keeps the header text white */
+    font-size: 2.5rem; /* Large font size for the heading */
+    margin-bottom: 2rem; /* Spacing below the heading */
+}
+
+/* Card Styling */
+.custom-card {
+    background-color: #89A8B2; /* Replace this with your desired color */
+    color: white; /* Ensure text contrast */
+    border: none; /* Remove border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */  
+    overflow: hidden; /* Ensure content doesn't overflow */
+    transition: transform 0.2s ease-in-out; /* Add a hover animation */
+}
+
+/* Add a hover effect */
+.custom-card:hover {
+    transform: scale(1.02); /* Slight enlargement on hover */
+}
+
+/* Product Image Styling */
+.image-gallery .card-img-top {
+    height: 200px; /* Uniform height for product images */
+    object-fit: cover; /* Ensures the image maintains its aspect ratio */
+    border-radius: 0; /* Remove extra rounding */
+}
+
+/* Card Body Styling */
+.image-gallery .card-body {
+    padding: 1rem;
+}
+
+.image-gallery .card-body p {
+    margin: 0; /* Remove default margins for paragraphs */
+}
+
+/* User Information Section */
+.image-gallery .d-flex {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.1); /* Optional: Add a semi-transparent background */
+    padding: 0.75rem;
+}
+
+/* Make the profile picture circular with a border */
+.image-gallery .d-flex img {
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+
+/* Review Section Wrapper */
+.reviews-section {
+    background-color: #f2f2f2; /* Light background */
+    border-radius: 15px; /* Rounded edges */
+    padding: 40px; /* Space around the section */
+    margin-bottom: 60px; /* Space below the section */
+}
+
+/* Review Cards */
+.review-card {
+    background-color: #89A8B2; /* Light blue background */
+    border-radius: 15px; /* Rounded edges for cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    color: white; /* White text color for readability */
+}
+
+/* Review Text */
+.review-text {
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Author Text */
+.review-author {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #8d84aa; /* Footer background color */
+    color: #fff; /* Text color */
+    padding: 4rem 2rem; /* Spacing around the footer */
+    margin-top: 0;
+}
+
+/* Footer Logo */
+.footer .footer-logo img {
+    width: 150px; /* Adjust logo size */
+    display: block; /* Ensures the logo is displayed as a block element */
+    margin-bottom: 1.5rem; /* Space below the logo */
+}
+
+/* Social Links */
+.footer .social-links ul {
+    display: flex; /* Flex layout for horizontal alignment */
+    gap: 1.2rem; /* Space between social icons */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    list-style: none; /* Remove list styling */
+    justify-content: flex-start; /* Align icons to the left */
+}
+
+.footer .social-links a {
+    font-size: 1.5rem; /* Icon size */
+    color: #fff; /* Icon color */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Hover effects */
+}
+
+.footer .social-links a:hover {
+    transform: scale(1.2); /* Slight zoom effect */
+    opacity: 0.8; /* Dim the icon for a soft look */
+}
+
+/* Footer Headings */
+.footer-heading {
+    font-size: 1.4rem; /* Larger font size for headings */
+    font-weight: bold; /* Bold text */
+    margin-bottom: 1rem; /* Space below headings */
+}
+
+/* Footer Links */
+.footer ul {
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    list-style: none; /* Remove list styling */
+}
+
+.footer ul li {
+    margin-bottom: 0.8rem; /* Space between items */
+}
+
+.footer ul a {
+    text-decoration: none; /* Remove underline from links */
+    color: #fff; /* Link color */
+    transition: color 0.3s ease; /* Smooth color change */
+}
+
+.footer ul a:hover {
+    color: #dcdcdc; /* Light gray color on hover */
+    text-decoration: underline; /* Add underline on hover */
+}
+
+/* Responsive Grid */
+.footer .container {
+    max-width: 1200px; /* Limit footer width */
+    margin: 0 auto; /* Center align */
+    padding: 0 1.5rem; /* Add inner padding */
+}
+
+.footer .row {
+    margin-bottom: 1.5rem; /* Space between rows */
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+
+    /* Browse Categories */
+    .category-btn {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    /* Gamification Section */
+    .gamification-section .reward-box h2 {
+        font-size: 1.5rem;
+    }
+
+    .gamification-section .reward-box button {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    /* image-gallery */
+    .image-gallery .card-img-top {
+        height: 150px; /* Reduce image height for smaller screens */
+    }
+
+    .image-gallery h2 {
+        font-size: 2rem; /* Reduce font size for headings */
+    }
+
+    .custom-card {
+        margin-bottom: 1rem; /* Ensure spacing between cards on smaller screens */
+    }
+    /* Review Section */
+    .review-card {
+        font-size: 0.9rem; /* Slightly smaller text for smaller screens */
+        padding: 20px; /* Reduce padding for smaller screens */
+    }
+
+    .reviews-section {
+        padding: 20px; /* Less padding on smaller screens */
+    }
+
+    /* Footer Section */
+    .footer {
+        text-align: center; /* Center align all content */
+    }
+
+    .footer .footer-logo img {
+        width: 120px; /* Adjust logo size for smaller screens */
+        margin: 0 auto 1.5rem; /* Center the logo and maintain spacing */
+    }
+
+    .footer .social-links ul {
+        justify-content: center; /* Center social icons */
+    }
+
+    .footer-heading {
+        font-size: 1.2rem; /* Slightly smaller headings */
+    }
+
+    .footer .row {
+        margin-bottom: 1rem; /* Reduce row spacing on smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    /* image-gallery */
+    .image-gallery .card-img-top {
+        height: 120px; /* Further reduce image height for extra-small screens */
+    }
+
+    .image-gallery h2 {
+        font-size: 1.8rem; /* Smaller font size for very small screens */
+    }
+    /* Footer section */
+    .footer .row {
+        flex-direction: column; /* Stack rows vertically */
+    }
+
+    .footer .social-links ul {
+        gap: 1rem; /* Smaller gaps between icons */
+    }
+}
+
+@media (max-width: 959px) {
+    /* image-gallery */
+    .image-gallery .row .col-md-3 {
+        flex: 0 0 50%; /* Two items per row */
+        max-width: 50%;
+    }
+
+    .image-gallery .card-img-top {
+        height: 150px; /* Reduce image height */
+    }
+
+    .image-gallery h2 {
+        font-size: 2rem; /* Adjust heading size */
+    }
 }
