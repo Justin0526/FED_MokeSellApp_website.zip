@@ -257,19 +257,24 @@ document.addEventListener("DOMContentLoaded", function(){
 
         // Function to display data for home page
         function displayGalleryData(data) {
-            galleryContainer = document.getElementById("trending-items-gallery");
-            if (!galleryContainer) {
-                console.error("Trending items gallery not found in the DOM.");
+            trendingContainer = document.getElementById("trending-items-gallery");
+            recommendContainer = document.getElementById("recommended-items-gallery");
+        
+            if (!trendingContainer || !recommendContainer) {
+                console.error("Trending or Recommended gallery not found in the DOM.");
                 return;
             }
-
-            let cardsHTML = "";
-            data.slice(0,4).forEach(item => {
+        
+            // Shuffle data 
+            shuffledData = data.sort(() => Math.random() - 0.5);
+        
+           // Trending Item Container
+            let trendingCardsHTML = "";
+            shuffledData.slice(0,4).forEach(item => {
                 const imageLink = item["reverb-links"]?.photo?.href || "default-placeholder.jpg";
-                cardsHTML += `
+                trendingCardsHTML += `
                     <div class="col-md-3">
                         <div class="card custom-card text-light shadow-sm">
-                            <!-- User Information Section -->
                             <div class="d-flex align-items-center p-3">
                                 <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
                                 <div>
@@ -277,11 +282,9 @@ document.addEventListener("DOMContentLoaded", function(){
                                     <small class="text-muted">20 days ago</small>
                                 </div>
                             </div>
-                            <!-- Product Image -->
                             <a href="product-details.html">
                                 <img src="${imageLink}" alt="${item["reverb-title"]}" class="card-img-top">
                             </a>
-                            <!-- Card Body -->
                             <div class="card-body text-start">
                                 <p class="card-title fw-bold mb-2">${item["reverb-title"]}</p>
                                 <p class="text-warning fw-bold">S$${item["reverb-price"]} <span class="text-decoration-line-through text-muted">S$${item["reverb-price"]}</span></p>
@@ -290,8 +293,34 @@ document.addEventListener("DOMContentLoaded", function(){
                     </div>
                 `;
             });
-            galleryContainer.innerHTML = cardsHTML;
-             // ----------------------------- //
-        } 
+            trendingContainer.innerHTML = trendingCardsHTML;
+        
+            // Recommended Items container
+            let recommendCardsHTML = "";
+            shuffledData.slice(4,8).forEach(item => {
+                const imageLink = item["reverb-links"]?.photo?.href || "default-placeholder.jpg";
+                recommendCardsHTML += `
+                    <div class="col-md-3">
+                        <div class="card custom-card text-light shadow-sm">
+                            <div class="d-flex align-items-center p-3">
+                                <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
+                                <div>
+                                    <p class="mb-0 fw-bold">sustainable_thr</p>
+                                    <small class="text-muted">20 days ago</small>
+                                </div>
+                            </div>
+                            <a href="product-details.html">
+                                <img src="${imageLink}" alt="${item["reverb-title"]}" class="card-img-top">
+                            </a>
+                            <div class="card-body text-start">
+                                <p class="card-title fw-bold mb-2">${item["reverb-title"]}</p>
+                                <p class="text-warning fw-bold">S$${item["reverb-price"]} <span class="text-decoration-line-through text-muted">S$${item["reverb-price"]}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            recommendContainer.innerHTML = recommendCardsHTML;
+        }        
     } 
 })
