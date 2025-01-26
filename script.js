@@ -40,10 +40,16 @@ document.addEventListener("DOMContentLoaded", function(){
           .then(data => {
             console.log(data);
             document.getElementById("user-login").disabled = false;
-
           })
-
     });
+
+    // function validateForm(password){
+    //     if (password.length < 6){
+    //         alert("Password must be at least 6 characters long.");
+    //         return false;
+    //     }
+    //     return true;
+    // }
     // ------------------  // 
     // --------------------- //
 })
