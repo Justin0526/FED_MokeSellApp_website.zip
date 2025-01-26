@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", function(){
     const APIKEY = "678fbb8a58174779225315d5";
-    
+    const loginForm = document.getElementById("login-form");
+    const createListing = document.getElementById("create-listing")
     // ---- Login API ---- //
     // Step 1: Create login listener
-    if (document.getElementById("login-form")){
+    if (loginForm){
         document.getElementById("login-form").addEventListener("submit", function (e) {
             e.preventDefault();
         
@@ -70,6 +71,220 @@ document.addEventListener("DOMContentLoaded", function(){
             return true;
         }
         // ------------------  // 
+    }
+    else if (createListing){
+        const createListingUrl = "https://fedassg2-66ea.restdb.io/rest/create-listing";
+        // getProducts();
+
+        document.getElementById("listing-submit").addEventListener("click", function (e) {
+            e.preventDefault();
+
+            // Get form values
+            let productName = document.getElementById("product-name").value;
+            let productPrice = document.getElementById("product-price").value;
+            let productDesc = document.getElementById("product-description").value;
+            let productCat = document.getElementById("product-category").value;
+            let productCondition = document.getElementById("product-condition").value;
+            let productQty = document.getElementById("product-quantity").value;
+            let productPic = document.getElementById("product-picture").value.trim();
+
+                // Prepare data for API
+                let jsondata = {
+                    "product-name": productName,
+                    "product-price": productPrice,
+                    "product-description": productDesc,
+                    "product-category": productCat,
+                    "product-condition": productCondition,
+                    "product-quantity": productQty,
+                    "product-picture": productPic,
+                };
+
+                // API settings
+                let settings = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache",
+                    },
+                    body: JSON.stringify(jsondata),
+                };          
+
+                // Disable the button during the fetch
+                document.getElementById("listing-submit").disabled = true;
+
+                // Create product
+                fetch(createListingUrl, settings)
+                    .then((response) => response.json())
+                    .then(() => {
+                        document.getElementById("listing-submit").disabled = false;
+                        document.getElementById("create-listing-form").reset();
+                        // getProducts(); // Fetch and update table
+                    })
+                    .catch((error) => console.error("Error creating product:", error));
+        });
+
+        // Create update lisener
+        // Because our content is dynamic in nature, we listen in on the main container which is "#item-created".
+        // For each row, we have a class .update to help us
+        document.getElementById("item-created").addEventListener("click",function(e){
+            if (e.target.classList.contains("delete")){
+                e.preventDefault();
+
+                let itemId = e.target.dataset.id;
+                deleteRecord(itemId);
+            }
+            else if (e.target.classList.contains("update")){
+                e.preventDefault();
+
+                let productName = e.target.getAttribute("data-name");
+                let productPrice = e.target.getAttribute("data-price");
+                let productDesc = e.target.getAttribute("data-desc");
+                let productCat = e.target.getAttribute("data-cat");
+                let productCondition = e.target.getAttribute("data-condition");
+                let productQty = e.target.getAttribute("data-qty");
+                let productPic = e.target.getAttribute("data-pic");
+                let productId = e.target.getAttribute("data-id");
+                
+                // Load in the data from the selected row and add it to update the form
+                document.getElementById("update-product-name").value = productName;
+                document.getElementById("update-product-price").value = productPrice;
+                document.getElementById("update-product-description").value = productDesc;
+                document.getElementById("update-product-category").value = productCat;
+                document.getElementById("update-product-condition").value = productCondition;
+                document.getElementById("update-product-quantity").value = productQty;
+                document.getElementById("update-product-picture").value = productPic;
+                document.getElementById("update-product-id").value = productId;
+                document.getElementById("update-product-container").style.display = "block";
+            }
+        })
+
+        // Load in the item form data
+        // Update form listener
+        document.getElementById("update-product-submit").addEventListener("click",function(e){
+            e.preventDefault();
+
+            // Retrieve all update form values
+            let productName = document.getElementById("update-product-name").value;
+            let productPrice = document.getElementById("update-product-price").value;
+            let productDesc = document.getElementById("update-product-description").value;
+            let productCat = document.getElementById("update-product-category").value;
+            let productCondition = document.getElementById("update-product-condition").value;
+            let productQty = document.getElementById("update-product-quantity").value;
+            let productPic = document.getElementById("update-product-picture").value;
+            let productId = document.getElementById("update-product-id").value;
+
+            // Call our update form function 
+            // This makes an AJAX call to our RESTDB to update the selected information
+            updateProduct(productId, productName, productPrice, productDesc, productCat, productCondition, productQty, productPic)
+        });
+
+        function updateProduct(id, productName, productPrice, productDesc, productCat, productCondition, productQty, productPic){
+            // Create validation methods for all the above !!!!!!!!!
+
+            productPrice = parseFloat(productPrice);
+
+            // Validate product quantity (should be a valid positive integer)
+            productQty = parseInt(productQty);
+            
+            var jsondata = {
+                "product-name": productName,
+                "product-price": productPrice,
+                "product-description": productDesc,
+                "product-category": productCat,
+                "product-condition": productCondition,
+                "product-quantity": productQty,
+                "product-picture": productPic
+            }
+
+            console.log("Payload: ", JSON.stringify(jsondata));
+            console.log("Product ID:", id);
+            var settings = {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-apikey": APIKEY,
+                    "Cache-control": "no-cache"
+                },
+                body: JSON.stringify(jsondata)
+            }
+            fetch(createListingUrl/id, settings)
+                .then((response) => {
+                    if (!response.ok) {
+                        return response.json().then((error) => {
+                            console.error("Validation Error Details:", error.list);
+                            alert(`Validation Error: ${error.message}. Details: ${JSON.stringify(error.list)}`);
+                            throw new Error(error.message);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(() => {
+                    document.getElementById("update-product-container").style.display = "none";
+                    getProducts(); // Refresh the product list
+                })
+                .catch((error) => console.error("Error updating product:", error));
+                }
+
+        // Fetch products and populate table
+        function getProducts() {
+            fetch(createListingUrl, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-apikey": APIKEY,
+                    "Cache-Control": "no-cache",
+                },
+            })
+                .then((response) => response.json())
+                .then((response) => {
+                    let content = "";
+                    response.forEach((product) => {
+                        console.log(product["product-picture"]);
+                        content += `
+                        <tr id="${product._id}">
+                            <td>${product["product-name"]}</td>
+                            <td>${product["product-price"]}</td>
+                            <td>${product["product-description"]}</td>
+                            <td>${product["product-category"]}</td>
+                            <td>${product["product-condition"]}</td>
+                            <td>${product["product-quantity"]}</td>
+                            <td><img src="${product["product-picture"]}" alt="Product Image" width="100"></td>
+                            <td>
+                                <a href="#" class="delete" data-id="${product._id}">Delete</a>
+                                <a href="#update-product-container" class="update" 
+                                data-id="${product._id}" data-name="${product["product-name"]}" 
+                                data-price="${product["product-price"]}" data-desc="${product["product-description"]}" 
+                                data-cat="${product["product-category"]}" data-condition="${product["product-condition"]}" 
+                                data-qty="${product["product-quantity"]}" data-pic="${product["product-picture"]}">Update</a>
+                            </td>
+                        </tr>`;
+                    });
+                    document
+                        .getElementById("item-list")
+                        .getElementsByTagName("tbody")[0].innerHTML = content;
+                })
+                .catch((error) => console.error("Error fetching products:", error));
+        }
+
+        function deleteRecord(id){
+            let settings = {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-apikey": APIKEY,
+                    "Cache-Control": "no-cache"
+                }
+            };
+            fetch(createListingUrl/id,settings)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                getProducts();
+            })
+            .catch(error => console.log(error));
+        }
+
     }
     else{
         // ---- Listing (Reverb API) ---- //
