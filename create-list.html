@@ -13,6 +13,92 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+       <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="#">
+            <img src="images/Logo.png" alt="MokeSell Logo" class="d-inline-block align-text-top">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-comment-dots"></i> <!-- Updated Chat Icon -->
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-shopping-cart"></i> <!-- Updated Cart Icon -->
+                    </a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#">Sell</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">My Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+    </nav>
+
+    <!-- Create Listing Section -->
+    <section id="create-listing" class="create-listing-section py-5">
+      <div class="container my-5">
+          <h2 class="text-center fw-bold">CREATE YOUR LISTING</h2>
+          <div class="bg-light p-5 rounded-4 shadow-sm" style="max-width: 800px; margin: auto;">
+              <form action="home.html" method="GET">
+                  <!-- Product Name -->
+                  <div class="mb-4">
+                      <input type="text" class="form-control" placeholder="Listing Name" required>
+                  </div>
+                  <!-- Product Description -->
+                  <div class="mb-4">
+                      <textarea class="form-control" placeholder="Description" rows="4" required></textarea>
+                  </div>
+                  <!-- Choose Category -->
+                  <div class="mb-4">
+                      <select class="form-select" required>
+                          <option value="" disabled selected>Choose Category</option>
+                          <option value="Strings">Strings</option>
+                          <option value="Keyboards">Keyboards</option>
+                          <option value="Percussions">Percussions</option>
+                      </select>
+                  </div>
+                  <!-- Choose Condition -->
+                  <div class="mb-4">
+                      <select class="form-select" required>
+                          <option value="" disabled selected>Choose Condition</option>
+                          <option value="Brand new">Brand new</option>
+                          <option value="Like new">Like new</option>
+                          <option value="Lightly used">Lightly used</option>
+                          <option value="Well used">Well used</option>
+                          <option value="Heavily used">Heavily used</option>
+                      </select>
+                  </div>
+                  <!-- Enter Quantity -->
+                  <div class="mb-4">
+                      <input type="number" class="form-control" placeholder="Enter Quantity" required>
+                  </div>
+                  <!-- Product Price -->
+                  <div class="mb-4">
+                      <input type="number" class="form-control" placeholder="Price" required>
+                  </div>
+                  <!-- URL of Picture -->
+                  <div class="mb-4">
+                      <input type="url" class="form-control" placeholder="Enter the URL of the picture" required>
+                  </div>
+                  <!-- Submit Button -->
+                  <div class="text-center">
+                      <button type="submit" class="btn btn-primary px-5 py-2">Create Now</button>
+                  </div>
+              </form>
+          </div>
+      </div>
+    </section>
    
 
     <!-- Footer Section -->
