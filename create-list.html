@@ -53,15 +53,18 @@
               <form id="create-listing-form">
                   <!-- Product Name -->
                   <div class="mb-4">
-                      <input type="text" class="form-control" id="product-name" placeholder="Listing Name" required>
+                      <label for="product-name" class="create-listing-title">Product Name</label>
+                      <input type="text" class="form-control" id="product-name" name="product-name" placeholder="Listing Name" required>
                   </div>
                   <!-- Product Description -->
                   <div class="mb-4">
-                      <textarea class="form-control" id="product-description" placeholder="Description" rows="4" required></textarea>
+                      <label for="product-description" class="create-listing-title">Description</label>
+                      <textarea class="form-control" id="product-description" name="product-description" placeholder="Description" rows="4" required></textarea>
                   </div>
                   <!-- Choose Category -->
                   <div class="mb-4">
-                      <select class="form-select" id="product-category" required>
+                      <label for="product-category" class="create-listing-title">Category</label>
+                      <select class="form-select" id="product-category" name="product-category" required>
                           <option value="" disabled selected>Choose Category</option>
                           <option value="Strings">Strings</option>
                           <option value="Keyboards">Keyboards</option>
@@ -70,7 +73,8 @@
                   </div>
                   <!-- Choose Condition -->
                   <div class="mb-4">
-                      <select class="form-select" id="product-condition" required >
+                     <label for="product-condition" class="create-listing-title">Condition</label>
+                      <select class="form-select" id="product-condition" name="product-condition" required >
                           <option value="" disabled selected>Choose Condition</option>
                           <option value="Brand new">Brand new</option>
                           <option value="Like new">Like new</option>
@@ -81,15 +85,20 @@
                   </div>
                   <!-- Enter Quantity -->
                   <div class="mb-4">
-                      <input type="number" class="form-control" id="product-quantity" placeholder="Enter Quantity" required>
+                      <label for="product-quantity" class="create-listing-title">Quantity</label>
+                      <input type="number" class="form-control" id="product-quantity" name="product-quantity" placeholder="Enter Quantity" required>
+                      <small id="quantity-error" style="color: red; display: none;">Quantity must be greater than 0!</small>
                   </div>
                   <!-- Product Price -->
                   <div class="mb-4">
-                      <input type="number" class="form-control" id="product-price" placeholder="Price" required>
+                      <label for="product-price" class="create-listing-title">Price</label>
+                      <input type="number" class="form-control" id="product-price" name="product-price" placeholder="Price" required>
+                      <small id="price-error" style="color: red; display: none;">Price must be greater than 0!</small>
                   </div>
                   <!-- URL of Picture -->
                   <div class="mb-4">
-                      <input type="url" class="form-control" id="product-picture" placeholder="Enter the URL of the picture" required>
+                      <label for="product-picture" class="create-listing-title">Picture</label>
+                      <input type="url" class="form-control" id="product-picture" name="product-picture" placeholder="Enter the URL of the picture" required>
                   </div>
                   <!-- Submit Button -->
                   <div class="text-center">
