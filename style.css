@@ -419,10 +419,11 @@ html, body {
 /* Submit Button */
 #create-listing .btn {
     background-color: #89A8B2;
-    border: none;
-    border-radius: 15px;
-    font-size: 1rem;
+    border-radius: 25px;
     transition: background-color 0.3s ease;
+    padding: 10px 20px;
+    border: 1.5px solid #7a959d;
+    color: white;
 }
 
 #create-listing .btn:hover {
