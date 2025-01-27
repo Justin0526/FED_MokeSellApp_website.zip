@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(){
         let userPassword = document.getElementById("user-password").value;
     
         // Validate inputs
-        if (!validateInput(userPassword)) {
+        if (!validateInput(userPassword,userEmail)) {
             console.log("Validation failed!");
             return;
         }
@@ -59,11 +59,23 @@ document.addEventListener("DOMContentLoaded", function(){
                 loginButton.disabled = false; // Re-enable the login button
             });
 
-            function validateInput(password){
+            // A regular expression (emailRegex) ensures that the email follows a basic structure
+            // /^[^\s@]+: Begins with one or more non-whitespace and non @characters
+            // @[^\s@]+: Includes an @ symbol followed by one or more valid characters
+            // \.[^\s@]+$/: Ends with a dot and a valid domain (eg: .com, .org)
+            function validateInput(password,email){
                 if (password.length < 6){
                     alert("Password must be at least 6 characters long.");
                     return false;
                 }
+
+                emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                // test() returns true if the string matches the pattern defined by the regular expression, false otherwise
+                if (!emailRegex.test(email)){
+                    alert ("Please enter a valid email address.");
+                    return false;
+                }
+                
                 return true;
             }
     })
