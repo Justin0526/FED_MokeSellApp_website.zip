@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
     const APIKEY = "678fbb8a58174779225315d5";
-    const loginAPI = "https://fedassg2-66ea.restdb.io/rest/login";
+    loginAPI = "https://fedassg2-66ea.restdb.io/rest/login";
 
     document.getElementById("login-form").addEventListener("submit", function (e) {
         e.preventDefault();
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function(){
         };
     
         // Disable login button while processing
-        const loginButton = document.getElementById("user-login");
+        loginButton = document.getElementById("user-login");
         loginButton.disabled = true;
     
         // Send Fetch request

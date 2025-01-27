@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     const APIKEY = "678fbb8a58174779225315d5";
-    const reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=1";
-    const listingUrl = "https://fedassg2-66ea.restdb.io/rest/reverblisting";
+    reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=1";
+    listingUrl = "https://fedassg2-66ea.restdb.io/rest/reverblisting";
 
     const header = {
         "Content-Type": "application/hal+json",
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 return response.json(); // Parse the JSON response
             })
             .then(restDbData => {
-                const existingIds = restDbData.map(record => record["reverb-id"]); // Extract existing product IDs
+                existingIds = restDbData.map(record => record["reverb-id"]); // Extract existing product IDs
                 insertNewDataToRestDB(reverbListings, existingIds); // Insert new data
             })
             .catch(error => {
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function(){
     // Function to insert New data into restDB
     function insertNewDataToRestDB(reverbListings, existingIds) {
         reverbListings.forEach(listing => {
-            const productId = listing.id; // Unique product ID
+            productId = listing.id; // Unique product ID
             if (!existingIds.includes(productId)) {
                 // Convert price to a numeric value
                 let price = 0;
@@ -73,10 +73,10 @@ document.addEventListener("DOMContentLoaded", function(){
                 }
     
                 // Generate random quantity as a number
-                const quantity = Math.floor(Math.random() * 100) + 1;
+                quantity = Math.floor(Math.random() * 100) + 1;
     
                 // Build product data for insertion
-                const productData = {
+                productData = {
                     "reverb-id": productId,
                     "reverb-title": listing.title || "No title",
                     "reverb-price": price, // Converted price as a number
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function(){
        // Trending Item Container
         let trendingCardsHTML = "";
         shuffledData.slice(0,4).forEach(item => {
-            const imageLink = item["reverb-links"]?.photo?.href || "default-placeholder.jpg";
+            imageLink = item["reverb-links"].photo.href;
             trendingCardsHTML += `
                 <div class="col-md-3">
                     <div class="card custom-card text-light shadow-sm">
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function(){
         // Recommended Items container
         let recommendCardsHTML = "";
         shuffledData.slice(4,8).forEach(item => {
-            const imageLink = item["reverb-links"]?.photo?.href || "default-placeholder.jpg";
+            imageLink = item["reverb-links"].photo.href;
             recommendCardsHTML += `
                 <div class="col-md-3">
                     <div class="card custom-card text-light shadow-sm">

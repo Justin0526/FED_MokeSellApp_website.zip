@@ -55,11 +55,13 @@
                   <div class="mb-4">
                       <label for="product-name" class="create-listing-title">Product Name</label>
                       <input type="text" class="form-control" id="product-name" name="product-name" placeholder="Listing Name" required>
+                      <small id="name-error" style="color: red; display: none;">Please enter your product name!</small>
                   </div>
                   <!-- Product Description -->
                   <div class="mb-4">
                       <label for="product-description" class="create-listing-title">Description</label>
                       <textarea class="form-control" id="product-description" name="product-description" placeholder="Description" rows="4" required></textarea>
+                      <small id="description-error" style="color: red; display: none;">Please enter your product description!</small>
                   </div>
                   <!-- Choose Category -->
                   <div class="mb-4">
@@ -70,6 +72,7 @@
                           <option value="Keyboards">Keyboards</option>
                           <option value="Percussions">Percussions</option>
                       </select>
+                      <small id="category-error" style="color: red; display: none;">Please choose a category!</small>
                   </div>
                   <!-- Choose Condition -->
                   <div class="mb-4">
@@ -82,6 +85,7 @@
                           <option value="Well used">Well used</option>
                           <option value="Heavily used">Heavily used</option>
                       </select>
+                      <small id="condition-error" style="color: red; display: none;">Please choose a condition!</small>
                   </div>
                   <!-- Enter Quantity -->
                   <div class="mb-4">
@@ -99,6 +103,7 @@
                   <div class="mb-4">
                       <label for="product-picture" class="create-listing-title">Picture</label>
                       <input type="url" class="form-control" id="product-picture" name="product-picture" placeholder="Enter the URL of the picture" required>
+                      <small id="picture-error" style="color: red; display: none;">Please enter your picture url!</small>
                   </div>
                   <!-- Submit Button -->
                   <div class="text-center">
