@@ -1,10 +1,13 @@
 document.addEventListener("DOMContentLoaded", function(){
     const APIKEY = "678fbb8a58174779225315d5";
     
-    const page = window.location.href
+    const page = window.location.pathname.split("/").pop();
     // ---- Login API ---- //
-    if (page == "home.html"){
+    if (page == "login.html"){
         LoginPage();
+    }
+    else if (page == "home.html"){
+        reverblistingPage();
     }
 
     // ---- Login Function ---- //
@@ -76,7 +79,6 @@ document.addEventListener("DOMContentLoaded", function(){
         })
     }
 
-    
     function createListingPage(){
         const createListingUrl = "https://fedassg2-66ea.restdb.io/rest/create-listing";
         // getProducts();
