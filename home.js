@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         <div class="d-flex align-items-center p-3">
                             <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
                             <div>
-                                <p class="mb-0 fw-bold">sustainable_thr</p>
+                                <p class="mb-0 fw-bold">${item["reverb-shopname"]}</p>
                                 <small class="text-muted">20 days ago</small>
                             </div>
                         </div>
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         </a>
                         <div class="card-body text-start">
                             <p class="card-title fw-bold mb-2">${item["reverb-title"]}</p>
-                            <p class="text-warning fw-bold">S$${item["reverb-price"]} <span class="text-decoration-line-through text-muted">S$${item["reverb-price"]}</span></p>
+                            <p class="text-warning fw-bold">S$${item["reverb-price"]} </p>
                         </div>
                     </div>
                 </div>
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         </a>
                         <div class="card-body text-start">
                             <p class="card-title fw-bold mb-2">${item["reverb-title"]}</p>
-                            <p class="text-warning fw-bold">S$${item["reverb-price"]} <span class="text-decoration-line-through text-muted">S$${item["reverb-price"]}</span></p>
+                            <p class="text-warning fw-bold">S$${item["reverb-price"]} </p>
                         </div>
                     </div>
                 </div>
