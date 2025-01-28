@@ -12,8 +12,10 @@
 </head>
 
 <body>
+
     
-        <!-- Main login container -->
+    
+    <!-- Main login container -->
     <div class="login-container">
         <!-- Logo section -->
         <div class="logo">
@@ -21,41 +23,42 @@
         </div>
 
             <!-- Login form -->
-    <div class="login-box">
-        <form id="login-form"> <!-- Redirects to homepage.html -->
-            <!-- Email input field -->
-            <input type="email" placeholder="Email" required id="user-email">
-            <!-- Password input field -->
-            <input type="password" placeholder="Password" required id="user-password"> 
-            <!-- Submit button -->
-            <button type="submit" class="btn" id="user-login">Log In</button>
-        </form>
+        <div class="login-box">
+            <form id="login-form"> <!-- Redirects to homepage.html -->
+                <label for="user-email">Email</label>
+                <!-- Email input field -->
+                <input type="email" placeholder="Enter your email" required id="user-email">
+                <!-- Password input field -->
+                <label for="user-password">Password</label>
+                <input type="password" placeholder="Enter your password" required id="user-password"> 
+                <!-- Submit button -->
+                <button type="submit" class="btn" id="user-login">Log In</button>
+            </form>
 
-        <!-- Forgot Password link -->
-        <div class="text-center mt-3">
-            <a href="#">Forgot Password?</a>
+            <!-- Forgot Password link -->
+            <div class="text-center mt-4">
+                <a href="#">Forgot Password?</a>
+            </div>
+
+            <!-- Social login section -->
+            <div class="social-login">
+                <!-- Instagram login button -->
+                <button class="btn">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram">
+                </button>
+                
+                <!-- Facebook login button -->
+                <button class="btn btn-light">
+                    <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
+                </button>
+            </div>
+
+            <!-- Sign up link -->
+            <div class="text-center mt-3">
+                <p>New to MokeSell? <a href="#">Sign Up</a></p>
+            </div>
         </div>
 
-        <!-- Social login section -->
-        <div class="social-login">
-            <!-- Instagram login button -->
-            <button class="btn btn-light">
-                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" alt="Instagram">
-            </button>
-            
-            <!-- Facebook login button -->
-            <button class="btn btn-light">
-                <img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" alt="Facebook">
-            </button>
-        </div>
-
-        <!-- Sign up link -->
-        <div class="text-center mt-3">
-            <span>New to MokeSell? <a href="#">Sign Up</a></span>
-        </div>
-    </div>
-
-    </div>
     </div>
 
     <!-- External JavaScript -->
