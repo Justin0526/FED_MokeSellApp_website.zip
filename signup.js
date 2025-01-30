@@ -25,8 +25,6 @@ document.addEventListener("DOMContentLoaded", function(){
         confirmPasswordError.style.display = 'none';
         emailError.style.display = 'none';
 
-        console.log("Yay");
-
         if (!validateInput(userEmail, userPassword, confirmUserPassword, passwordError, confirmPasswordError, emailError)){
             console.log("Validation failed!");
             return;
