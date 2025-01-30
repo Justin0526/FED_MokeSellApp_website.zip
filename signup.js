@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
-    const APIKEY = "67972e07f9d2bb46c9181e32";
-    const apiUrl = "https://experiment-d5c7.restdb.io/rest/trysignup";
+    const APIKEY = "678fbb8a58174779225315d5";
+    const apiUrl = "https://fedassg2-66ea.restdb.io/rest/signup";
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
