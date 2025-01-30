@@ -52,9 +52,6 @@ document.addEventListener("DOMContentLoaded", function(){
                     .then(response => response.json())
                     .then(data => {
                         console.log("Login successful:", data);
-            
-                        // Redirect after successful login
-                        alert("Login successful!");
                         window.location.href = "home.html";
                     })
                     .catch(error => {
