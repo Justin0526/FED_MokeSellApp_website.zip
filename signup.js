@@ -17,7 +17,15 @@ document.addEventListener("DOMContentLoaded", function(){
         let userPassword = document.getElementById("user-password").value;
         let confirmUserPassword = document.getElementById("confirm-user-password").value;
 
-        if (!validateInput(userEmail, userPassword, confirmUserPassword)){
+        let passwordError = document.getElementById("passwordError");
+        let confirmPasswordError = document.getElementById("confirmPasswordError");
+        let emailError = document.getElementById("emailError");
+
+        passwordError.style.display = 'none';
+        confirmPasswordError.style.display = 'none';
+        emailError.style.display = 'none';
+        
+        if (!validateInput(userEmail, userPassword, confirmUserPassword, passwordError, confirmPasswordError, emailError)){
             console.log("Validation failed!");
             return;
         }
@@ -65,20 +73,20 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     });
         
-    function validateInput(email, password, confirmPassword) {
+    function validateInput(email, password, confirmPassword, passwordError, confirmPasswordError, emailError) {
         if (password.length < 6) {
-            alert("Password must be at least 6 characters long.");
+            passwordError.style.display = 'block';
             return false;
         }
 
         if (password !== confirmPassword) {
-            alert("Passwords do not match!");
+            confirmPasswordError.style.display = 'block';
             return false;
         }
 
         let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert("Please enter a valid email address.");
+            emailError.style.display = 'block';
             return false;
         }
 

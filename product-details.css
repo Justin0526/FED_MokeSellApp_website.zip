@@ -127,7 +127,11 @@ html, body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-
+.signup-container .form-container #signup-form #passwordError, #confirmPasswordError, #emailError{
+    color: red;
+    text-align: left;
+    display: none;
+}
 
 /* Item Page */
 .product-details-section {
