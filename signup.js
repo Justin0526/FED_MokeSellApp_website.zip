@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", function(){
         passwordError.style.display = 'none';
         confirmPasswordError.style.display = 'none';
         emailError.style.display = 'none';
-        
+
+        console.log("Yay");
+
         if (!validateInput(userEmail, userPassword, confirmUserPassword, passwordError, confirmPasswordError, emailError)){
             console.log("Validation failed!");
             return;
@@ -71,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
                 });
         });
+        return;
     });
         
     function validateInput(email, password, confirmPassword, passwordError, confirmPasswordError, emailError) {
@@ -107,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function(){
         })
         .catch(error => {
             console.error("Error checking email:", error);
-            return false; // Return false if an error occurs
+            return null; // Return false if an error occurs
         });
     }
 });
