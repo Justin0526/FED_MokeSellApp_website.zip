@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", function(){
         // Retrieve form data
         let userEmail = document.getElementById("user-email").value;
         let userPassword = document.getElementById("user-password").value;
+
+        let emailError = document.getElementById("emailError");
+        let passwordError = document.getElementById("passwordError");
         // Validate inputs
         if (!validateInput(userEmail)) {
             console.log("Validation failed!");
@@ -21,11 +24,13 @@ document.addEventListener("DOMContentLoaded", function(){
         }
 
         checkEmailExists(userEmail).then(userData => {
-            if (!userData){
-                alert("Email does not exist! Please proceed to sign-up first!");
+            if (!userData){           
+                emailError.style.display = 'block';
                 return;
             }
 
+            emailError.style.display = 'none';
+            passwordError.style.display = 'none';
             let userName = userData["user-name"];
             let correctPassword = userData["user-password"];
 
@@ -63,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     });
             }
             else{
-                alert("Incorrect Password entered!")
+                passwordError.style.display = 'block';
             }           
         })
 

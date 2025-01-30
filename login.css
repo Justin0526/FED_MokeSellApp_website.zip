@@ -65,6 +65,12 @@ html, body {
     box-sizing: border-box;
 }
 
+.login-box #emailError, #passwordError{
+    color: red;
+    text-align: left;
+    display: none;
+}
+
 .login-box input:focus {
     border-color: #c89872;
 }

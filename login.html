@@ -12,8 +12,6 @@
 </head>
 
 <body>
-
-    
     
     <!-- Main login container -->
     <div class="login-container">
@@ -28,9 +26,11 @@
                 <label for="user-email">Email</label>
                 <!-- Email input field -->
                 <input type="email" placeholder="Enter your email" required id="user-email">
+                <small id="emailError">Invalid Email. Please signup first</small>
                 <!-- Password input field -->
                 <label for="user-password">Password</label>
-                <input type="password" placeholder="Enter your password" required id="user-password"> 
+                <input type="password" placeholder="Enter your password" required id="user-password">
+                <small id="passwordError">Invalid password entered</small> 
                 <!-- Submit button -->
                 <button type="submit" class="btn" id="user-login">Log In</button>
             </form>
