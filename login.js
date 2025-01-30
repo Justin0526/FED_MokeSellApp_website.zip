@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
     const APIKEY = "678fbb8a58174779225315d5";
-    loginAPI = "https://fedassg2-66ea.restdb.io/rest/login";
+    loginAPIURL = "https://fedassg2-66ea.restdb.io/rest/login";
 
     document.getElementById("login-form").addEventListener("submit", function (e) {
         e.preventDefault();
@@ -37,13 +37,8 @@ document.addEventListener("DOMContentLoaded", function(){
         loginButton.disabled = true;
     
         // Send Fetch request
-        fetch(loginAPI, settings)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Failed to log in. Check your credentials.");
-                }
-                return response.json();
-            })
+        fetch(loginAPIURL, settings)
+            .then(response => response.json())
             .then(data => {
                 console.log("Login successful:", data);
     
