@@ -433,6 +433,13 @@ html, body {
     transform: scale(1.1);
 }
 
+#create-listing #create-listing-form #name-error, 
+                #description-error, #category-error, 
+                #condition-error, #quantity-error, 
+                #price-error, #picture-error{
+    color: red;
+    display: none;
+}
 /* Responsive Design */
 
 @media (max-width: 768px) {
