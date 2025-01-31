@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
     const APIKEY = "678fbb8a58174779225315d5";
-    let loginAPIUrl = "https://fedassg2-66ea.restdb.io/rest/login";
-    let signupAPIUrl = "https://fedassg2-66ea.restdb.io/rest/signup";
+    let allUserInfoUrl = "https://fedassg2-66ea.restdb.io/rest/alluserinfo";
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -15,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function(){
         let userEmail = document.getElementById("user-email").value;
         let userPassword = document.getElementById("user-password").value;
 
-        let emailError = document.getElementById("emailError");
+        // let emailError = document.getElementById("emailError");
         let passwordError = document.getElementById("passwordError");
         // Validate inputs
         if (!validateInput(userEmail)) {
@@ -23,53 +22,43 @@ document.addEventListener("DOMContentLoaded", function(){
             return;
         }
 
-        checkEmailExists(userEmail).then(userData => {
+        checkEmailExists(userEmail)
+          .then(userData => {
             if (!userData){           
-                emailError.style.display = 'block';
+                alert("This email is not rgistered. Please signup first")
                 return;
             }
 
-            emailError.style.display = 'none';
+            // emailError.style.display = 'none';
             passwordError.style.display = 'none';
             let userName = userData["user-name"];
             let correctPassword = userData["user-password"];
+            let userID = userData["_id"]; // Get userID from database
 
             if (userPassword === correctPassword){
+                console.log("YAY");
                 alert(`Welcome back ${userName}`);
-                // Prepare data for API call
-                let jsondata = {
-                    "userEmail": userEmail,
-                    "userPassword": userPassword
-                }
-                // Create settings for Fetch API
-                let settings = {
-                    method: "POST",
-                    headers: header,
-                    body: JSON.stringify(jsondata)
-                };
-            
+
+                sessionStorage.setItem("userID", userID);
+                sessionStorage.setItem("userEmail", userEmail);
+                sessionStorage.setItem("userName", userName);
+
                 // Disable login button while processing
                 let loginButton = document.getElementById("user-login");
                 loginButton.disabled = true;
-            
-                // Send Fetch request
-                fetch(loginAPIUrl, settings)
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log("Login successful:", data);
-                        window.location.href = "home.html";
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        alert("An error occurred while logging in. Please try again.");
-                    })
-                    .finally(() => {
-                        loginButton.disabled = false; // Re-enable the login button
-                    });
+                            
+                console.log("UserID: ", userID)
+                console.log("Login successful:", userData);
+                window.location.href = "home.html";
+    
             }
             else{
                 passwordError.style.display = 'block';
             }           
+        })
+        .catch(error => {
+            console.error("Login error: ", error);
+            alert("An error occured while logging in. Pleasee try again");
         })
 
             // A regular expression (emailRegex) ensures that the email follows a basic structure
@@ -88,12 +77,13 @@ document.addEventListener("DOMContentLoaded", function(){
             }
 
             function checkEmailExists(email){
-                const queryUrl = `${signupAPIUrl}?q={"user-email": "${email}"}`;
+                let queryUrl = `${allUserInfoUrl}?q={"user-email": "${email}"}`;
 
-                return fetch(queryUrl, {
+                let settings = {
                     method: "GET",
                     headers: header
-                })
+                }
+                return fetch(queryUrl, settings)
                 .then(response => response.json())
                 .then(data => {
                     if (data.length === 0){

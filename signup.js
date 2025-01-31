@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
-    const APIKEY = "678fbb8a58174779225315d5";
-    const apiUrl = "https://fedassg2-66ea.restdb.io/rest/signup";
+    let APIKEY = "678fbb8a58174779225315d5";
+    let allUserInfoUrl = "https://fedassg2-66ea.restdb.io/rest/alluserinfo";
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -53,9 +53,12 @@ document.addEventListener("DOMContentLoaded", function(){
             signupButton.disabled = true;
 
             // Send the Fetch request
-            fetch(apiUrl, settings)
+            fetch(allUserInfoUrl, settings)
                 .then(response => response.json())
                 .then(data => {
+                    let userID = data._id;
+                    console.log("UserID: ", userID);
+
                     console.log("Signup successful", data);
                     window.location.href = "home.html";
                     alert(`Signup Successful! Hi ${userName}`);
@@ -71,7 +74,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
                 });
         });
-        return;
     });
         
     function validateInput(email, password, confirmPassword, passwordError, confirmPasswordError, emailError) {
@@ -96,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function checkEmailUnique(email) {
         // Construct the query URL
-        const queryUrl = `${apiUrl}?q={"user-email": "${email}"}`;
+        const queryUrl = `${allUserInfoUrl}?q={"user-email": "${email}"}`;
 
         return fetch(queryUrl, {
             method: "GET",

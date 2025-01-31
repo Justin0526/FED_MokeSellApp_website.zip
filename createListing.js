@@ -119,6 +119,10 @@ document.addEventListener("DOMContentLoaded", function(){
         fetch(createListingUrl, settings)
             .then((response) => response.json())
             .then(() => {
+                console.log("New Listing Created: ", data);
+                let listingID = data._id; // RestDB Auto generated ID
+                console.log("Created Listing ID: ", listingID);
+                
                 document.getElementById("listing-submit").disabled = false;
                 document.getElementById("create-listing-form").reset();
                 // getProducts(); // Fetch and update table
