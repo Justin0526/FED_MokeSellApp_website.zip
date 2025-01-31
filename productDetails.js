@@ -1,27 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
-    const restDBUrl = "https://fedassg2-66ea.restdb.io/rest/reverblisting";
+    let cartUrl = "https://fedassg2-66ea.restdb.io/rest/cart";
     const APIKEY = "678fbb8a58174779225315d5";
-    
-    let settings = {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "x-apikey": APIKEY,
-            "Cache-Control": "no-cache"
-       }
-   }
-
-    // fetch(restDBUrl, settings)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         if (data.length > 0){
-    //             console.log("displaying data....")
-    //             displayData();
-    //         }
-    //         else{
-    //             console.log("No data found in RestDB");
-    //         }
-    //     })
 
     let storedProduct = localStorage.getItem("selectedProduct");
 
@@ -75,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         <!-- Buttons Section -->
                         <div class="d-flex flex-column gap-3">
                             <div class="d-flex">
-                                <input type="number" class="quantity form-control me-2 w-100" placeholder="e.g 1" required>
+                                <input type="number" class="quantity form-control me-2 w-100" id="input-quantity" placeholder="e.g 1" required>
                                 <small id="quantity-error" style="color: red; display: none;">Quantity must be greater than 0!</small>
                             </div>
                             <button class="btn w-100" onclick="location.href='chat.html'">Chat</button>
@@ -92,4 +71,54 @@ document.addEventListener("DOMContentLoaded", function(){
         `          
        itemContainer.innerHTML = allItemsContent;
     }
-})
+
+
+    document.getElementById("add-to-cart").addEventListener("click", function(){
+        let inputQty = document.getElementById("input-quantity");
+        let quantity = parseInt(inputQty.value);
+
+        if (isNaN(quantity) || quantity <=0){
+            document.getElementById("quantity-error").style.display = "block";
+            return;
+        }
+
+        let storedProduct = localStorage.getItem("selectedProduct");
+        // let cart = [];
+
+        if (!storedProduct || storedProduct == "Undefined"){
+            console.log("Coouldn't retrieve the item!");
+            return;
+        }
+        let cart = JSON.parse(storedProduct);
+
+        let product = {
+            "item-id": cart["reverb-id"],
+            "item-name": cart["reverb-title"],
+            "item-price": cart["reverb-price"],
+            "item-picture": cart["reverb-links"].photo.href,
+            "item-category": cart["reverb-category"],
+            "item-quantity": quantity
+        }
+
+        let settings = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": APIKEY,
+                "Cache-Control": "no-cache"
+            },
+            body: JSON.stringify(product)
+        }
+
+        fetch (cartUrl, settings)
+            .then(response => response.json())
+            .then(data => {
+            console.log("Product added to cart: ", data);
+            alert("Product successfully added to cart!")
+            })
+            .catch(error => {
+            console.error("Error adding product to cart: ", error)
+            });
+    });
+    
+});

@@ -1,13 +1,20 @@
 document.addEventListener("DOMContentLoaded", function(){
     const APIKEY = "678fbb8a58174779225315d5";
-    reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=1";
-    listingUrl = "https://fedassg2-66ea.restdb.io/rest/reverblisting";
+    let reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=1";
+    let listingUrl = "https://fedassg2-66ea.restdb.io/rest/reverblisting";
 
-    const header = {
+    let reverbHeader = {
         "Content-Type": "application/hal+json",
         "Accept": "application/hal+json",
         "Accept-Version": "3.0"
     };
+    
+    let header = {
+        "Content-Type": "application/json",
+        "x-apikey": APIKEY,
+        "Cache-Control": "no-cache"
+    }
+    
 
     let shuffledData = []; 
 
@@ -19,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function(){
     function getReverbData() {
         let settings = {
             method: "GET",
-            headers: header,
+            headers: reverbHeader,
         };
 
         fetch(reverbApiUrl, settings)
@@ -39,14 +46,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // Function to fetch existing data from RestDB
     function getRestDBData(reverbListings) {
-        fetch(listingUrl, {
-            method: "GET", // HTTP method
-            headers: {
-                "Content-Type": "application/json",
-                "x-apikey": APIKEY,
-                "Cache-Control": "no-cache"
-            }
-        })
+        let settings = {
+            method: "GET",
+            headers: header
+        }
+        fetch(listingUrl, settings)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -97,14 +101,15 @@ document.addEventListener("DOMContentLoaded", function(){
                 console.log("Product Data Being Sent:", productData);
     
                 // Insert the product into RestDB using Fetch API
-                fetch(listingUrl, {
+                let settings = {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         "x-apikey": APIKEY
                     },
                     body: JSON.stringify(productData) // Stringify the product data
-                })
+                };
+                fetch(listingUrl, settings)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -122,14 +127,15 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // Function to fetch and display data from RestDB
     function getAndDisplayRestDBData() {
-        fetch(listingUrl, {
+        let settings = {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
                 "x-apikey": APIKEY,
                 "Cache-Control": "no-cache"
             }
-        })
+        }
+        fetch(listingUrl, settings)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
