@@ -179,6 +179,11 @@ html, body {
     margin-right: 10px;
 }
 
+.product-details-section .row #quantity-error, #quantity-too-large{
+    color: red;
+    display: none;
+}
+
 #add-to-cart {
     background-color: #e55634 !important; /* Change to your desired color (green in this case) */
     color: white; /* Button text color */

@@ -55,7 +55,8 @@ document.addEventListener("DOMContentLoaded", function(){
                         <div class="d-flex flex-column gap-3">
                             <div class="d-flex">
                                 <input type="number" class="quantity form-control me-2 w-100" id="input-quantity" placeholder="e.g 1" required>
-                                <small id="quantity-error" style="color: red; display: none;">Quantity must be greater than 0!</small>
+                                <small id="quantity-error">Quantity must be greater than 0!</small>
+                                <small id="quantity-too-large">Quantity cannot be more than the product quantity</small>
                             </div>
                             <button class="btn w-100" onclick="location.href='chat.html'">Chat</button>
                             <button class="btn w-100" onclick="location.href='transaction.html'">Buy</button>
@@ -76,9 +77,14 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("add-to-cart").addEventListener("click", function(){
         let inputQty = document.getElementById("input-quantity");
         let quantity = parseInt(inputQty.value);
+        let quantityError = document.getElementById("quantity-error");
+        let quantityTooLarge = document.getElementById("quantity-too-large");
+
+        quantityError.style.display = "none";
+        quantityTooLarge.style.display = "none";
 
         if (isNaN(quantity) || quantity <=0){
-            document.getElementById("quantity-error").style.display = "block";
+            quantityError.style.display = "block";
             return;
         }
 
@@ -90,6 +96,11 @@ document.addEventListener("DOMContentLoaded", function(){
             return;
         }
         let cart = JSON.parse(storedProduct);
+
+        if (quantity > cart["reverb-quantity"]){
+            quantityTooLarge.style.display = "block";
+            return;    
+        }
 
         let product = {
             "item-id": cart["reverb-id"],
