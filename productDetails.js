@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function(){
             "Cache-Control": "no-cache"
        }
    }
-   console.log("YAY");
 
     fetch(restDBUrl, settings)
         .then(response => response.json())
@@ -35,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 <!-- Seller Section: Adjusted layout to avoid overlapping the product image -->
                 <div class="seller-profile text-center position-absolute p-3">
                     <img src="images/man.jpg" alt="Seller Profile" class="rounded-circle me-2" width="50" height="50">
-                    <h5 class="seller-name mb-0">Jonathan</h5>
+                    <h5 class="seller-name mb-0"> ${item["reverb-shopname"]}</h5>
                 </div> 
                 <div class="row">
                     <!-- Product Image Section -->
@@ -52,10 +51,10 @@ document.addEventListener("DOMContentLoaded", function(){
                         <p class="product-description" id="product-description">
                             ${item['reverb-details']}
                         </p>
-                        <p class="product-condition" id="product-condition"><strong>Condition:</strong>${item['reverb-condition']}</p>
-                        <p class="product-category" id="product-category"><strong>Category:</strong>${item['reverb-category']}</p>
-                        <p class="product-category" id="product-availability"><strong>Avalibality:</strong>${item['reverb-availability']}</p>
-                        <p class="product-category" id="product-quantity"><strong>Quantity:</strong>${item['reverb-quantity']}</p>
+                        <p class="product-condition" id="product-condition"><strong>Condition:</strong> ${item['reverb-condition']}</p>
+                        <p class="product-category" id="product-category"><strong>Category:</strong> ${item['reverb-category']}</p>
+                        <p class="product-category" id="product-availability"><strong>Avalibality:</strong> ${item['reverb-availability']}</p>
+                        <p class="product-category" id="product-quantity"><strong>Quantity:</strong> ${item['reverb-quantity']}</p>
             
                         <!-- Buttons Section -->
                         <div class="d-flex flex-column gap-3">
