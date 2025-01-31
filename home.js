@@ -151,8 +151,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // Function to display data for home page
     function displayGalleryData(data) {
-        trendingContainer = document.getElementById("trending-items-gallery");
-        recommendContainer = document.getElementById("recommended-items-gallery");
+        let trendingContainer = document.getElementById("trending-items-gallery");
+        let recommendContainer = document.getElementById("recommended-items-gallery");
     
         if (!trendingContainer || !recommendContainer) {
             console.error("Trending or Recommended gallery not found in the DOM.");
