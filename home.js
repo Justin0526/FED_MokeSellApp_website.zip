@@ -206,8 +206,14 @@ document.addEventListener("DOMContentLoaded", function(){
         .forEach((element) => {
             element.addEventListener("click", function(event){
                 event.preventDefault(); //Prevent immediate navigation
+
+                // "this" refers to the clicked element
+                // getAttribute("data-index") retrieves the value of data-index from clicked element
                 let itemIndex = this.getAttribute("data-index");
+
                 let selectedItem = shuffledData[itemIndex]; // Get item from array
+
+                // Stores the selected product in localStorage so that product-details.html can retireve it
                 localStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
                 window.location.href = "product-details.html";
             })
