@@ -11,23 +11,39 @@ document.addEventListener("DOMContentLoaded", function(){
        }
    }
 
-    fetch(restDBUrl, settings)
-        .then(response => response.json())
-        .then(data => {
-            if (data.length > 0){
-                console.log("displaying data....")
-                displayData(data);
-            }
-            else{
-                console.log("No data found in RestDB");
-            }
-        })
+    // fetch(restDBUrl, settings)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         if (data.length > 0){
+    //             console.log("displaying data....")
+    //             displayData();
+    //         }
+    //         else{
+    //             console.log("No data found in RestDB");
+    //         }
+    //     })
 
-    function displayData(data){
-        let itemContainer = document.getElementById("item-container");
+    let storedProduct = localStorage.getItem("selectedProduct");
 
+    if (!storedProduct || storedProduct === "undefined"){
+        console.error("No product data found in localStorage");
+        document.getElementById("item-container").innerHTML = "<p>Product not found</p>"
+        return
+    }
+
+    let item = JSON.parse(storedProduct);
+    
+    if (!item){
+        console.error("No product data found in localStorage");
+        document.getElementById("item-container").innerHTML = "<p>Product not found</p>";
+        return;
+    }
+    displayData();
+
+    function displayData(){
+
+        let itemContainer = document.getElementById("item-container")
         let allItemsContent = "";
-        item = data[0];
         let imageLink = item["reverb-links"].photo.href;    
         allItemsContent += `
             <div class="product-details-section container py-5 position-relative">
@@ -39,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 <div class="row">
                     <!-- Product Image Section -->
                     <div class="product-image col-md-6 d-flex justify-content-center align-items-center">
-                        <img src=${imageLink} alt="Product Image" class="img-fluid rounded" id="product-picture">
+                        <img src="${imageLink}" alt="Product Image" class="img-fluid rounded" id="product-picture">
                     </div>
             
                     <!-- Product Details Section -->
@@ -53,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         </p>
                         <p class="product-condition" id="product-condition"><strong>Condition:</strong> ${item['reverb-condition']}</p>
                         <p class="product-category" id="product-category"><strong>Category:</strong> ${item['reverb-category']}</p>
-                        <p class="product-category" id="product-availability"><strong>Avalibality:</strong> ${item['reverb-availability']}</p>
+                        <p class="product-category" id="product-availability"><strong>Availability:</strong> ${item['reverb-availability']}</p>
                         <p class="product-category" id="product-quantity"><strong>Quantity:</strong> ${item['reverb-quantity']}</p>
             
                         <!-- Buttons Section -->

@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function(){
         "Accept-Version": "3.0"
     };
 
+    let shuffledData = []; 
+
     getReverbData();
     // get and display data when the page loads
     getAndDisplayRestDBData();
@@ -161,12 +163,14 @@ document.addEventListener("DOMContentLoaded", function(){
     
         // Shuffle data 
         shuffledData = data.sort(() => Math.random() - 0.5);
-    
-       // Trending Item Container
+
         let trendingCardsHTML = "";
-        shuffledData.slice(0,4).forEach(item => {
-            imageLink = item["reverb-links"].photo.href;
-            trendingCardsHTML += `
+        let recommendCardsHTML = "";
+    
+       // Loop through shuffled data and separate it into two sections
+        shuffledData.forEach((item, index) => {
+            let imageLink = item["reverb-links"].photo.href;
+            let cardHTML = `
                 <div class="col-md-3">
                     <div class="card custom-card text-light shadow-sm">
                         <div class="d-flex align-items-center p-3">
@@ -176,45 +180,38 @@ document.addEventListener("DOMContentLoaded", function(){
                                 <small class="text-muted">20 days ago</small>
                             </div>
                         </div>
-                        <a href="product-details.html">
+                        <a href="product-details.html" class="product-link" data-index="${index}">
                             <img src="${imageLink}" alt="${item["reverb-title"]}" class="card-img-top">
                         </a>
                         <div class="card-body text-start">
                             <p class="card-title fw-bold mb-2">${item["reverb-title"]}</p>
-                            <p class="text-warning fw-bold">S$${item["reverb-price"]} </p>
+                            <p class="text-warning fw-bold">S$${item["reverb-price"]}</p>
                         </div>
                     </div>
                 </div>
             `;
+
+            if (index < 4) {
+                trendingCardsHTML += cardHTML; // First 4 items go to Trending
+            } else if (index < 8) {
+                recommendCardsHTML += cardHTML; // Next 4 items go to Recommended
+            }
         });
+
         trendingContainer.innerHTML = trendingCardsHTML;
-    
-        // Recommended Items container
-        let recommendCardsHTML = "";
-        shuffledData.slice(4,8).forEach(item => {
-            imageLink = item["reverb-links"].photo.href;
-            recommendCardsHTML += `
-                <div class="col-md-3">
-                    <div class="card custom-card text-light shadow-sm">
-                        <div class="d-flex align-items-center p-3">
-                            <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
-                            <div>
-                                <p class="mb-0 fw-bold">sustainable_thr</p>
-                                <small class="text-muted">20 days ago</small>
-                            </div>
-                        </div>
-                        <a href="product-details.html">
-                            <img src="${imageLink}" alt="${item["reverb-title"]}" class="card-img-top">
-                        </a>
-                        <div class="card-body text-start">
-                            <p class="card-title fw-bold mb-2">${item["reverb-title"]}</p>
-                            <p class="text-warning fw-bold">S$${item["reverb-price"]} </p>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
         recommendContainer.innerHTML = recommendCardsHTML;
-    }        
+
+        // Add event listeners after inserting HTML
+        document.querySelectorAll(".product-link")
+        .forEach((element) => {
+            element.addEventListener("click", function(event){
+                event.preventDefault(); //Prevent immediate navigation
+                let itemIndex = this.getAttribute("data-index");
+                let selectedItem = shuffledData[itemIndex]; // Get item from array
+                localStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
+                window.location.href = "product-details.html";
+            })
+        })
+    }   
 
 })
