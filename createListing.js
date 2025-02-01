@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "67875f7d9e18b182ee6941f0";  // 678fbb8a58174779225315d5
-    let createListingUrl = "https://tryuse-a494.restdb.io/rest/create-listing"; //  https://fedassg2-66ea.restdb.io/rest/create-listing
+    let APIKEY = "678fbb8a58174779225315d5";  //  67875f7d9e18b182ee6941f0
+    let createListingUrl = "https://fedassg2-66ea.restdb.io/rest/create-listing"; //   https://tryuse-a494.restdb.io/rest/create-listing
 
     let UserID = sessionStorage.getItem("userID"); // Get linked-userID from session Storage
     console.log("User ID: ", UserID);
