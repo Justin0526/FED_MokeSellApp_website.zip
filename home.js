@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
-    const APIKEY = "678fbb8a58174779225315d5";
+    let APIKEY = "67875f7d9e18b182ee6941f0";  // 678fbb8a58174779225315d5
     let reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=1";
-    let listingUrl = "https://fedassg2-66ea.restdb.io/rest/reverblisting";
+    let listingUrl = "https://tryuse-a494.restdb.io/rest/testreverbapi"; // https://fedassg2-66ea.restdb.io/rest/reverblisting
 
     let reverbHeader = {
         "Content-Type": "application/hal+json",

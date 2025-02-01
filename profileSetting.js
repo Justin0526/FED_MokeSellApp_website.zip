@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let fields = ["username", "email", "firstName", "lastName", "mobileNumber"];
     let gender = document.getElementById("gender");
     let saveChanges = document.getElementById("save-change");
+    ley 
     let updatedUserData = {};
 
     fields.forEach(field => {

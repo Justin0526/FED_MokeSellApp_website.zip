@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
-    APIKEY = "678fbb8a58174779225315d5";
-    createListingUrl = "https://fedassg2-66ea.restdb.io/rest/create-listing";
+    let APIKEY = "67875f7d9e18b182ee6941f0";  // 678fbb8a58174779225315d5
+    createListingUrl = "https://tryuse-a494.restdb.io/rest/create-listing"; //  https://fedassg2-66ea.restdb.io/rest/create-listing
     // getProducts();
 
     document.getElementById("listing-submit").addEventListener("click", function (e) {
