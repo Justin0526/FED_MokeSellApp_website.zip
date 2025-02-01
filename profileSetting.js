@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function(){
         method: "GET",
         headers: header
     }
-    let fields = ["username", "email", "firstName", "lastName"];
+    let fields = ["username", "email", "firstName", "lastName", "mobileNumber"];
 
     fields.forEach(field => {
         let displayElement = document.getElementById(`${field}-display`);
@@ -60,8 +60,9 @@ document.addEventListener("DOMContentLoaded", function(){
         fields.forEach(field => {
             let displayElement = document.getElementById(`${field}-display`);
             if (displayElement){
+                let userData = userProfile[`user-${field}`];
                 if (userData && userData.trim() !== ""){
-                    displayElement.textContent = userProfile[`user-${field}`]
+                    displayElement.textContent = userData;
                 }       
             }
         })
