@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "67875f7d9e18b182ee6941f0";  // 678fbb8a58174779225315d5
     let userProfileUrl = "https://tryuse-a494.restdb.io/rest/user-profile";  // https://fedassg2-66ea.restdb.io/rest/user-profile
+    let createListingUrl = "https://tryuse-a494.restdb.io/rest/create-listing"; //  https://fedassg2-66ea.restdb.io/rest/create-listing
+    
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -32,6 +34,14 @@ document.addEventListener("DOMContentLoaded", function(){
         // ✅ Update User Email
         document.getElementById("user-email").textContent = userProfile["user-email"];
 
+        let userListings = `https://tryuse-a494.restdb.io/rest/create-listing?q={"linked-userID": "${userProfile["linked-userID"]}"}`; // https://fedassg2-66ea.restdb.io/rest/create-listing?q={"linked-userID": "${userProfile["linked-userID"]}"}
+
+        fetch (userListings, settings)
+          .then(response => response.json())
+          .then(listings => {
+            console.log("User Listings: ", listings);
+          })
+          .catch(error => console.error("Error fetching user listing: ", error));
       })
       .catch(error => {
         console.error("Error fetching user profile: ", error);

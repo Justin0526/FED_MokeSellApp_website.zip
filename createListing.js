@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "67875f7d9e18b182ee6941f0";  // 678fbb8a58174779225315d5
-    createListingUrl = "https://tryuse-a494.restdb.io/rest/create-listing"; //  https://fedassg2-66ea.restdb.io/rest/create-listing
-    // getProducts();
+    let createListingUrl = "https://tryuse-a494.restdb.io/rest/create-listing"; //  https://fedassg2-66ea.restdb.io/rest/create-listing
+
+    let UserID = sessionStorage.getItem("userID"); // Get linked-userID from session Storage
+    console.log("User ID: ", UserID);
 
     document.getElementById("listing-submit").addEventListener("click", function (e) {
         e.preventDefault();
@@ -14,6 +16,11 @@ document.addEventListener("DOMContentLoaded", function(){
         let productCondition = document.getElementById("product-condition").value;
         let productQty = parseInt(document.getElementById("product-quantity").value);
         let productPic = document.getElementById("product-picture").value.trim();
+
+        if (!UserID){
+            alert("User not found. Please log in again");
+            return;
+        }
 
         let nameError = document.getElementById("name-error");
         let descError = document.getElementById("description-error");
@@ -99,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function(){
             "product-condition": productCondition,
             "product-quantity": productQty,
             "product-picture": productPic,
+            "linked-userID": UserID
         };
 
         // API settings
@@ -118,10 +126,12 @@ document.addEventListener("DOMContentLoaded", function(){
         // Create product
         fetch(createListingUrl, settings)
             .then((response) => response.json())
-            .then(() => {
+            .then((data) => {
                 console.log("New Listing Created: ", data);
                 let listingID = data._id; // RestDB Auto generated ID
                 console.log("Created Listing ID: ", listingID);
+
+                // Update user-profile API with new Listing          
                 
                 document.getElementById("listing-submit").disabled = false;
                 document.getElementById("create-listing-form").reset();
