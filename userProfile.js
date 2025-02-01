@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function(){
           .then(response => response.json())
           .then(listings => {
             console.log("User Listings: ", listings);
+            displayListing(listings);
           })
           .catch(error => console.error("Error fetching user listing: ", error));
       })
@@ -51,4 +52,27 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("edit-profile-btn").addEventListener("click", function(){
         window.location.href = "profile-setting.html";
     })
+    function displayListing(data){
+      console.log("Display Data...");
+      let listingContainer = document.getElementById("listing-container"); 
+
+      let listingContent = "";
+      data.forEach(item => {
+        let imageLink = item["product-picture"];
+        listingContent += `  
+          <div class="col-md-4">
+            <div class="listing-card">
+                <div class="listing-buttons">
+                    <button class="edit-btn" onclick="window.location.href='create-listing.html'">Edit</button>
+                    <button class="delete-btn">Delete</button>
+                </div>
+                <img src="${imageLink}" alt="${item["product-name"]}">
+                <h5 class="mt-5">${item["product-name"]}r</h5>
+                <p>S$ ${item["product-price"]}</p>
+            </div>
+        </div>`;
+
+      })
+      listingContainer.innerHTML = listingContent
+    }
 })
