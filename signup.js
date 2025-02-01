@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "678fbb8a58174779225315d5";
     let allUserInfoUrl = "https://fedassg2-66ea.restdb.io/rest/alluserinfo";
+    let userProfileUrl = "https://fedassg2-66ea.restdb.io/rest/user-profile";
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function(){
         let userEmail = document.getElementById("user-email").value;
         let userPassword = document.getElementById("user-password").value;
         let confirmUserPassword = document.getElementById("confirm-user-password").value;
+        let signupButton = document.getElementById("user-signup");
 
         let passwordError = document.getElementById("passwordError");
         let confirmPasswordError = document.getElementById("confirmPasswordError");
@@ -35,29 +37,49 @@ document.addEventListener("DOMContentLoaded", function(){
                 alert("This email is already registered. Please use a different email.");
                 return;
             }
-
-            let jsondata = {
-                "user-name": userName,
+            let userProfileJsonData = {
+                "user-username": userName,
                 "user-email": userEmail,
-                "user-password": userPassword
-            };
-
-            let settings = {
+            }
+            
+            let userProfileSettings = {
                 method: "POST",
                 headers: header,
-                body: JSON.stringify(jsondata)
-            };
+                body: JSON.stringify(userProfileJsonData)
+            }
 
-            // Disable sign-up button while processing
-            let signupButton = document.getElementById("user-signup");
-            signupButton.disabled = true;
+            fetch (userProfileUrl, userProfileSettings)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Adding new user...");
+                    console.log("User data: ", data);
 
-            // Send the Fetch request
-            fetch(allUserInfoUrl, settings)
+                    let userJsondata = {
+                        "user-name": userName,
+                        "user-email": userEmail,
+                        "user-password": userPassword
+                    };
+        
+                    let userSettings = {
+                        method: "POST",
+                        headers: header,
+                        body: JSON.stringify(userJsondata)
+                    };
+        
+                    // Disable sign-up button while processing
+                    signupButton.disabled = true;
+        
+                    // Now, we store user credentials in the user API
+                    return fetch(allUserInfoUrl, userSettings)     
+                })
                 .then(response => response.json())
                 .then(data => {
                     let userID = data._id;
                     console.log("UserID: ", userID);
+
+                    sessionStorage.setItem("userID", userID);
+                    sessionStorage.setItem("userEmail", userEmail);
+                    sessionStorage.setItem("userName", userName)
 
                     console.log("Signup successful", data);
                     window.location.href = "home.html";
@@ -71,9 +93,8 @@ document.addEventListener("DOMContentLoaded", function(){
                 .finally(() => {
                     // Re-enable the sign-up button
                     signupButton.disabled = false;
-
-                });
-        });
+                })
+            });
     });
         
     function validateInput(email, password, confirmPassword, passwordError, confirmPasswordError, emailError) {
