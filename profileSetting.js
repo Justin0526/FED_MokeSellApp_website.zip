@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "678fbb8a58174779225315d5";  //  67875f7d9e18b182ee6941f0
     let userProfileUrl = "https://fedassg2-66ea.restdb.io/rest/user-profile";  //  https://tryuse-a494.restdb.io/rest/user-profile
+    let allUserInfoUrl = "https://fedassg2-66ea.restdb.io/rest/alluserinfo";   // https://tryuse-a494.restdb.io/rest/alluserinfo
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -225,7 +226,6 @@ document.addEventListener("DOMContentLoaded", function(){
       })
     
     function updateAllUserInfo(linkedUserID, newPassword){
-        let allUserInfoUrl = "https://tryuse-a494.restdb.io/rest/alluserinfo";   // https://fedassg2-66ea.restdb.io/rest/alluserinfo
         let allUserInfoUpdateUrl = `${allUserInfoUrl}/${linkedUserID}`;
 
         let updatePasswordData = {
