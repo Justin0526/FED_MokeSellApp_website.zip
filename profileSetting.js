@@ -116,6 +116,7 @@ document.addEventListener("DOMContentLoaded", function(){
         if (newPassword !== "" && confirmPassword !== ""){
             if (newPassword !== confirmPassword){
                 confirmPasswordError.style.display = 'block';
+                saveChanges.disabled = false;
                 return;
             }
             updatedUserData["user-new-password"] = newPassword //Store the new password
@@ -144,6 +145,19 @@ document.addEventListener("DOMContentLoaded", function(){
           .then(response => response.json())
           .then(updatedProfile => {
             console.log("Profile updated successfully: ", updatedProfile);
+
+            let linkedUserID = updatedProfile["linked-userID"]; // Get the linked userID
+            console.log("Linked User ID: ", linkedUserID);
+
+            if (linkedUserID && updatedUserData["user-new-password"]){
+                updateAllUserInfo(linkedUserID, updatedUserData["user-new-password"]);
+            }
+            else{
+                alert("Everything but password is not updated");
+                saveChanges.disabled = false;
+                updateUserData = {};
+            }
+
             alert("Profile updated successfully!");
             saveChanges.disabled = false;
             updatedUserData = {} // Reset after saving
@@ -155,4 +169,34 @@ document.addEventListener("DOMContentLoaded", function(){
           })
 
       })
+    
+    function updateAllUserInfo(linkedUserID, newPassword){
+        let allUserInfoUrl = "https://tryuse-a494.restdb.io/rest/alluserinfo";   // https://fedassg2-66ea.restdb.io/rest/alluserinfo
+        let allUserInfoUpdateUrl = `${allUserInfoUrl}/${linkedUserID}`;
+
+        let updatePasswordData = {
+            "user-password": newPassword
+        };
+
+        let updateSettings = {
+            method: "PUT",
+            headers: header,
+            body: JSON.stringify(updatePasswordData)
+        };
+
+        console.log("Updating AllUserInfo API: ", allUserInfoUpdateUrl);
+        console.log("New password: ", updatePasswordData)
+
+        fetch (allUserInfoUpdateUrl, updateSettings)
+          .then(response => response.json())
+          .then(updatedPassword => {
+            console.log("Password updated successfully: ", updatedPassword)
+            saveChanges.disabled = false;
+            updatedUserData = {};
+          })
+          .catch(error => {
+            console.log("Error updating password in allUserInfo API: ", error);
+            saveChanges.disabled = false;
+          })
+    }
 })
