@@ -109,18 +109,43 @@ document.addEventListener("DOMContentLoaded", function(){
 
         let newPassword = document.getElementById("newPassword").value.trim();
         let confirmPassword = document.getElementById("confirmPassword").value.trim();
+
         let confirmPasswordError = document.getElementById("confirmPasswordError");
+        let samePasswordError = document.getElementById("samePasswordError");
+        let passwordLengthError = document.getElementById("passwordLengthError");
+        let emptyPasswordError = document.getElementById("emptyPasswordError");
 
         confirmPasswordError.style.display = "none";
+        samePasswordError.style.display = "none";
+        passwordLengthError.style.display = "none";
+        emptyPasswordError.style.display = "none";
     
+        let existingPassword = sessionStorage.getItem("userPassword");
         if (newPassword !== "" && confirmPassword !== ""){
-            if (newPassword !== confirmPassword){
+            if (newPassword === existingPassword){
+                samePasswordError.style.display = "block";
+                saveChanges.disabled = false;
+                return;
+            }
+            else if (newPassword.length < 6){
+                passwordLengthError.style.display = "block";
+                saveChanges.disabled = false;
+                return;
+            }
+            else if (newPassword !== confirmPassword){
                 confirmPasswordError.style.display = 'block';
                 saveChanges.disabled = false;
                 return;
             }
-            updatedUserData["user-new-password"] = newPassword //Store the new password
-            console.log("New password updated: ", updatedUserData["user-new-password"]);
+            else{
+                updatedUserData["user-new-password"] = newPassword //Store the new password
+                console.log("New password updated: ", updatedUserData["user-new-password"]);
+            }      
+        }
+        else if (newPassword != "" && confirmPassword === ""){
+            emptyPasswordError.style.display = "block";
+            saveChanges.disabled = false;
+            return;
         }
     
         // Prevent sending empty data
@@ -153,9 +178,9 @@ document.addEventListener("DOMContentLoaded", function(){
                 updateAllUserInfo(linkedUserID, updatedUserData["user-new-password"]);
             }
             else{
-                alert("Everything but password is not updated");
+                console.log("Everything but password is not updated");
                 saveChanges.disabled = false;
-                updateUserData = {};
+                updatedUserData = {};
             }
 
             alert("Profile updated successfully!");

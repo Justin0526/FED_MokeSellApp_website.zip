@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 sessionStorage.setItem("userID", userID);
                 sessionStorage.setItem("userEmail", userEmail);
                 sessionStorage.setItem("userName", userName);
+                sessionStorage.setItem("userPassword", correctPassword)
 
                 // Disable login button while processing
                 let loginButton = document.getElementById("user-login");

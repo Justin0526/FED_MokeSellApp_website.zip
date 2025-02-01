@@ -131,7 +131,7 @@ html, body {
     display: none;
 }
 
-#confirmPasswordError{
+#confirmPasswordError, #samePasswordError, #passwordLengthError, #emptyPasswordError{
     color: red;
     display: none;
 }

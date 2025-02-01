@@ -151,16 +151,19 @@
                         <div class="col-md-6">
                             <label for="newPassword" class="form-label">New Password</label>
                             <input type="password" class="form-control" id="newPassword" placeholder="Enter new password">
+                            <small id="samePasswordError">Password cannot be the same as existing one</small>
+                            <small id="passwordLengthError">Password must be at least 6 characters</small>
                         </div>
                         <div class="col-md-6">
                             <label for="confirmPassword" class="form-label">Confirm Password</label>
                             <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm new password">
                             <small id="confirmPasswordError">Password does not match</small>
+                            <small id="emptyPasswordError">Please confirm your password</small>
                         </div>
 
                         <!-- Save Changes Button -->
                         <div class="col-12 text-end mt-3">
-                            <button type="submit" class="btn btn-success" id="save-change">Save Changes</button>
+                            <button type="button" class="btn btn-success" id="save-change">Save Changes</button>
                         </div>
                     </div>
                 </form>

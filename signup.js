@@ -33,13 +33,17 @@ document.addEventListener("DOMContentLoaded", function(){
         if (!validateInput(userEmail, userPassword, confirmUserPassword, passwordError, confirmPasswordError, emailError)){
             console.log("Validation failed!");
             signupButton.disabled = false;
-            signupButton.textContent = "Sign up"
+            signupButton.textContent = "Sign up";
+            signupForm.reset();
             return;
         }
 
         checkEmailUnique(userEmail).then(isUnique => {
             if (!isUnique) {
                 alert("This email is already registered. Please use a different email.");
+                signupButton.disabled = false;
+                signupButton.textContent = "Sign up";
+                signupForm.reset();
                 return;
             }
 
@@ -83,6 +87,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 sessionStorage.setItem("userID", profileData["linked-userID"]);
                 sessionStorage.setItem("userEmail", userEmail);
                 sessionStorage.setItem("userName", userName);
+                sessionStorage.setItem("userPassword", userPassword);
 
                 alert(`Signup Successful! Hi ${userName}`);
                 window.location.href = "home.html";
