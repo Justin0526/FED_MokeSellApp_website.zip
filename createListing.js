@@ -131,7 +131,8 @@ document.addEventListener("DOMContentLoaded", function(){
                 let listingID = data._id; // RestDB Auto generated ID
                 console.log("Created Listing ID: ", listingID);
 
-                // Update user-profile API with new Listing          
+                // Update user-profile API with new Listing 
+                alert ("Listing created successfully!");         
                 
                 document.getElementById("listing-submit").disabled = false;
                 document.getElementById("create-listing-form").reset();

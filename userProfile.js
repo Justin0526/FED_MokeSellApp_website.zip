@@ -53,6 +53,9 @@ document.addEventListener("DOMContentLoaded", function(){
         window.location.href = "profile-setting.html";
     })
     function displayListing(data){
+      let totalListings = document.getElementById("totalListings");
+      totalListings.textContent = data.length;
+
       console.log("Display Data...");
       let listingContainer = document.getElementById("listing-container"); 
 
@@ -67,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     <button class="delete-btn">Delete</button>
                 </div>
                 <img src="${imageLink}" alt="${item["product-name"]}">
-                <h5 class="mt-5">${item["product-name"]}r</h5>
+                <h5 class="mt-5">${item["product-name"]}</h5>
                 <p>S$ ${item["product-price"]}</p>
             </div>
         </div>`;
