@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function(){
         headers: header
     }
     let fields = ["username", "email", "firstName", "lastName", "mobileNumber"];
+    let gender = document.getElementById("gender");
 
     fields.forEach(field => {
         let displayElement = document.getElementById(`${field}-display`);
@@ -66,6 +67,14 @@ document.addEventListener("DOMContentLoaded", function(){
                 }       
             }
         })
+        let userGender = userProfile["user-gender"];
+        if (userGender && userGender.trim() !== ""){
+            gender.value = userGender;
+        }
+        else{
+            gender.value = "";
+        }
+        
       })
       .catch(error => {
         console.error("Error: ", error);
