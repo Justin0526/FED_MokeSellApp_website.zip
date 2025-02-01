@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     let userID = sessionStorage.getItem("userID"); // Get the userID from session storage
     let userIDUrl = `${userProfileUrl}?q={"linked-userID": "${userID}"}`; // fetch the user profile based on the linked-userID field
-
+    
     let GETsettings = {
         method: "GET",
         headers: header
@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function(){
     let fields = ["username", "email", "firstName", "lastName", "mobileNumber"];
     let gender = document.getElementById("gender");
     let saveChanges = document.getElementById("save-change");
-    ley 
     let updatedUserData = {};
 
     fields.forEach(field => {
@@ -106,6 +105,21 @@ document.addEventListener("DOMContentLoaded", function(){
             alert("Error: Unable to update profile. Please refresh and try again.");
             saveChanges.disabled = false;
             return;
+        }
+
+        let newPassword = document.getElementById("newPassword").value.trim();
+        let confirmPassword = document.getElementById("confirmPassword").value.trim();
+        let confirmPasswordError = document.getElementById("confirmPasswordError");
+
+        confirmPasswordError.style.display = "none";
+    
+        if (newPassword !== "" && confirmPassword !== ""){
+            if (newPassword !== confirmPassword){
+                confirmPasswordError.style.display = 'block';
+                return;
+            }
+            updatedUserData["user-new-password"] = newPassword //Store the new password
+            console.log("New password updated: ", updatedUserData["user-new-password"]);
         }
     
         // Prevent sending empty data
