@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function(){
         method: "GET",
         headers: header
     }
-    let fields = ["username", "email"];
+    let fields = ["username", "email", "firstName", "lastName"];
 
     fields.forEach(field => {
         let displayElement = document.getElementById(`${field}-display`);
@@ -60,10 +60,12 @@ document.addEventListener("DOMContentLoaded", function(){
         fields.forEach(field => {
             let displayElement = document.getElementById(`${field}-display`);
             if (displayElement){
-                displayElement.textContent = userProfile[`user-${field}`]
+                if (userData && userData.trim() !== ""){
+                    displayElement.textContent = userProfile[`user-${field}`]
+                }       
             }
         })
-        })
+      })
       .catch(error => {
         console.error("Error: ", error);
         alert("Error loading profile. Please try again later");
