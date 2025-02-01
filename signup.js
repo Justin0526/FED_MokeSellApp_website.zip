@@ -27,8 +27,13 @@ document.addEventListener("DOMContentLoaded", function(){
         confirmPasswordError.style.display = 'none';
         emailError.style.display = 'none';
 
+        signupButton.disabled = true;
+        signupButton.textContent = "Processing...";
+
         if (!validateInput(userEmail, userPassword, confirmUserPassword, passwordError, confirmPasswordError, emailError)){
             console.log("Validation failed!");
+            signupButton.disabled = false;
+            signupButton.textContent = "Sign up"
             return;
         }
 
@@ -85,6 +90,10 @@ document.addEventListener("DOMContentLoaded", function(){
                 .catch(error => {
                     console.error("Error: ", error)
                     alert("An error occured while signing up. Please try agai.")
+                })
+                .finally(() => {
+                    signupButton.disabled = false;
+                    signupButton.textContent = "Sign Up"; 
                 })
             });
     });
