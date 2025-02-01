@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "678fbb8a58174779225315d5";
-    let userProfileUrl = "https://fedassg2-66ea.restdb.io/rest/user-profile";
+    let APIKEY = "67875f7d9e18b182ee6941f0";  // 678fbb8a58174779225315d5
+    let userProfileUrl = "https://tryuse-a494.restdb.io/rest/user-profile";  // https://fedassg2-66ea.restdb.io/rest/user-profile
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -8,14 +8,16 @@ document.addEventListener("DOMContentLoaded", function(){
     };
 
     let userID = sessionStorage.getItem("userID"); // Get the userID from session storage
-    let userIDUrl = `${userProfileUrl}?q={"linked-userID": "${userID}"}`;
+    let userIDUrl = `${userProfileUrl}?q={"linked-userID": "${userID}"}`; // fetch the user profile based on the linked-userID field
 
-    let settings = {
+    let GETsettings = {
         method: "GET",
         headers: header
     }
     let fields = ["username", "email", "firstName", "lastName", "mobileNumber"];
     let gender = document.getElementById("gender");
+    let saveChanges = document.getElementById("save-change");
+    let updatedUserData = {};
 
     fields.forEach(field => {
         let displayElement = document.getElementById(`${field}-display`);
@@ -35,6 +37,9 @@ document.addEventListener("DOMContentLoaded", function(){
                 displayElement.textContent = inputElement.value; // update text
                 displayElement.style.display = "block";
                 inputElement.style.display = "none";
+
+                updatedUserData[`user-${field}`] = inputElement.value.trim();
+                console.log("Updated User Data: ", updatedUserData);
             })
 
             inputElement.addEventListener("keypress", function(event){
@@ -46,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     })
         
-    fetch (userIDUrl, settings)
+    fetch (userIDUrl, GETsettings)
       .then(response => response.json())
       .then(data => {
         if (data.length === 0){
@@ -56,6 +61,11 @@ document.addEventListener("DOMContentLoaded", function(){
 
         let userProfile = data[0];
         console.log(userProfile)
+
+        let userProfileID = userProfile["_id"];
+        
+        console.log("Fetched User Profile ID: ",userProfileID);
+        sessionStorage.setItem("userProfileID", userProfileID); // Get the actual profile ID
 
         // Populate fields with user data
         fields.forEach(field => {
@@ -74,10 +84,60 @@ document.addEventListener("DOMContentLoaded", function(){
         else{
             gender.value = "";
         }
-        
+        gender.addEventListener("change", function(){
+            updatedUserData["user-gender"] = gender.value;
+            console.log("Gender updated to: ", updatedUserData["user-gender"]);
+        })
+
       })
       .catch(error => {
         console.error("Error: ", error);
         alert("Error loading profile. Please try again later");
+      })
+
+      saveChanges.addEventListener("click", function(){
+        saveChanges.disabled = true;
+        
+        let userProfileID = sessionStorage.getItem("userProfileID"); // Get the correct user-profile _id
+
+        if (!userProfileID) {
+            console.error("Error: User Profile ID is missing.");
+            alert("Error: Unable to update profile. Please refresh and try again.");
+            saveChanges.disabled = false;
+            return;
+        }
+    
+        // Prevent sending empty data
+        if (Object.keys(updatedUserData).length === 0) {
+            console.warn("No changes detected.");
+            alert("No changes were made.");
+            saveChanges.disabled = false;
+            return;
+        }
+
+        let updatedUrl = `${userProfileUrl}/${userProfileID}`;
+
+        let updatedSettings = {
+            method: "PUT",
+            headers: header,
+            body: JSON.stringify(updatedUserData)
+        };
+        console.log("Updating Profile:", updatedUrl);
+        console.log("Data Sent:", JSON.stringify(updatedUserData, null, 2));
+
+        fetch(updatedUrl, updatedSettings)
+          .then(response => response.json())
+          .then(updatedProfile => {
+            console.log("Profile updated successfully: ", updatedProfile);
+            alert("Profile updated successfully!");
+            saveChanges.disabled = false;
+            updatedUserData = {} // Reset after saving
+          })
+          .catch(error => {
+            console.log("Error updating profile: ", error);
+            alert("An error occurred while updating your profile. Please try again.");
+            saveChanges.disabled = false;
+          })
+
       })
 })
