@@ -26,11 +26,6 @@ document.addEventListener("DOMContentLoaded", function(){
         let userProfile = data[0]; 
 
         console.log(userProfile)
-        // // ✅ Update Profile Picture
-        // document.getElementById("user-picture").innerHTML = 
-        // `<img src="${userProfile["user-profile-picture"] || 'images/default-profile.png'}" 
-        //     alt="User Profile" class="rounded-circle me-2" width="100" height="100">`;
-
         // ✅ Update User Name
         document.getElementById("user-name").textContent = userProfile["user-username"];
 
@@ -42,4 +37,8 @@ document.addEventListener("DOMContentLoaded", function(){
         console.error("Error fetching user profile: ", error);
         alert("Error loading profile. Please try again later.");
       })
+
+    document.getElementById("edit-profile-btn").addEventListener("click", function(){
+        window.location.href = "profile-setting.html";
+    })
 })
