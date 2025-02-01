@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function(){
         // ✅ Update User Email
         document.getElementById("user-email").textContent = userProfile["user-email"];
 
-        let userListings = `https://tryuse-a494.restdb.io/rest/create-listing?q={"linked-userID": "${userProfile["linked-userID"]}"}`; // https://fedassg2-66ea.restdb.io/rest/create-listing?q={"linked-userID": "${userProfile["linked-userID"]}"}
+        let userListings = `${createListingUrl}?q={"linked-userID": "${userProfile["linked-userID"]}"}`; // https://fedassg2-66ea.restdb.io/rest/create-listing?q={"linked-userID": "${userProfile["linked-userID"]}"}
 
         fetch (userListings, settings)
           .then(response => response.json())
