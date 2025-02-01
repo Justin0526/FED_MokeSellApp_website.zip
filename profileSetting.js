@@ -63,6 +63,15 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log(userProfile)
 
         let userProfileID = userProfile["_id"];
+        let profileImage = document.getElementById("profileImage");
+        let storedImage = userProfile["user-profile-picture"];
+        
+        if (storedImage && storedImage.trim() !== ""){
+            profileImage.src = storedImage; // Load saved image from database
+        }
+        else{
+            profileImage.src = "images/man.jpg"; // Default image
+        }
         
         console.log("Fetched User Profile ID: ",userProfileID);
         sessionStorage.setItem("userProfileID", userProfileID); // Get the actual profile ID
@@ -95,6 +104,22 @@ document.addEventListener("DOMContentLoaded", function(){
         alert("Error loading profile. Please try again later");
       })
 
+      document.getElementById("imageInput").addEventListener("change", function(event){
+        let file = event.target.files[0] // Get selected file
+        if (file){
+            let reader = new FileReader();
+            reader.onload = function(e){
+                document.getElementById("profileImage").src = e.target.result;
+                updatedUserData["user-profile-picture"] = e.target.result; // Store image as Base64
+            };
+            reader.readAsDataURL(file);
+        }
+      })
+
+      document.getElementById("deleteImageBtn").addEventListener("click", function(){
+        removeImage();
+      })
+
       saveChanges.addEventListener("click", function(){
         saveChanges.disabled = true;
         
@@ -105,6 +130,10 @@ document.addEventListener("DOMContentLoaded", function(){
             alert("Error: Unable to update profile. Please refresh and try again.");
             saveChanges.disabled = false;
             return;
+        }
+
+        if (updatedUserData["user-profile-picture"]){
+            console.log("Profile image updated: ", updatedUserData["user-profile-image"]);
         }
 
         let newPassword = document.getElementById("newPassword").value.trim();
@@ -223,5 +252,12 @@ document.addEventListener("DOMContentLoaded", function(){
             console.log("Error updating password in allUserInfo API: ", error);
             saveChanges.disabled = false;
           })
+    }
+    
+    function removeImage(){
+        let profileImage = document.getElementById("profileImage");
+        profileImage.src = "images/man.jpg" // Reset to default
+        updatedUserData["user-profile-picture"] = "";
+        console.log("Profile image removed");
     }
 })
