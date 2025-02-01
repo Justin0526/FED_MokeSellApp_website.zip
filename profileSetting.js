@@ -14,6 +14,37 @@ document.addEventListener("DOMContentLoaded", function(){
         method: "GET",
         headers: header
     }
+    let fields = ["username", "email"];
+
+    fields.forEach(field => {
+        let displayElement = document.getElementById(`${field}-display`);
+        let inputElement = document.getElementById(`${field}-input`);
+        let editButton = document.getElementById(`edit-${field}-btn`);
+
+        if (displayElement && inputElement && editButton){
+            editButton.addEventListener("click", function(){
+                console.log("Edit button clicked");
+                displayElement.style.display = "none";
+                inputElement.style.display = "block";
+                inputElement.value = displayElement.textContent;
+                inputElement.focus();
+            });
+
+            inputElement.addEventListener("blur", function(){
+                displayElement.textContent = inputElement.value; // update text
+                displayElement.style.display = "block";
+                inputElement.style.display = "none";
+            })
+
+            inputElement.addEventListener("keypress", function(event){
+                if (event.key === "Enter"){
+                    event.preventDefault();
+                    inputElement.blur();
+                }
+            })
+        }
+    })
+        
     fetch (userIDUrl, settings)
       .then(response => response.json())
       .then(data => {
@@ -23,37 +54,16 @@ document.addEventListener("DOMContentLoaded", function(){
         }
 
         let userProfile = data[0];
-        console.log(userProfile);
+        console.log(userProfile)
 
-        let userNameDisplay = document.getElementById("username-display");
-        let userNameInput = document.getElementById("username-input");
-        let editUserNameBtn = document.getElementById("edit-userName-btn");
-
-        // Set initial username display
-        userNameDisplay.textContent = userProfile["user-username"];
-
-        // When edit button is clicked, switch display 
-        editUserNameBtn.addEventListener("click", function(){
-            userNameDisplay.style.display = "none"; // Hide text
-            userNameInput.style.display="block"; // Show input field
-            userNameInput.value = userNameDisplay.textContent; // Set input field value
-            userNameInput.focus();
-        });
-
-        // When the user clicks away, update display and hide input
-        userNameInput.addEventListener("blur", function(){
-            userNameDisplay.textContent = userNameInput.value; // Update text display
-            userNameDisplay.style.display = "block"; // Show text
-            userNameInput.style.display = "none"; // Hide input field
-        })
-
-        userNameInput.addEventListener("keypress", function(event){
-            if (event.key === "Enter"){
-                event.preventDefault();
-                userNameInput.blur(); // Trigger blur event to update display
+        // Populate fields with user data
+        fields.forEach(field => {
+            let displayElement = document.getElementById(`${field}-display`);
+            if (displayElement){
+                displayElement.textContent = userProfile[`user-${field}`]
             }
-        });
-      })
+        })
+        })
       .catch(error => {
         console.error("Error: ", error);
         alert("Error loading profile. Please try again later");
