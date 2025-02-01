@@ -1,9 +1,43 @@
 document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "678fbb8a58174779225315d5";  //  67875f7d9e18b182ee6941f0
     let createListingUrl = "https://fedassg2-66ea.restdb.io/rest/create-listing"; //   https://tryuse-a494.restdb.io/rest/create-listing
+    let header = {
+        "Content-Type": "application/json",
+        "x-apikey": APIKEY,
+        "Cache-Control": "no-cache"
+    };
 
     let UserID = sessionStorage.getItem("userID"); // Get linked-userID from session Storage
     console.log("User ID: ", UserID);
+
+    let listingID = sessionStorage.getItem("editingListingID"); // Check if editiing mode
+    let listingTitle = document.getElementById("listingTitle");
+    if (listingID){
+        // Fetch listing details if editing
+        listingTitle.textContent = "UPDATE YOUR LISTING";
+
+        let updateSettings = {
+            method: "GET",
+            headers: header
+        }
+
+        fetch(`${createListingUrl}/${listingID}`, updateSettings)
+          .then(response => response.json())
+          .then(data => {
+            console.log("Editing Listing Data: ", data);
+            document.getElementById("product-name").value = data["product-name"];
+            document.getElementById("product-description").value = data["product-description"];
+            document.getElementById("product-category").value = data["product-category"];
+            document.getElementById("product-condition").value = data["product-condition"];
+            document.getElementById("product-quantity").value = data["product-quantity"];
+            document.getElementById("product-price").value = data["product-price"];
+            document.getElementById("product-picture").value = data["product-picture"];
+
+            // Change the button text to "Update"
+            document.getElementById("listing-submit").textContent = "Update Listing";
+          })
+          .catch(error => console.error("Error fetching listing: ", error));
+    }
 
     document.getElementById("listing-submit").addEventListener("click", function (e) {
         e.preventDefault();
@@ -111,28 +145,28 @@ document.addEventListener("DOMContentLoaded", function(){
 
         // API settings
         let settings = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "x-apikey": APIKEY,
-                "Cache-Control": "no-cache",
-            },
+            method: listingID ? "PUT" : "POST", // PUT if updating, POST if creating
+            headers: header,
             body: JSON.stringify(jsondata),
         };          
 
+        // If the listing exist means we are updating the listing, if not we are creating.
+        let requestUrl = listingID ? `${createListingUrl}/${listingID}` : createListingUrl;
+
         // Disable the button during the fetch
         document.getElementById("listing-submit").disabled = true;
+        let isNewListing = !listingID; // true if creating, false if updating
 
-        // Create product
-        fetch(createListingUrl, settings)
+        // Create or update product
+        fetch(requestUrl, settings)
             .then((response) => response.json())
             .then((data) => {
-                console.log("New Listing Created: ", data);
-                let listingID = data._id; // RestDB Auto generated ID
-                console.log("Created Listing ID: ", listingID);
+                console.log(listingID ? "Listing Updated: " : "New Listing Created: ", data);
+                listingID = data._id; // RestDB Auto generated ID
+                console.log(isNewListing ? "New Listing Created: " : "Listing Updated: ", data);
 
-                // Update user-profile API with new Listing 
-                alert ("Listing created successfully!");         
+                // Alert user
+                alert (isNewListing ? "Listing created successfully!" : "Listing updated successfully!");                  
                 
                 document.getElementById("listing-submit").disabled = false;
                 document.getElementById("create-listing-form").reset();

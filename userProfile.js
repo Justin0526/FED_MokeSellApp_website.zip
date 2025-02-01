@@ -28,10 +28,10 @@ document.addEventListener("DOMContentLoaded", function(){
         let userProfile = data[0]; 
 
         console.log(userProfile)
-        // ✅ Update User Name
+        // Update User Name
         document.getElementById("user-name").textContent = userProfile["user-username"];
 
-        // ✅ Update User Email
+        // Update User Email
         document.getElementById("user-email").textContent = userProfile["user-email"];
 
         let userListings = `${createListingUrl}?q={"linked-userID": "${userProfile["linked-userID"]}"}`; // https://fedassg2-66ea.restdb.io/rest/create-listing?q={"linked-userID": "${userProfile["linked-userID"]}"}
@@ -40,7 +40,14 @@ document.addEventListener("DOMContentLoaded", function(){
           .then(response => response.json())
           .then(listings => {
             console.log("User Listings: ", listings);
-            displayListing(listings);
+            if (listings.length !== 0){
+              let listingTitle = document.getElementById("listing-title");
+              listingTitle.textContent = "Listings";
+              displayListing(listings);
+            }
+            else{
+              console.log("No listings created yet!");
+            }
           })
           .catch(error => console.error("Error fetching user listing: ", error));
       })
@@ -52,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function(){
     document.getElementById("edit-profile-btn").addEventListener("click", function(){
         window.location.href = "profile-setting.html";
     })
+
     function displayListing(data){
       let totalListings = document.getElementById("totalListings");
       totalListings.textContent = data.length;
@@ -66,16 +74,25 @@ document.addEventListener("DOMContentLoaded", function(){
           <div class="col-md-4">
             <div class="listing-card">
                 <div class="listing-buttons">
-                    <button class="edit-btn" onclick="window.location.href='create-listing.html'">Edit</button>
+                    <button class="edit-btn btn btn-primary" id="editListing" data-id="${item["_id"]}">Edit</button>
                     <button class="delete-btn">Delete</button>
                 </div>
                 <img src="${imageLink}" alt="${item["product-name"]}">
                 <h5 class="mt-5">${item["product-name"]}</h5>
+                <p>${item["product-description"]}</p>
                 <p>S$ ${item["product-price"]}</p>
             </div>
         </div>`;
 
       })
       listingContainer.innerHTML = listingContent
+
+      document.getElementById("editListing").addEventListener("click", function(){
+        let listingID = this.getAttribute("data-id"); // Get the listing ID
+        sessionStorage.setItem("editingListingID", listingID);
+        window.location.href = "create-list.html";
+      })
     }
+
+   
 })
