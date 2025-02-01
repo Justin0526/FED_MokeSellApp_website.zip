@@ -37,62 +37,54 @@ document.addEventListener("DOMContentLoaded", function(){
                 alert("This email is already registered. Please use a different email.");
                 return;
             }
-            let userProfileJsonData = {
-                "user-username": userName,
+
+            let userJsondata = {
+                "user-name": userName,
                 "user-email": userEmail,
-            }
-            
-            let userProfileSettings = {
+                "user-password": userPassword
+            };
+
+            let userSettings = {
                 method: "POST",
                 headers: header,
-                body: JSON.stringify(userProfileJsonData)
-            }
+                body: JSON.stringify(userJsondata)
+            };
 
-            fetch (userProfileUrl, userProfileSettings)
-                .then(response => response.json())
-                .then(data => {
-                    console.log("Adding new user...");
-                    console.log("User data: ", data);
+            fetch (allUserInfoUrl, userSettings)
+              .then(response => response.json())
+              .then(userData => {
+                let linkedUserID = userData._id; // Get the new userID
 
-                    let userJsondata = {
-                        "user-name": userName,
-                        "user-email": userEmail,
-                        "user-password": userPassword
-                    };
-        
-                    let userSettings = {
-                        method: "POST",
-                        headers: header,
-                        body: JSON.stringify(userJsondata)
-                    };
-        
-                    // Disable sign-up button while processing
-                    signupButton.disabled = true;
-        
-                    // Now, we store user credentials in the user API
-                    return fetch(allUserInfoUrl, userSettings)     
-                })
-                .then(response => response.json())
-                .then(data => {
-                    let userID = data._id;
-                    console.log("UserID: ", userID);
+                console.log("User Created", userData);
 
-                    sessionStorage.setItem("userID", userID);
-                    sessionStorage.setItem("userEmail", userEmail);
-                    sessionStorage.setItem("userName", userName)
+                let userProfileJsonData = {
+                    "user-username": userName,
+                    "user-email": userEmail,
+                    "linked-userID": linkedUserID // Store 'allUserinfo' ID in 'user-profile'
+                }
+                
+                let userProfileSettings = {
+                    method: "POST",
+                    headers: header,
+                    body: JSON.stringify(userProfileJsonData)
+                }
+                return fetch (userProfileUrl, userProfileSettings)
+              })
+               .then(response => response.json())
+               .then(profileData => {
+                console.log("User Profile Created: ", profileData);
 
-                    console.log("Signup successful", data);
-                    window.location.href = "home.html";
-                    alert(`Signup Successful! Hi ${userName}`);
-                    signupForm.reset();
-                })
+                // Store userID in session for future use
+                sessionStorage.setItem("userID", profileData["linked-userID"]);
+                sessionStorage.setItem("userEmail", userEmail);
+                sessionStorage.setItem("userName", userName);
+
+                alert(`Signup Successful! Hi ${userName}`);
+                window.location.href = "home.html";
+               })
                 .catch(error => {
-                    console.error("Error:", error);
-                    alert("An error occurred while signing up. Please try again.");
-                })
-                .finally(() => {
-                    // Re-enable the sign-up button
-                    signupButton.disabled = false;
+                    console.error("Error: ", error)
+                    alert("An error occured while signing up. Please try agai.")
                 })
             });
     });

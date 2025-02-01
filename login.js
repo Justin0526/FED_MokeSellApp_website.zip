@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function(){
         checkEmailExists(userEmail)
           .then(userData => {
             if (!userData){           
-                alert("This email is not rgistered. Please signup first")
+                alert("This email is not registered. Please signup first")
                 return;
             }
 
