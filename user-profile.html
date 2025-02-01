@@ -57,15 +57,15 @@
     </div>
 
     <!-- User-Profile Summary -->
-    <div class="profile-summary container my-5">
+    <div class="profile-summary container my-5" id="user-profile-container">
         <!-- Profile Header -->
         <div class="profile-header d-flex flex-column align-items-center">
           <div class="d-flex align-items-center">
-            <div class="profile-picture mb-3"> <img src="images/man.jpg" alt="Seller Profile" class="rounded-circle me-2" width="100" height="100"></div>
+            <div class="profile-picture mb-3" id="user-picture"> <img src="images/man.jpg" alt="Seller Profile" class="rounded-circle me-2" width="100" height="100"></div>
             
             <div class="text-center">
-              <h4 class="mb-0">Jonathan</h4>
-              <p class="text-muted mb-0">jonathan@gmail.com</p>
+              <h4 class="mb-0" id="user-name">Jonathan</h4>
+              <p class="text-muted mb-0" id="user-email">jonathan@gmail.com</p>
             </div>
             <button class="btn edit-btn ms-auto" onclick="window.location.href='profile-settings.html'">
                 <i class="bi bi-pencil-fill"></i>
@@ -74,17 +74,17 @@
         </div>
     
         <!-- User Data Section -->
-        <div class="user-info mt-4">
+        <div class="user-info mt-4" id="user-data-container">
           <div class="row text-center">
-            <div class="col">
+            <div class="col" id="user-total-listings">
               <h6>Total Listings:</h6>
               <p>6</p>
             </div>
-            <div class="col">
+            <div class="col" id="user-coins">
               <h6>Coins:</h6>
               <p>1000</p>
             </div>
-            <div class="col">
+            <div class="col" id="user-reviews">
               <h6>Reviews:</h6>
               <a href="reviews.html" class="text-decoration-none">View Reviews</a>
             </div>
@@ -92,7 +92,7 @@
         </div>
     
         <!-- Listings Section -->
-        <div>
+        <div id="user-listings">
           <h4 class="section-title">Listings</h4>
           <div class="row g-4">
             <!-- Example Listing -->
