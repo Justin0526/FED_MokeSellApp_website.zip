@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function(){
         let userNameInput = document.getElementById("username-input");
         let editUserNameBtn = document.getElementById("edit-userName-btn");
 
-        userNameInput.style.display = "none";
         // Set initial username display
         userNameDisplay.textContent = userProfile["user-username"];
 
