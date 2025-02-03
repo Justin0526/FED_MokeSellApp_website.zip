@@ -79,6 +79,11 @@ document.addEventListener("DOMContentLoaded", function(){
         let quantity = parseInt(inputQty.value);
         let quantityError = document.getElementById("quantity-error");
         let quantityTooLarge = document.getElementById("quantity-too-large");
+        let userID = sessionStorage.getItem("userID");
+
+        if (!userID){
+            console.log("User not logged in!");
+        }
 
         quantityError.style.display = "none";
         quantityTooLarge.style.display = "none";
@@ -89,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function(){
         }
 
         let storedProduct = localStorage.getItem("selectedProduct");
-        // let cart = [];
 
         if (!storedProduct || storedProduct == "Undefined"){
             console.log("Coouldn't retrieve the item!");
@@ -102,34 +106,85 @@ document.addEventListener("DOMContentLoaded", function(){
             return;    
         }
 
-        let product = {
-            "item-id": cart["reverb-id"],
-            "item-name": cart["reverb-title"],
-            "item-price": cart["reverb-price"],
-            "item-picture": cart["reverb-links"].photo.href,
-            "item-category": cart["reverb-category"],
-            "item-quantity": quantity
-        }
+        let productID = cart["reverb-id"];
+        let productPrice = cart["reverb-price"];
+        console.log("Checking for productID", productID);
+        let checkItemUrl = `${cartUrl}?q={"linked-userID": "${userID}", "product-id": ${productID}}`;
 
-        let settings = {
-            method: "POST",
+        let GETsettings = {
+            method : "GET",
             headers: {
                 "Content-Type": "application/json",
                 "x-apikey": APIKEY,
                 "Cache-Control": "no-cache"
-            },
-            body: JSON.stringify(product)
+            }
         }
 
-        fetch (cartUrl, settings)
-            .then(response => response.json())
-            .then(data => {
-            console.log("Product added to cart: ", data);
-            alert("Product successfully added to cart!")
-            })
-            .catch(error => {
-            console.error("Error adding product to cart: ", error)
-            });
+        fetch (checkItemUrl, GETsettings)
+          .then(response => response.json())
+          .then(cartItems => {
+            if (cartItems.length > 0){
+                // If the item exists, update just the quantity
+                let existingItem = cartItems[0];
+                let updatedQuantity = existingItem["product-quantity"] + quantity;
+                let updatedPrice = productPrice * updatedQuantity;
+
+                let updateData = {
+                    "product-quantity": updatedQuantity,
+                    "product-price": updatedPrice
+                };
+
+                let PUTsettings = {
+                    method : "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache"
+                    },
+                    body: JSON.stringify(updateData)
+                };
+
+                fetch (`${cartUrl}/${existingItem._id}`, PUTsettings)
+                  .then(response => response.json())
+                  .then(updatedItem => {
+                    console.log("Cart Item Updated", updatedItem);
+                    alert ("Product successfully added to cart");
+                  })
+                  .catch(error => {
+                    console.error("Error updating the cart item: ", error);
+                  });
+            }
+            else {
+                let product = {
+                    "linked-userID": userID,
+                    "product-id": productID,
+                    "product-name": cart["reverb-title"],
+                    "product-price": productPrice,
+                    "product-picture": cart["reverb-links"].photo.href,
+                    "product-quantity": quantity
+                }
+                
+                let POSTsettings = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "x-apikey": APIKEY,
+                        "Cache-Control": "no-cache"
+                    },
+                    body: JSON.stringify(product)
+                }
+
+                fetch (cartUrl, POSTsettings)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Product added to cart: ", data);
+                    alert("Product successfully added to cart!");
+                })
+                .catch(error => {
+                console.error("Error adding product to cart: ", error)
+                });
+            }
+          })
     });
     
 });
