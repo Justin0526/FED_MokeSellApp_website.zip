@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function(){
                             
                 console.log("UserID: ", userID)
                 console.log("Login successful:", userData);
-                window.location.href = "home.html";
+                window.location.href = "index.html";
     
             }
             else{

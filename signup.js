@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 sessionStorage.setItem("userPassword", userPassword);
 
                 alert(`Signup Successful! Hi ${userName}`);
-                window.location.href = "home.html";
+                window.location.href = "index.html";
                })
                 .catch(error => {
                     console.error("Error: ", error)
