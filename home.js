@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function(){
         "Cache-Control": "no-cache"
     }
     
-
     let shuffledData = []; 
 
     getReverbData();

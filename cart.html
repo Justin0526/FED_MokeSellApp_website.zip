@@ -51,103 +51,12 @@
   </div>
 
   <!-- CART SECTION -->
-  <div class="container cart-container">
+  <div class="container cart-container" id="cart-container">
     <h2 class="text-center">Cart</h2>
     
     <!-- Shop 1 -->
-    <div class="shop-box">
-      <div class="shop-header">
-        <img src="images/man.jpg" alt="Shop 1 Logo">
-        <h5>carousellmobile</h5>
-      </div>
-      <div class="table-responsive">
-        <table class="table text-white">
-          <thead class="product-category">
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th class="text-center">Quantity</th>
-              <th>Total</th>
-              <th></th> 
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="d-flex align-items-center">
-                <img src="images/chuck70A.jpg" alt="iPhone 14 Pro" class="product-image">
-                <div class="product-info">
-                  <p class="product-name"><a href="product-details.html" target="_blank">iPhone 14 Pro Deep Purple 256GB</a></p>
-                </div>
-              </td>
-              <td class="price">S$758.00</td>
-              <td class="text-center quantity">1</td>
-              <td class="total-price">S$758.00</td>
-              <td class="text-center"><span class="remove-btn"><i class="fa-solid fa-trash"></i></span></td>
-            </tr>
-            <tr>
-              <td class="d-flex align-items-center">
-                <img src="images/chuck70C.jpg" alt="iPhone 14 Pro" class="product-image">
-                <div class="product-info">
-                  <p class="product-name"><a href="product-details.html" target="_blank">Revive Audio Modified: Orban 642b, Dual Four Band Parametric Equalizer. Nice, Cinemag output transformers!</a></p>
-                </div>
-              </td>
-              <td class="price">S$788.00</td>
-              <td class="text-center quantity">1</td>
-              <td class="total-price">S$788.00</td>
-              <td class="text-center"><span class="remove-btn"><i class="fa-solid fa-trash"></i></span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="text-end total-due-info">
-        <h5><strong>Total Due: <span class="total-due">S$ 1546.00</span></strong></h5>
-      </div>
-      <div class="button-container">
-        <button class="checkout-btn" onclick="window.location.href='transaction.html'">Checkout</button>
-      </div>
-  
-    </div>
-
-    <!-- Shop 2 -->
-    <div class="shop-box">
-      <div class="shop-header">
-        <img src="images/man.jpg" alt="Shop 1 Logo">
-        <h5>ych.12344</h5>
-      </div>
-      <div class="table-responsive">
-        <table class="table text-white">
-          <thead class="product-category">
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th class="text-center">Quantity</th>
-              <th>Total</th>
-              <th></th> 
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="d-flex align-items-center">
-                <img src="images/chuck70A.jpg" alt="iPhone 14 Pro" class="product-image">
-                <div class="product-info">
-                  <p class="product-name"><a href="product-details.html" target="_blank">Foldable bicycle</a></p>
-                </div>
-              </td>
-              <td class="price">S$60.00</td>
-              <td class="text-center quantity">1</td>
-              <td class="total-price">S$60.00</td>
-              <td class="text-center"><span class="remove-btn"><i class="fa-solid fa-trash"></i></span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="text-end total-due-info">
-        <h5><strong>Total Due: <span class="total-due">S$ 60.00</span></strong></h5>
-      </div>
-      <div class="button-container">
-        <button class="checkout-btn" onclick="window.location.href='transaction.html'">Checkout</button>
-      </div>
-  
+    <div class="shop-box" id="shop-box">
+      <!-- Items will be add in dynamically -->
     </div>
   </div>
 

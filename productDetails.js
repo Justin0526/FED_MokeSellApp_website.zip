@@ -107,7 +107,6 @@ document.addEventListener("DOMContentLoaded", function(){
         }
 
         let productID = cart["reverb-id"];
-        let productPrice = cart["reverb-price"];
         console.log("Checking for productID", productID);
         let checkItemUrl = `${cartUrl}?q={"linked-userID": "${userID}", "product-id": ${productID}}`;
 
@@ -127,11 +126,9 @@ document.addEventListener("DOMContentLoaded", function(){
                 // If the item exists, update just the quantity
                 let existingItem = cartItems[0];
                 let updatedQuantity = existingItem["product-quantity"] + quantity;
-                let updatedPrice = productPrice * updatedQuantity;
 
                 let updateData = {
-                    "product-quantity": updatedQuantity,
-                    "product-price": updatedPrice
+                    "product-quantity": updatedQuantity
                 };
 
                 let PUTsettings = {
@@ -159,11 +156,11 @@ document.addEventListener("DOMContentLoaded", function(){
                     "linked-userID": userID,
                     "product-id": productID,
                     "product-name": cart["reverb-title"],
-                    "product-price": productPrice,
+                    "product-price": cart["reverb-price"],
                     "product-picture": cart["reverb-links"].photo.href,
-                    "product-quantity": quantity
+                    "product-quantity": quantity,
+                    "shopname": cart["reverb-shopname"]
                 }
-                
                 let POSTsettings = {
                     method: "POST",
                     headers: {
