@@ -63,34 +63,34 @@
                         <h3>Billing Address</h3>
                         <div class="mb-3">
                             <label class="form-label"><i class="fa fa-user"></i> Full Name</label>
-                            <input type="text" class="form-control" placeholder="John M. Doe" required>
-                            <div class="invalid-feedback">Please enter your full name.</div>
+                            <input type="text" class="form-control" id="name" placeholder="John M. Doe" required>
+                            <small class="invalid-feedback" id="nameError">Please enter your full name.</small>
                         </div>
                         <div class="mb-3">
                             <label class="form-label"><i class="fa fa-envelope"></i> Email</label>
-                            <input type="email" class="form-control" placeholder="john@example.com" required>
-                            <div class="invalid-feedback">Please enter a valid email.</div>
+                            <input type="email" class="form-control" id="email" placeholder="john@example.com" required>
+                            <small class="invalid-feedback" id="emailError">Please enter a valid email.</small>
                         </div>
                         <div class="mb-3">
                             <label class="form-label"><i class="fa fa-address-card"></i> Address</label>
-                            <input type="text" class="form-control" placeholder="Blk 411,Choa Chu Kang Avenue 03" required>
-                            <div class="invalid-feedback">Please enter your address.</div>
+                            <input type="text" class="form-control" id="address" placeholder="Blk 411,Choa Chu Kang Avenue 03" required>
+                            <small class="invalid-feedback" id="addressError">Please enter your address.</small>
                         </div>
                         <div class="mb-3">
                             <label class="form-label"><i class="fa fa-city"></i> City</label>
-                            <input type="text" class="form-control" placeholder="Choa Chu Kang" required>
-                            <div class="invalid-feedback">Please enter your city.</div>
+                            <input type="text" class="form-control" id="city" placeholder="Choa Chu Kang" required>
+                            <small class="invalid-feedback" id="cityError">Please enter your city.</small>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">State</label>
-                                <input type="text" class="form-control" placeholder="Singapore" required>
-                                <div class="invalid-feedback">Please enter your state.</div>
+                                <input type="text" class="form-control" id="state" placeholder="Singapore" required>
+                                <small class="invalid-feedback" id="stateError">Please enter your state.</small>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Postal Code</label>
-                                <input type="text" class="form-control" placeholder="680411" required>
-                                <div class="invalid-feedback">Please enter your postal code.</div>
+                                <input type="text" class="form-control" id="postalCode" placeholder="680411" required>
+                                <small class="invalid-feedback" id="postalCodeError">Please enter your postal code.</small>
                             </div>
                         </div>
                         <h3 class="mt-4">Payment</h3>
@@ -101,36 +101,36 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Name on Card</label>
-                            <input type="text" class="form-control" placeholder="John More Doe" required>
-                            <div class="invalid-feedback">Please enter your name on card.</div>
+                            <input type="text" class="form-control" id="cardName" placeholder="John More Doe" required>
+                            <small class="invalid-feedback" id="cardNameError">Please enter your name on card.</small>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Credit Card Number</label>
-                            <input type="text" class="form-control" placeholder="1111-2222-3333-4444" required>
-                            <div class="invalid-feedback">Please enter your credit number.</div>
+                            <input type="text" class="form-control" id="cardNumber" placeholder="1111-2222-3333-4444" required>
+                            <small class="invalid-feedback" id="cardError">Please enter your credit number.</small>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Exp Month</label>
-                                <input type="text" class="form-control" placeholder="September" required>
-                                <div class="invalid-feedback">Invalid month!</div>
+                                <input type="text" class="form-control" id="expMonth" placeholder="September" required>
+                                <small class="invalid-feedback" id="monthError">Invalid month!</small>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label class="form-label">Exp Year</label>
-                                <input type="text" class="form-control" placeholder="2023" required>
-                                <div class="invalid-feedback">Invalid exp year!</div>
+                                <input type="text" class="form-control" id="expYear" placeholder="2023" required>
+                                <small class="invalid-feedback" id="yearError">Invalid exp year!</small>
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label class="form-label">CVV</label>
-                                <input type="text" class="form-control" placeholder="123" required>
-                                <div class="invalid-feedback">Invalid cvv!</div>
+                                <input type="text" class="form-control" id="cvvNumber" placeholder="123" required>
+                                <small class="invalid-feedback" id="cvvError">Invalid cvv!</small>
                             </div>
                         </div>
                         <div class="form-check mb-3">
                             <input class="form-check-input" type="checkbox" id="sameadr" checked>
                             <label class="form-check-label" for="sameadr">Shipping address same as billing</label>
                         </div>
-                        <a href="payment-success.html" class="btn w-100">Continue to checkout</a>
+                        <button class="btn w-100" id="checkout-btn">Continue to checkout</button>
                     </form>
                 </div>
             </div>
