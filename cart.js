@@ -1,4 +1,4 @@
-document.addEventLisner("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "678fbb8a58174779225315d5";  //  67875f7d9e18b182ee6941f0   67972e07f9d2bb46c9181e32
     let cartUrl = "https://fedassg2-66ea.restdb.io/rest/cart"; //  https://tryuse-a494.restdb.io/rest/cart
 
@@ -19,6 +19,9 @@ document.addEventLisner("DOMContentLoaded", function(){
         if (data.length > 0){
             displayCart(data);
         }
+      })
+      .catch(error => {
+        console.log("Error fetching cart: ", error);
       })
 
     function displayCart(data){
@@ -80,7 +83,7 @@ document.addEventLisner("DOMContentLoaded", function(){
                     <td class="text-center quantity">${productQuantity}</td>
                     <td class="total-price">S$${totalPrice.toFixed(2)}</td>
                     <td class="text-center">
-                        <span class="delete-item" data-id="${cartID}">
+                        <span class="remove-btn" data-id="${cartID}">
                             <i class="fa-solid fa-trash"></i>
                         </span>
                     </td>
