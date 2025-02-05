@@ -28,6 +28,10 @@ document.addEventListener("DOMContentLoaded", function(){
         if (data.length > 0){
             displayCart(data);
         }
+        else{
+            let content = "<h2>No music, no magic! Start composing your perfect playlist</h2>"
+            document.getElementById("shop-box").innerHTML = content;
+        }
       })
       .catch(error => {
         console.log("Error fetching cart: ", error);
@@ -44,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function(){
             }
             shopGroups[shopName].push(item); // Add the item to the shop's array
         });
-
         for (let shop in shopGroups){
             let shopItems = shopGroups[shop];
             let totalDue = 0;
@@ -109,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     <h5><strong>Total Due: S$${totalDue.toFixed(2)}</strong></h5>
                 </div>
                 <div class="button-container">
-                    <button class="checkout-btn" onclick="window.location.href='transaction.html'">Checkout</button>
+                    <button class="checkout-btn">Checkout</button>
                 </div>
             </div>
             `;
@@ -124,6 +127,22 @@ document.addEventListener("DOMContentLoaded", function(){
                     let cartID = this.getAttribute("data-id")
                     console.log(cartID);
                     deleteCart(cartID);
+                })
+            })
+
+        document.querySelectorAll(".checkout-btn")
+            .forEach(button => {
+                button.addEventListener("click", function(){
+                    let shopID = this.closest(".shop-section").id; // Get the shop's ID
+                    let shopName = shopID.replace("cart-", "").replace(/-/g," "); // Convert back to shop name
+
+                    let selectedItems = shopGroups[shopName]; // GEt items from this shop
+
+                    if (selectedItems && selectedItems.length > 0){
+                        sessionStorage.setItem("selectedTransaction", JSON.stringify(selectedItems));
+                        console.log(selectedItems);
+                        location.href = "transaction.html";
+                    }
                 })
             })
         

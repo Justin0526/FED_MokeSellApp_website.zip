@@ -82,7 +82,14 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log("Checking for productID", cart["reverb-id"]);
 
         // Save selected product details with quantity for the transaction page
-        localStorage.setItem("selectedTransaction", JSON.stringify({cart, quantity}));
+        let product = {
+            "product-id": cart["reverb-id"],
+            "product-name": cart["reverb-title"],
+            "product-price": cart["reverb-price"],
+            "product-quantity": quantity
+        }
+        sessionStorage.setItem("selectedTransaction", JSON.stringify([product]));
+        console.log(product);
 
         location.href = "transaction.html";
     })

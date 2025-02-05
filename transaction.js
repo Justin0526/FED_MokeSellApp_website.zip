@@ -1,8 +1,14 @@
 document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "678fbb8a58174779225315d5";  //  67875f7d9e18b182ee6941f0   67972e07f9d2bb46c9181e32
     let cartUrl = "https://fedassg2-66ea.restdb.io/rest/cart"; //  https://tryuse-a494.restdb.io/rest/cart
+    let listingUrl = " https://fedassg2-66ea.restdb.io/rest/reverblisting"; // https://tryuse-a494.restdb.io/rest/testreverbapi
+    let header = {
+        "Content-Type": "application/json",
+        "x-apikey": APIKEY,
+        "Cache-Control": "no-cache"
+    }
 
-    let selectedTransaction = localStorage.getItem("selectedTransaction");
+    let selectedTransaction = sessionStorage.getItem("selectedTransaction");
     let userID = sessionStorage.getItem("userID");
     
     if (!selectedTransaction){
@@ -11,59 +17,121 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     let transactionData = JSON.parse(selectedTransaction);
-    let {cart, quantity} = transactionData;
-    console.log(cart);
-    console.log(userID);
+    console.log(transactionData);
+    let itemID = transactionData[0]._id;
+    console.log(itemID)
 
-    displayOrderSummary(cart, quantity);
+    displayOrderSummary(transactionData);
 
-    document.getElementById("checkout-btn").addEventListener("click", function(){
-        
-        let name = document.getElementById("name");
-        let email = document.getElementById("email");
-        let address = document.getElementById("address");
-        let city = document.getElementById("city");
-        let state = document.getElementById("state");
-        let postalCode = document.getElementById("postalCode");
-        
-        if (!validateBill(name, email, address, city, state, postalCode)){
-            console.log("Bill validation failed");
-            return;
-        }
+    let checkoutBtn = document.getElementById("checkout-btn");
+    checkoutBtn.disabled = true;
 
-        let cardName = document.getElementById("cardName");
-        let cardNumber = document.getElementById("cardNumber");
-        let expMonth = document.getElementById("expMonth");
-        let expYear = document.getElementById("expYear");
-        let cvvNumber = document.getElementById("cvvNumber");
+    // Use event listener to validate before enabling checkout button
+    document.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", function(){
+            validateForm();
+        });
+    });
 
-        if (!validatePayment(cardName, cardNumber, expMonth, expYear, cvvNumber)){
-            console.log("Payment validation failed!");
+    checkoutBtn.addEventListener("click", function(e){
+        e.preventDefault();
+
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let address = document.getElementById("address").value;
+        let city = document.getElementById("city").value;
+        let state = document.getElementById("state").value;
+        let postalCode = document.getElementById("postalCode").value;
+
+        let cardName = document.getElementById("cardName").value;
+        let cardNumber = document.getElementById("cardNumber").value;
+        let expMonth = document.getElementById("expMonth").value;
+        let expYear = document.getElementById("expYear").value;
+        let cvvNumber = document.getElementById("cvvNumber").value;
+
+        if (!validateBill(name, email, address, city, state, postalCode) || 
+            !validatePayment(cardName, cardNumber, expMonth, expYear, cvvNumber)) {
+            console.log("Validation failed! Checkout button remains disabled.");
             return;
         }
 
         alert("Payment successful! Processing your order...")
-        location.href = "payment-success.html";
+        deleteCartItem(transactionData);
+
+        setTimeout(() => {
+            location.href = "payment-success.html";
+        }, 3000);
     })
+
+    function deleteCartItem(cartItems){
+        cartItems.forEach(item => {
+            let itemID = item._id;
+            if (!itemID){
+                console.log("No itemID found. Skipping cart deletion");
+                return;
+            }
+
+            let checkItemUrl = `${cartUrl}/${itemID}`;
+            let GETsettings = {
+                method: "GET",
+                headers: header
+            }
+
+            fetch(checkItemUrl, GETsettings)
+            .then(response => {
+                if (response.status === 404){
+                    console.log(`Cart item ${itemID} not found. Skipping deletion`);
+                    return null;
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (!data) return;
+
+                let DELETEsettings = {
+                    method: "DELETE",
+                    headers: header
+                };
+                return fetch(checkItemUrl, DELETEsettings);
+            })
+            .then(response => {
+                if (response && response.ok){
+                    console.log(`Item ${itemID} deleted from cart successfully`);
+                }
+            })
+            .catch(error => {
+                console.error("Error deleting cart item: ", error);
+            })
+        })
+    }
 
 });
 
-function displayOrderSummary(cart, quantity){
+function displayOrderSummary(cartItems){
     let orderSummaryContainer = document.getElementById("order-summary");
-
+    let totalAmount = 0;
     let orderSummaryContent = 
         ` <h4 class="mb-3">Order Summary</h4>
         <div class="order-summary-header">
             <span>Product</span><span>Qty</span><span>Price</span>
-        </div>
+        </div> `;
+    
+    cartItems.forEach(item => {
+        let totalPrice = item["product-price"] * item["product-quantity"];
+        totalAmount += totalPrice;
+
+        orderSummaryContent += `
         <div class="order-summary-item">
-            <span><a href="product-details.html" class="product-link">${cart["reverb-title"]}</a></span><span>${quantity}</span><span>S$${(cart["reverb-price"] * quantity).toFixed(2)}</span>
+            <span><a href="product-details.html" class="product-link">${item["product-name"]}</a></span><span>${item["product-quantity"]}</span><span>S$${totalPrice.toFixed(2)}</span>
         </div>
-        <hr>
-        <div class="order-summary-total">
-            <span>Total Due</span><span>${quantity}</span><span>S$ ${(cart["reverb-price"] * quantity).toFixed(2)}</span>
-        </div>
-        `;
+        <hr> `;
+    })
+
+    orderSummaryContent += `
+    <div class="order-summary-total">
+            <span>Total Due</span><span>${cartItems.length}</span><span>S$ ${totalAmount.toFixed(2)}</span>
+        </div>`;
+        
     orderSummaryContainer.innerHTML = orderSummaryContent;
 }
 
@@ -91,8 +159,8 @@ function validateBill(name, email, address, city, state, postalCode){
     postalCode = String(postalCode || "").trim();
 
     // Validate Name (Only letters and spaces)
-    let nameRegex = /^[A-Za-z\s]+$/;
-    if (!nameRegex.test(name) || name === "") {
+    let textRegex = /^[A-Za-z\s]+$/;
+    if (!textRegex.test(name) || name === "") {
         nameError.style.display = "block";
         return false;
     }
@@ -111,19 +179,19 @@ function validateBill(name, email, address, city, state, postalCode){
     }
 
     // Validate City
-    if (city === "") {
+    if (city === "" || !textRegex.test(city)) {
         cityError.style.display = "block";
         return false;
     }
 
     // Validate State
-    if (state === "") {
+    if (state === "" || !textRegex.test(state)) {
         stateError.style.display = "block";
         return false;
     }
 
     // Validate Postal Code (Numeric and at least 5 characters)
-    let postalCodeRegex = /^\d{5,}$/; // Minimum 5 digits
+    let postalCodeRegex = /^\d{6}$/; // Minimum 5 digits
     if (!postalCodeRegex.test(postalCode)) {
         postalCodeError.style.display = "block";
         return false;
@@ -147,14 +215,14 @@ function validatePayment(cardName, cardNum, month, year, cvv){
     yearError.style.display = "none";
     cvvError.style.display = "none";
 
-    let nameRegex = /^[A-Za-z\s]+$/; // Ensures that name only contais letters and spaces
-    if (!cardName.trim() || !nameRegex.test(cardName)){
+    let textRegex = /^[A-Za-z\s]+$/; // Ensures that name only contais letters and spaces
+    if (!cardName.trim() || !textRegex.test(cardName)){
         cardNameError.style.display = "block";
         return false;
     }
 
     // Validate Card Number (Must be 16 digits)
-    let cardRegex = /^\d{16}$/
+    let cardRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/
     if (!cardRegex.test(cardNum)){
         cardError.style.display = "block";
         return false;
@@ -169,7 +237,7 @@ function validatePayment(cardName, cardNum, month, year, cvv){
         return false;
     }
 
-    if (isNaN(expYear) || exp < currentYear){
+    if (isNaN(expYear) || expYear < currentYear){
         yearError.style.display = "block";
         return false;
     }
@@ -186,4 +254,30 @@ function validatePayment(cardName, cardNum, month, year, cvv){
         return false;
     }
     return true;
+}
+
+function validateForm() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let address = document.getElementById("address").value;
+    let city = document.getElementById("city").value;
+    let state = document.getElementById("state").value;
+    let postalCode = document.getElementById("postalCode").value;
+
+    let cardName = document.getElementById("cardName").value;
+    let cardNumber = document.getElementById("cardNumber").value;
+    let expMonth = document.getElementById("expMonth").value;
+    let expYear = document.getElementById("expYear").value;
+    let cvvNumber = document.getElementById("cvvNumber").value;
+
+    let checkoutBtn = document.getElementById("checkout-btn");
+
+    if (validateBill(name, email, address, city, state, postalCode) && 
+    validatePayment(cardName, cardNumber, expMonth, expYear, cvvNumber)) {
+    checkoutBtn.disabled = false;
+    } 
+    else {
+        checkoutBtn.disabled = true;
+    }
+
 }
