@@ -45,14 +45,15 @@ document.addEventListener("DOMContentLoaded", function(){
             shopGroups[shopName].push(item); // Add the item to the shop's array
         });
 
-        let allItemsContent = "";
-
         for (let shop in shopGroups){
             let shopItems = shopGroups[shop];
             let totalDue = 0;
 
+            let shopSection = document.createElement("div");
+            shopSection.classList.add("shop-section");
+            shopSection.id = `cart-${shop.replace(/\s+/g, '-')}`;
+
             let shopContent = `
-            <div class="shop-section" id="cart-${shop}">
                 <div class="shop-header">
                     <img src="images/man.jpg" alt="Shop Logo">
                     <h5>${shop}</h5>
@@ -80,15 +81,16 @@ document.addEventListener("DOMContentLoaded", function(){
                 let totalPrice = productPrice * productQuantity;
                 totalDue += totalPrice;
 
+                // .toFixed(2) helps to format to two decimal places
                 shopContent += `
-                <tr>
+                <tr id="cart-${cartID}">
                     <td class="d-flex align-items-center">
                         <img src="${imageLink}" alt="${productName}" class="product-image">
                         <div class="product-info">
                             <p class="product-name"><a href="product-details.html" target="_blank">${productName}</a></p>
                         </div>
                     </td>
-                    <td class="price">S$${productPrice.toFixed(2)}</td>
+                    <td class="price">S$${productPrice.toFixed(2)}</td> 
                     <td class="text-center quantity">${productQuantity}</td>
                     <td class="total-price">S$${totalPrice.toFixed(2)}</td>
                     <td class="text-center">
@@ -112,13 +114,46 @@ document.addEventListener("DOMContentLoaded", function(){
             </div>
             `;
 
-            allItemsContent += shopContent
-
+            shopSection.innerHTML = shopContent;
+            cartContainer.appendChild(shopSection);
         }
-        cartContainer.innerHTML = allItemsContent;
+
+        document.querySelectorAll(".remove-btn")
+            .forEach(button => {
+                button.addEventListener("click", function(){
+                    let cartID = this.getAttribute("data-id")
+                    console.log(cartID);
+                    deleteCart(cartID);
+                })
+            })
+        
     }
 
-    // function deleteCart(cartID){
-    //     if (!confirm("Are you sure you want to delete this listing"))
-    // }
+    function deleteCart(cartID){
+        if (!confirm("Are you sure you want to delete this listing")) return
+
+        let DELETEsettings = {
+            method: "DELETE",
+            headers: header
+        }
+
+        fetch(`${cartUrl}/${cartID}`, DELETEsettings)
+          .then(response => response.json())
+          .then(() =>{
+            let cartElement = document.getElementById(`cart-${cartID}`);
+            if (cartElement) {
+                let shopContainer = cartElement.closest(".shop-section");
+                cartElement.remove();
+                console.log(`Cart ${cartID} deleted successfully`);
+                alert("Item Removed successfully")
+
+                // Check if the shop has any remaining listings
+                let remainingItems = shopContainer.querySelector("tbody").children.length;
+                if (remainingItems === 0) {
+                    shopContainer.remove(); // Remove the shop section if empty
+                }
+            }        
+          })
+          .catch(error => console.error("Error deleting cart", error))
+    }
 })

@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function(){
           console.log(`Listing ${listingID} deleted successfully`);
           let listingElement =  document.getElementById(`listing-${listingID}`);
           if (listingElement) listingElement.remove(); // Remove from UI
-          alert("Listing Removed Successfuly")
+          alert("Listing Removed Successfully")
         })
         .catch(error => console.error("Error deleting listing: ", error));
     }  
