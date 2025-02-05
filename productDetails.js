@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                 <small id="quantity-too-large">Quantity cannot be more than the product quantity</small>
                             </div>
                             <button class="btn w-100" onclick="location.href='chat.html'">Chat</button>
-                            <button class="btn w-100" onclick="location.href='transaction.html'">Buy</button>
+                            <button class="btn w-100" id="buy-btn">Buy</button>
                             <div class="d-flex">
                                 <input type="money" class="form-control me-2" placeholder="SGD 100">
                                 <button class="btn">Make Offer</button>
@@ -73,37 +73,32 @@ document.addEventListener("DOMContentLoaded", function(){
        itemContainer.innerHTML = allItemsContent;
     }
 
+    document.getElementById("buy-btn").addEventListener("click", function() {
+        let validation = validateInput()
+        if (!validation){
+            return;
+        }
+        let {cart, quantity} = validation;
+        console.log("Checking for productID", cart["reverb-id"]);
 
-    document.getElementById("add-to-cart").addEventListener("click", function(){
-        let inputQty = document.getElementById("input-quantity");
-        let quantity = parseInt(inputQty.value);
-        let quantityError = document.getElementById("quantity-error");
-        let quantityTooLarge = document.getElementById("quantity-too-large");
+        // Save selected product details with quantity for the transaction page
+        localStorage.setItem("selectedTransaction", JSON.stringify({cart, quantity}));
+
+        location.href = "transaction.html";
+    })
+
+    document.getElementById("add-to-cart").addEventListener("click", function(){   
+        let validation = validateInput()
+        if (!validation){
+            return;
+        }
+
+        let {cart, quantity} = validation;
         let userID = sessionStorage.getItem("userID");
 
         if (!userID){
             console.log("User not logged in!");
-        }
-
-        quantityError.style.display = "none";
-        quantityTooLarge.style.display = "none";
-
-        if (isNaN(quantity) || quantity <=0){
-            quantityError.style.display = "block";
             return;
-        }
-
-        let storedProduct = localStorage.getItem("selectedProduct");
-
-        if (!storedProduct || storedProduct == "Undefined"){
-            console.log("Coouldn't retrieve the item!");
-            return;
-        }
-        let cart = JSON.parse(storedProduct);
-
-        if (quantity > cart["reverb-quantity"]){
-            quantityTooLarge.style.display = "block";
-            return;    
         }
 
         let productID = cart["reverb-id"];
@@ -184,4 +179,33 @@ document.addEventListener("DOMContentLoaded", function(){
           })
     });
     
+    function validateInput(){
+        let inputQty = document.getElementById("input-quantity");
+        let quantity = parseInt(inputQty.value);
+        let quantityError = document.getElementById("quantity-error");
+        let quantityTooLarge = document.getElementById("quantity-too-large");
+
+        quantityError.style.display = "none";
+        quantityTooLarge.style.display = "none";
+
+        if (isNaN(quantity) || quantity <=0){
+            quantityError.style.display = "block";
+            return false;
+        }
+
+        let storedProduct = localStorage.getItem("selectedProduct");
+
+        if (!storedProduct || storedProduct == "Undefined"){
+            console.log("Coouldn't retrieve the item!");
+            return false;
+        }
+        let cart = JSON.parse(storedProduct);
+
+        if (quantity > cart["reverb-quantity"]){
+            quantityTooLarge.style.display = "block";
+            return false;    
+        }
+
+        return {cart, quantity};
+    }
 });
