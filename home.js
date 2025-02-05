@@ -215,7 +215,8 @@ document.addEventListener("DOMContentLoaded", function(){
                 let selectedItem = shuffledData[itemIndex]; // Get item from array
 
                 // Stores the selected product in localStorage so that product-details.html can retireve it
-                localStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
+                sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
+                console.log(selectedItem);
                 window.location.href = "product-details.html";
             })
         })

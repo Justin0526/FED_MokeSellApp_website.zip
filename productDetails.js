@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "67875f7d9e18b182ee6941f0";  //    678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
     let cartUrl = "https://tryuse-a494.restdb.io/rest/cart"; //  https://fedassg2-66ea.restdb.io/rest/cart
 
-    let storedProduct = localStorage.getItem("selectedProduct");
+    let storedProduct = sessionStorage.getItem("selectedProduct");
+    console.log(storedProduct);
 
     if (!storedProduct || storedProduct === "undefined"){
         console.error("No product data found in localStorage");
@@ -11,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     let item = JSON.parse(storedProduct);
+    console.log(item);
     
     if (!item){
         console.error("No product data found in localStorage");
@@ -200,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function(){
             return false;
         }
 
-        let storedProduct = localStorage.getItem("selectedProduct");
+        let storedProduct = sessionStorage.getItem("selectedProduct");
 
         if (!storedProduct || storedProduct == "Undefined"){
             console.log("Coouldn't retrieve the item!");

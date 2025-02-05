@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "67875f7d9e18b182ee6941f0";  //    678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
     let cartUrl = "https://tryuse-a494.restdb.io/rest/cart"; //  https://fedassg2-66ea.restdb.io/rest/cart
+    let listingUrl = "https://tryuse-a494.restdb.io/rest/testreverbapi"; //  https://fedassg2-66ea.restdb.io/rest/reverblisting 
     let userID = sessionStorage.getItem("userID");
 
     if (!userID){
@@ -76,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
             shopItems.forEach(item => {
                 let productID = item["product-id"]
+                console.log(productID);
                 let productName = item["product-name"];
                 let productPrice = parseFloat(item["product-price"]);
                 let productQuantity = parseInt(item["product-quantity"]);
@@ -88,11 +90,9 @@ document.addEventListener("DOMContentLoaded", function(){
                 shopContent += `
                 <tr id="cart-${cartID}">
                     <td class="d-flex align-items-center">
-                        <a href="product-details.html?product-id=${productID}">
-                            <img src="${imageLink}" alt="${productName}" class="product-image" data-id="${productID}">
-                        </a>
+                        <img src="${imageLink}" alt="${productName}" class="product-image" data-id="${productID}">              
                         <div class="product-info">
-                            <p class="product-name"><a href="product-details.html?product-id=${cartID}" >${productName}</a></p>
+                            <p class="product-name" data-id="${productID}">${productName}</p>
                         </div>
                     </td>
                     <td class="price">S$${productPrice.toFixed(2)}</td> 
@@ -122,6 +122,31 @@ document.addEventListener("DOMContentLoaded", function(){
             shopSection.innerHTML = shopContent;
             cartContainer.appendChild(shopSection);
         }
+
+        document.querySelectorAll(".product-image, .product-name")
+            .forEach(element => {
+                element.addEventListener("click", function(){
+                    let productID = this.getAttribute("data-id"); // Get product ID
+                    console.log(productID);
+
+                    let productUrl = `${listingUrl}?q={"reverb-id": ${productID}}`
+
+                    fetch (productUrl, GETsettings)
+                      .then(response => response.json())
+                      .then(product => {
+                        // I asked for the productID without the "" so it returns as an array
+                        console.log("Cart Data: ", product[0]);
+                        if (product.length > 0){
+                            sessionStorage.setItem("selectedProduct", JSON.stringify(product[0]));
+                            location.href = "product-details.html";
+                        }
+                        else{
+                            console.error("Product not found");
+                        }
+                      })
+                      .catch(error => console.error("Error fetching cart: ", error));
+                })
+            })
 
         document.querySelectorAll(".remove-btn")
             .forEach(button => {
