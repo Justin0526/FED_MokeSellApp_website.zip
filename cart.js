@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "678fbb8a58174779225315d5";  //  67875f7d9e18b182ee6941f0   67972e07f9d2bb46c9181e32
-    let cartUrl = "https://fedassg2-66ea.restdb.io/rest/cart"; //  https://tryuse-a494.restdb.io/rest/cart
-
+    let APIKEY = "67875f7d9e18b182ee6941f0";  //    678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
+    let cartUrl = "https://tryuse-a494.restdb.io/rest/cart"; //  https://fedassg2-66ea.restdb.io/rest/cart
     let userID = sessionStorage.getItem("userID");
 
     if (!userID){
@@ -76,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function(){
             `;
 
             shopItems.forEach(item => {
+                let productID = item["product-id"]
                 let productName = item["product-name"];
                 let productPrice = parseFloat(item["product-price"]);
                 let productQuantity = parseInt(item["product-quantity"]);
@@ -88,9 +88,11 @@ document.addEventListener("DOMContentLoaded", function(){
                 shopContent += `
                 <tr id="cart-${cartID}">
                     <td class="d-flex align-items-center">
-                        <img src="${imageLink}" alt="${productName}" class="product-image">
+                        <a href="product-details.html?product-id=${productID}">
+                            <img src="${imageLink}" alt="${productName}" class="product-image" data-id="${productID}">
+                        </a>
                         <div class="product-info">
-                            <p class="product-name"><a href="product-details.html" target="_blank">${productName}</a></p>
+                            <p class="product-name"><a href="product-details.html?product-id=${cartID}" >${productName}</a></p>
                         </div>
                     </td>
                     <td class="price">S$${productPrice.toFixed(2)}</td> 
