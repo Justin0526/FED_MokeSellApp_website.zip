@@ -179,7 +179,7 @@ html, body {
     margin-right: 10px;
 }
 
-.product-details-section .row #quantity-error, #quantity-too-large{
+.product-details-section .row .errors{
     color: red;
     display: none;
 }

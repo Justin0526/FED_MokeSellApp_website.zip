@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "67875f7d9e18b182ee6941f0";  //    678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
     let cartUrl = "https://tryuse-a494.restdb.io/rest/cart"; //  https://fedassg2-66ea.restdb.io/rest/cart
+    let offerUrl = "https://tryuse-a494.restdb.io/rest/offer" 
 
     let storedProduct = sessionStorage.getItem("selectedProduct");
+    let userID = sessionStorage.getItem("userID");
     console.log(storedProduct);
 
     if (!storedProduct || storedProduct === "undefined"){
@@ -57,14 +59,15 @@ document.addEventListener("DOMContentLoaded", function(){
                         <div class="d-flex flex-column gap-3">
                             <div class="d-flex">
                                 <input type="number" class="quantity form-control me-2 w-100" id="input-quantity" placeholder="e.g 1" required>
-                                <small id="quantity-error">Quantity must be greater than 0!</small>
-                                <small id="quantity-too-large">Quantity cannot be more than the product quantity</small>
+                                <small class="errors" id="quantity-error">Quantity must be greater than 0!</small>
+                                <small class="errors" id="quantity-too-large">Quantity cannot be more than the product quantity</small>
                             </div>
                             <button class="btn w-100" onclick="location.href='chat.html'">Chat</button>
                             <button class="btn w-100" id="buy-btn">Buy</button>
                             <div class="d-flex">
-                                <input type="money" class="form-control me-2" placeholder="SGD 100">
-                                <button class="btn">Make Offer</button>
+                                <input type="money" class="form-control me-2" id="offerPrice" placeholder="SGD 100">
+                                <small class="errors" id="offerError">Invalid Offer value entered</small>
+                                <button class="btn" id="offer-btn">Make Offer</button>
                             </div>
                             <button class="btn btn-success w-100" id="add-to-cart">Add to Cart</button>
                         </div>
@@ -94,6 +97,51 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log(product);
 
         location.href = "transaction.html";
+    });
+
+    document.getElementById("offer-btn").addEventListener("click", function(){  
+        let validation = validateInput()
+        if (!validation){
+            return;
+        }
+        let {cart, quantity} = validation;
+        console.log("Checking for productID", cart["reverb-id"])
+        let offerError = document.getElementById("offerError");
+        offerError.style.display = "none";
+
+        let offerPrice = parseFloat(document.getElementById("offerPrice").value);
+
+        if (isNaN(offerPrice) || offerPrice <= 0){
+            console.log("No offer price entered");
+            offerError.style.display = "block";
+            return;
+        }
+
+        let offer = {
+            "linked-userID": userID,
+            "offer-price": offerPrice,
+            "product-id": cart["reverb-id"],
+            "shopname": cart["reverb-shopname"],
+            "product-quantity": quantity 
+        }
+        
+        let settings = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": APIKEY,
+                "Cache-Control": "no-cache"
+            },
+            body: JSON.stringify(offer)
+        };
+
+        fetch (offerUrl, settings)
+          .then(response => response.json())
+          .then(data => {
+            console.log("Successfully made offer to seller: ", data);
+            alert("Offer made successfully");
+          })
+          .catch(error => console.error("Error when sending offer: ", error))
     })
 
     document.getElementById("add-to-cart").addEventListener("click", function(){   
@@ -103,7 +151,6 @@ document.addEventListener("DOMContentLoaded", function(){
         }
 
         let {cart, quantity} = validation;
-        let userID = sessionStorage.getItem("userID");
 
         if (!userID){
             console.log("User not logged in!");
