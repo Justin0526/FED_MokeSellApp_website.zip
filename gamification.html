@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coin Hunt Game</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="gamification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+        <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="index.html">
+                <img src="images/Logo.png" alt="MokeSell Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="toggler-icon top-bar"></span>
+                <span class="toggler-icon middle-bar"></span>
+                <span class="toggler-icon bottom-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chat.html">
+                            <i class="fas fa-comment-dots"></i> <!-- Updated Chat Icon -->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> <!-- Updated Cart Icon -->
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="sell.html">Sell</a></li>
+                    <li class="nav-item"><a class="nav-link" href="user-profile.html">My Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+        <!-- Search Bar -->
+    <div class="search-bar-section container mt-5">
+        <form class="d-flex justify-content-center">
+            <input class="form-control w-75" type="search" placeholder="Search..." aria-label="Search">
+            <button class="btn ms-2" type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- GAME AND SCOREBOARD -->
+    <div class="section-container">
+        <div class="game-section-title">
+            <h2 class="text-center mb-4 mt-5">Coin Quest: A Hunt for Hidden Riches!</h2>
+        </div>
+        <div class="container text-center mt-5 game-section">     
+            <p>Only two chances to uncover the hidden coin—will luck be on your side?</p>
+            <div class="game-container">
+                <div class="box" onclick="checkBox(0)">?</div>
+                <div class="box" onclick="checkBox(1)">?</div>
+                <div class="box" onclick="checkBox(2)">?</div>
+                <div class="box" onclick="checkBox(3)">?</div>
+                <div class="box" onclick="checkBox(4)">?</div>
+                <div class="box" onclick="checkBox(5)">?</div>
+            </div>
+            <p id="message" class="mt-3"></p>
+            <button class="btn mt-3 restart-btn" onclick="resetGame()">Restart Game</button>
+        </div>
+    
+        <div class="container mt-5 scoreboard">
+            <h3 class="text-center mb-3">Scoreboard</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="no-column">No</th>
+                        <th>Name</th>
+                        <th>Coins</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="player-info">
+                        <td class="no-column">1</td>
+                        <td>Player 1</td>
+                        <td>5</td>
+                    </tr>
+                    <tr class="player-info">
+                        <td class="no-column">2</td>
+                        <td>Player 2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr class="player-info">
+                        <td class="no-column">3</td>
+                        <td>Player 3</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+        <!-- Footer Section -->
+    <footer class="footer text-light py-5">
+        <div class="container">
+            <div class="row gy-4">
+                <!-- Logo and Social Links -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-logo mb-4">
+                        <img src="images/Logo.png" alt="MokeSell Logo" class="img-fluid" style="cursor: pointer;" onclick="location.href='index.html';">
+                    </div>
+                    <div class="social-links">
+                        <ul class="list-unstyled d-flex gap-3">
+                            <li><a href="https://www.facebook.com/" class="text-light"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="https://www.instagram.com/" class="text-light"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="https://x.com/?mx=2" class="text-light"><i class="fab fa-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="footer-heading" onclick="location.href='contact.html';" style="cursor: pointer;">Contact Us</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="tel:45243676" class="text-light text-decoration-none">73846784</a></li>
+                        <li><a href="mailto:hello@kicksonadime.com" class="text-light text-decoration-none">hello@mokesell.com</a></li>
+                    </ul>
+                </div>
+
+                <!-- Account Section -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="footer-heading" onclick="location.href='user-profile.html';" style="cursor: pointer;">Account</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">Manage Account</a></li>
+                    </ul>
+                </div>
+
+                <!-- About Us Section -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="footer-heading">About Us</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="aboutus.html" class="text-light text-decoration-none">Learn More</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Privacy & Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let hiddenCoinIndex = Math.floor(Math.random() * 6);
+        let attempts = 0;
+
+        function checkBox(index) {
+            if (attempts >= 2) return;
+            
+            let boxes = document.querySelectorAll('.box');
+            if (index === hiddenCoinIndex) {
+                boxes[index].textContent = '💰';
+                boxes[index].classList.add('opened', 'correct');
+                document.getElementById('message').textContent = 'Congratulations! You found the coin!';
+                attempts = 2; // End game immediately
+            } else {
+                boxes[index].textContent = '❌';
+                boxes[index].classList.add('opened', 'wrong');
+                attempts++;
+                if (attempts === 2) {
+                    document.getElementById('message').textContent = 'Game Over! Try Again.';
+                }
+            }
+        }
+
+        function resetGame() {
+            hiddenCoinIndex = Math.floor(Math.random() * 6);
+            attempts = 0;
+            let boxes = document.querySelectorAll('.box');
+            boxes.forEach(box => {
+                box.textContent = '?';
+                box.classList.remove('opened', 'correct', 'wrong');
+            });
+            document.getElementById('message').textContent = '';
+        }
+    </script>
+    <!-- For the menu toogle bar -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
