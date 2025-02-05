@@ -2,6 +2,13 @@ document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "678fbb8a58174779225315d5";  //  67875f7d9e18b182ee6941f0   67972e07f9d2bb46c9181e32
     let cartUrl = "https://fedassg2-66ea.restdb.io/rest/cart"; //  https://tryuse-a494.restdb.io/rest/cart
 
+    let userID = sessionStorage.getItem("userID");
+
+    if (!userID){
+        console.log("User not logged in.");
+        return;
+    }
+    
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -13,7 +20,9 @@ document.addEventListener("DOMContentLoaded", function(){
         headers: header
     }
 
-    fetch(cartUrl, GETsettings)
+    let userCartUrl = `${cartUrl}?q={"linked-userID": "${userID}"}`;
+
+    fetch(userCartUrl, GETsettings)
       .then(response => response.json())
       .then(data => {
         if (data.length > 0){
@@ -108,4 +117,8 @@ document.addEventListener("DOMContentLoaded", function(){
         }
         cartContainer.innerHTML = allItemsContent;
     }
+
+    // function deleteCart(cartID){
+    //     if (!confirm("Are you sure you want to delete this listing"))
+    // }
 })
