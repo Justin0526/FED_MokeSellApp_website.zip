@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "67875f7d9e18b182ee6941f0";  //    678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
+    let APIKEY = " 67875f7d9e18b182ee6941f0";  //  678fbb8a58174779225315d5  67972e07f9d2bb46c9181e32
     let reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=1";
     let listingUrl = "https://tryuse-a494.restdb.io/rest/testreverbapi"; //  https://fedassg2-66ea.restdb.io/rest/reverblisting
  
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function(){
     // get and display data when the page loads
     getAndDisplayRestDBData();
 
-    // // Function to fetch data from Reverb API
+    // Function to fetch data from Reverb API
     // function getReverbData() {
     //     let settings = {
     //         method: "GET",

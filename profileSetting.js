@@ -105,21 +105,29 @@ document.addEventListener("DOMContentLoaded", function(){
         alert("Error loading profile. Please try again later");
       })
 
+      document.getElementById("changeImage").addEventListener("click", function(){
+        document.getElementById("imageInput").click(); // Open the file
+    });
+    
       document.getElementById("imageInput").addEventListener("change", function(event){
-        let file = event.target.files[0] // Get selected file
-        if (file){
-            let reader = new FileReader();
-            reader.onload = function(e){
-                document.getElementById("profileImage").src = e.target.result;
-                updatedUserData["user-profile-picture"] = e.target.result; // Store image as Base64
-            };
-            reader.readAsDataURL(file);
+        let filePath = event.target.value; // Get file path (C:\fakepath\pic.jpg)
+        console.log(filePath);
+        let fileName = filePath.split("\\").pop()// Extract the file name (pic.jpg)
+        console.log(fileName);
+
+        if (fileName){
+            let newImagePath = `images/${fileName}`; // All images are stored in images folder for this project
+            document.getElementById("profileImage").src = newImagePath;
+            updatedUserData["user-profile-picture"] = newImagePath;
         }
       })
 
-      document.getElementById("deleteImageBtn").addEventListener("click", function(){
-        removeImage();
-      })
+      document.getElementById("deleteImage").addEventListener("click", function(){
+        let profileImage = document.getElementById("profileImage");
+        profileImage.src = "images/man.jpg" // Reset to default
+        updatedUserData["user-profile-picture"] = "images/man.jpg";
+        console.log("Profile image removed");
+      });
 
       saveChanges.addEventListener("click", function(){
         saveChanges.disabled = true;
@@ -253,11 +261,5 @@ document.addEventListener("DOMContentLoaded", function(){
             saveChanges.disabled = false;
           })
     }
-    
-    function removeImage(){
-        let profileImage = document.getElementById("profileImage");
-        profileImage.src = "images/man.jpg" // Reset to default
-        updatedUserData["user-profile-picture"] = "";
-        console.log("Profile image removed");
-    }
+
 })
