@@ -170,6 +170,7 @@ document.addEventListener("DOMContentLoaded", function(){
     
        // Loop through shuffled data and separate it into two sections
         shuffledData.forEach((item, index) => {
+            randomDays = Math.floor(Math.random() * 30) + 1;
             let imageLink = item["reverb-links"].photo.href;
             let cardHTML = `
                 <div class="col-md-3">
@@ -178,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function(){
                             <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
                             <div>
                                 <p class="mb-0 fw-bold">${item["reverb-shopname"]}</p>
-                                <small class="text-muted">20 days ago</small>
+                                <small class="text-muted">${randomDays} days ago</small>
                             </div>
                         </div>
                         <a href="product-details.html" class="product-link" data-index="${index}">
