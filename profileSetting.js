@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function(){
       })
 
       document.getElementById("changeImage").addEventListener("click", function(){
+        alert("Open the image folder in the project to change your profile picture! It won't work otherwise");
         document.getElementById("imageInput").click(); // Open the file
     });
     
