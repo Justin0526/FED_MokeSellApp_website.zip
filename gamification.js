@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
             console.log(`${coinsEarned} coins earned!`);
             saveScore(coinsEarned);
-            console.log(userID)
         } else {
             boxes[index].textContent = '❌';
             boxes[index].classList.add('opened', 'wrong');
@@ -66,38 +65,39 @@ document.addEventListener("DOMContentLoaded", function(){
     function saveScore(coins){
         if (!userID) return;
         console.log("You won coins!")
-        let userScoreUrl = `${leaderboard}?q={"user-id":"${userID}"}`;
         
-        fetch(userScoreUrl, GETsettings)
+        fetch(leaderboard, GETsettings)
           .then(response => response.json())
           .then(data => {
-            if(data.length > 0){
-                // User exists, update the score
-                let existingScore = data[0];
-                let updatedScore = existingScore["user-score"] + coins;
-                console.log(updatedScore);
+            let existingUser = data.find(user => user["user-id"] === userID);
+            console.log(existingUser);
+            if (existingUser){
+                let updatedScore = existingUser["user-score"] + coins;
+                console.log(`Updated Score: ${updatedScore}`)
                 let PUTsettings = {
                     method: "PUT",
                     headers: header,
                     body: JSON.stringify({"user-score": updatedScore})
                 }
-                fetch(`${leaderboard}/${existingScore._id}`, PUTsettings)
+
+                fetch(`${leaderboard}/${existingUser._id}`, PUTsettings)
                   .then(() =>{
                     updateUserProfile(updatedScore);
                     displayScoreboard();
-                  } );
-                  
+                  })
+                  .catch(error => console.error("Error updating score: ", error));
             }
             else{
+                console.log("add user");
+                console.log(`${userName}: ${userID}, Coins earned: ${coins}`)
                 // New user
                 let newUser = {
                     "user-id": userID,
                     "user-name": userName,
                     "user-score": coins
                 }
-                console.log(coins);
                 let POSTsettings = {
-                    method: "PUT",
+                    method: "POST",
                     headers: header,
                     body: JSON.stringify(newUser)
                 }
@@ -106,22 +106,28 @@ document.addEventListener("DOMContentLoaded", function(){
                     updateUserProfile(coins);
                     displayScoreboard();
                   })
+                  .catch(error => console.error("Error creating new user: ", error));
             }
           })
+          .catch(error => console.error("Error fetching leaderboard data: ", error));
     }
     function updateUserProfile(totalCoins){
-        fetch(`${userProfileUrl}?q={"user-id":"${userID}"}`, GETsettings)
+        fetch(`${userProfileUrl}?q={"linked-userID":"${userID}"}`, GETsettings)
           .then(response => response.json())
           .then(data => {
             let userProfile = data[0];
+            console.log(userProfile)
             let PUTsettings = {
                 method: "PUT",
                 headers: header,
                 body: JSON.stringify({"user-coins": totalCoins})
             }
             fetch(`${userProfileUrl}/${userProfile._id}`, PUTsettings)
-              .then(() => console.log(`Total coins for ${userProfile["user-username"]} is ${totalCoins}`))
-          })
+              .then(() => {
+                console.log(`Total coins for ${userProfile["user-username"]} is ${totalCoins}`)
+              })
+              .catch(error => console.error("Error fetcching user profile: ", error));
+            })
         
     }
 

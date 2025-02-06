@@ -34,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function(){
         // Update User Email
         document.getElementById("user-email").textContent = userProfile["user-email"];
 
+        document.getElementById("user-coins").textContent = userProfile["user-coins"];
+
         let userListings = `${createListingUrl}?q={"linked-userID": "${userProfile["linked-userID"]}"}`; // https://fedassg2-66ea.restdb.io/rest/create-listing?q={"linked-userID": "${userProfile["linked-userID"]}"}
 
         fetch (userListings, settings)
