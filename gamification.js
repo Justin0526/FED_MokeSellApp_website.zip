@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "67875f7d9e18b182ee6941f0";  //    678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
     let leaderboard = "https://tryuse-a494.restdb.io/rest/leaderboard";
     let userProfileUrl = "https://tryuse-a494.restdb.io/rest/user-profile";  //   https://fedassg2-66ea.restdb.io/rest/user-profile https://experiment-d5c7.restdb.io/rest/user-profile 
+    let duckduckGo = "https://serpapi.com/search.json?engine=duckduckgo&q=Windows&kl=sg-en"
 
     let userID = sessionStorage.getItem("userID");
     let userName = sessionStorage.getItem("userName");
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function(){
             boxes[index].textContent = '💰';
             coinsEarned = Math.floor(Math.random() * (10-3+1)) + 3; // Earn random coins between 3 and 10
             boxes[index].classList.add('opened', 'correct');
-            document.getElementById('message').textContent = 'Congratulations! You found the coin!';
+            document.getElementById('message').textContent = `Congratulations! You found ${coinsEarned} coins!`;
             attempts = 2; // End game immediately
 
             console.log(`${coinsEarned} coins earned!`);
