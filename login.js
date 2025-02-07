@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "678fbb8a58174779225315d5";  // 67875f7d9e18b182ee6941f0 67972e07f9d2bb46c9181e32
-    let allUserInfoUrl = "https://fedassg2-66ea.restdb.io/rest/alluserinfo";   //   https://tryuse-a494.restdb.io/rest/alluserinfohttps://experiment-d5c7.restdb.io/rest/alluserinfo
+    let APIKEY = "67972e07f9d2bb46c9181e32";  // 67875f7d9e18b182ee6941f0  678fbb8a58174779225315d5
+    let allUserInfoUrl = "https://experiment-d5c7.restdb.io/rest/alluserinfo";   //   https://tryuse-a494.restdb.io/rest/alluserinfo  https://fedassg2-66ea.restdb.io/rest/alluserinfo
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -35,16 +35,19 @@ document.addEventListener("DOMContentLoaded", function(){
             // emailError.style.display = 'none';
             passwordError.style.display = 'none';
             let userName = userData["user-name"];
-            let correctPassword = userData["user-password"];
             let userID = userData["_id"]; // Get userID from database
 
-            if (userPassword === correctPassword){
+            let userEncryptedPassword = userData["user-password"];
+            let decipheredPassword = caesarDecipher(userEncryptedPassword, 4);
+            console.log(decipheredPassword);
+
+            if (userPassword === decipheredPassword){
                 console.log("YAY");
 
                 sessionStorage.setItem("userID", userID);
                 sessionStorage.setItem("userEmail", userEmail);
                 sessionStorage.setItem("userName", userName);
-                sessionStorage.setItem("userPassword", correctPassword)
+                sessionStorage.setItem("userPassword", userEncryptedPassword);
 
                 // Disable login button while processing
                 let loginButton = document.getElementById("user-login");
@@ -117,4 +120,31 @@ document.addEventListener("DOMContentLoaded", function(){
             return null;
         })
     }
-})
+
+    function caesarDecipher(str, shift){
+        let decrypted = "";
+        for (let i = 0; i< str.length; i++){
+            let charCode = str.charCodeAt(i);
+
+            if (charCode >= 65 && charCode <= 90){
+                let shiftedCode = charCode - shift;
+                if (shiftedCode < 65){
+                    shiftedCode = 90 - (64 - shiftedCode);
+                }
+                decrypted += String.fromCharCode(shiftedCode);
+            }
+
+            else if (charCode >= 97 && charCode <= 122){
+                let shiftedCode = charCode - shift;
+                if (shiftedCode < 97){
+                    shiftedCode = 122 - (96 - shiftedCode);
+                }
+                decrypted += String.fromCharCode(shiftedCode);
+            }
+            else{
+                decrypted += str[i];
+            }
+        }
+        return decrypted;
+    };
+});

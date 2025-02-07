@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "678fbb8a58174779225315d5";  // 67875f7d9e18b182ee6941f0 67972e07f9d2bb46c9181e32
-    let allUserInfoUrl = "https://fedassg2-66ea.restdb.io/rest/alluserinfo";   //   https://tryuse-a494.restdb.io/rest/alluserinfohttps://experiment-d5c7.restdb.io/rest/alluserinfo
-    let userProfileUrl = "https://fedassg2-66ea.restdb.io/rest/user-profile";  //  https://tryuse-a494.restdb.io/rest/user-profile https://experiment-d5c7.restdb.io/rest/user-profile 
+    let APIKEY = "67972e07f9d2bb46c9181e32";  // 67875f7d9e18b182ee6941f0  678fbb8a58174779225315d5
+    let allUserInfoUrl = "https://experiment-d5c7.restdb.io/rest/alluserinfo";   //   https://tryuse-a494.restdb.io/rest/alluserinfo  https://fedassg2-66ea.restdb.io/rest/alluserinfo
+    let userProfileUrl = "https://experiment-d5c7.restdb.io/rest/user-profile";  //  https://tryuse-a494.restdb.io/rest/user-profile  https://fedassg2-66ea.restdb.io/rest/user-profile 
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -30,15 +30,7 @@ document.addEventListener("DOMContentLoaded", function(){
         signupButton.disabled = true;
         signupButton.textContent = "Processing...";
 
-        let loadingScreen = document.getElementById("loading-screen");
-        // Initialize Lottie animation
-        const animation = lottie.loadAnimation({
-            container: document.getElementById('lottie-player'), // Render inside this div
-            renderer: 'svg', // Render type
-            loop: true, // Loop animation
-            autoplay: true, // Start automatically
-            path: 'https://lottie.host/0d391166-1d36-4e1c-bd8f-acf3bd0eabb3/qk0ba9dlOI.json' // Replace with your desired Lottie animation URL
-        });
+        let loadingScreen = document.getElementById("loading-screen");  
 
         if (!validateInput(userEmail, userPassword, confirmUserPassword, passwordError, confirmPasswordError, emailError)){
             console.log("Validation failed!");
@@ -48,6 +40,8 @@ document.addEventListener("DOMContentLoaded", function(){
             return;
         }
 
+        let encryptedPassword = caesarCipher(userPassword, 4);
+        console.log(encryptedPassword);
         checkEmailUnique(userEmail)
         .then(isUnique => {
             if (!isUnique) {
@@ -61,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function(){
             let userJsondata = {
                 "user-name": userName,
                 "user-email": userEmail,
-                "user-password": userPassword
+                "user-password": encryptedPassword
             };
 
             let userSettings = {
@@ -98,16 +92,29 @@ document.addEventListener("DOMContentLoaded", function(){
                     sessionStorage.setItem("userID", profileData["linked-userID"]);
                     sessionStorage.setItem("userEmail", userEmail);
                     sessionStorage.setItem("userName", userName);
-                    sessionStorage.setItem("userPassword", userPassword);
+                    sessionStorage.setItem("userPassword", encryptedPassword)
                     console.log(userName);
-
-                    loadingScreen.style.display = 'flex';
                 
-                    setTimeout(() => {
-                        // Redirect to home page (change URL as needed)
-                        alert(`Signup Successful! Hi ${userName}`);
-                        window.location.href = 'index.html';
-                        }, 3000); // Adjust delay time here (3 seconds)
+                    loadingScreen.style.display = 'flex';
+
+                    // Initialize Lottie animation
+                    const animation = lottie.loadAnimation({
+                        container: document.getElementById('lottie-player'), // Render inside this div
+                        renderer: 'svg', // Render type
+                        loop: true, // Loop animation
+                        autoplay: true, // Start automatically
+                        path: 'https://lottie.host/0d391166-1d36-4e1c-bd8f-acf3bd0eabb3/qk0ba9dlOI.json' // Replace with your desired Lottie animation URL
+                    });
+
+                    animation.addEventListener("DOMLoaded", function(){
+                        console.log("Animation loaded");
+                        setTimeout(() => {
+                            // Redirect to home page (change URL as needed)
+                            alert(`Signup Successful! Hi ${userName}`);
+                            window.location.href = 'index.html';
+                            }, 3000); // Adjust delay time here (3 seconds)
+                    })
+                   
                })
                 .catch(error => {
                     console.error("Error: ", error)
@@ -127,6 +134,13 @@ document.addEventListener("DOMContentLoaded", function(){
     
             if (password !== confirmPassword) {
                 confirmPasswordError.style.display = 'block';
+                return false;
+            }
+
+            let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).+$/; // Ensures that password has at least a letter and number
+            if (!passwordRegex.test(password)){
+                passwordError.textContent = "Password must contain at least 1 number and 1 letter";
+                passwordError.style.display = "block";
                 return false;
             }
     
@@ -155,6 +169,35 @@ document.addEventListener("DOMContentLoaded", function(){
                 console.error("Error checking email:", error);
                 return null; // Return false if an error occurs
             });
+        }
+
+        function caesarCipher(str, shift){
+            let encrypted = "";
+            for (let i =0; i< str.length; i++){
+               // Use what we learn in sem 1, just the way to get the unicode for each character is different
+               let charCode = str.charCodeAt(i);
+
+               // Shift letters only (A-Z, a-z)
+               if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)){
+                let shiftedCode = charCode + shift;
+
+                // Make sure if Z + 1 it goes back to A
+                if (charCode >= 65 && charCode <= 90 && shiftedCode > 90){
+                    shiftedCode = 65 + (shiftedCode - 91);
+                }
+
+                // Do the same for lowwercase letters
+                if (charCode >= 97 && charCode <= 122 && shiftedCode > 122){
+                    shiftedCode = 97 + (shiftedCode - 123);
+                }
+
+                encrypted += String.fromCharCode(shiftedCode);
+               }
+               else{
+                encrypted += str[i];
+               }
+            }
+            return encrypted;
         }
     });
 });

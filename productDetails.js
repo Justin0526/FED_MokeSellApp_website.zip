@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "678fbb8a58174779225315d5";  // 67875f7d9e18b182ee6941f0 67972e07f9d2bb46c9181e32
-    let cartUrl = "https://fedassg2-66ea.restdb.io/rest/cart"; //   https://tryuse-a494.restdb.io/rest/cart
-    let offerUrl = "https://fedassg2-66ea.restdb.io/rest/offer" //  https://tryuse-a494.restdb.io/rest/offer
-
+    let APIKEY = "67972e07f9d2bb46c9181e32";  // 67875f7d9e18b182ee6941f0  678fbb8a58174779225315d5
+    let cartUrl = "https://experiment-d5c7.restdb.io/rest/cart"; //   https://tryuse-a494.restdb.io/rest/cart  https://fedassg2-66ea.restdb.io/rest/cart
+    let offerUrl = "https://experiment-d5c7.restdb.io/rest/offer" //  https://tryuse-a494.restdb.io/rest/offer  https://fedassg2-66ea.restdb.io/rest/offer
+ 
     let storedProduct = sessionStorage.getItem("selectedProduct");
     let userID = sessionStorage.getItem("userID");
     console.log(storedProduct);

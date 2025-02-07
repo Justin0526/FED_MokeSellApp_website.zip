@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "678fbb8a58174779225315d5";  // 67875f7d9e18b182ee6941f0 67972e07f9d2bb46c9181e32
-    let allUserInfoUrl = "https://fedassg2-66ea.restdb.io/rest/alluserinfo";   //   https://tryuse-a494.restdb.io/rest/alluserinfohttps://experiment-d5c7.restdb.io/rest/alluserinfo
-    let userProfileUrl = "https://fedassg2-66ea.restdb.io/rest/user-profile";  //  https://tryuse-a494.restdb.io/rest/user-profile https://experiment-d5c7.restdb.io/rest/user-profile 
+    let APIKEY = "67972e07f9d2bb46c9181e32";  // 67875f7d9e18b182ee6941f0  678fbb8a58174779225315d5
+    let allUserInfoUrl = "https://experiment-d5c7.restdb.io/rest/alluserinfo";   //   https://tryuse-a494.restdb.io/rest/alluserinfo  https://fedassg2-66ea.restdb.io/rest/alluserinfo
+    let userProfileUrl = "https://experiment-d5c7.restdb.io/rest/user-profile";  //  https://tryuse-a494.restdb.io/rest/user-profile  https://fedassg2-66ea.restdb.io/rest/user-profile
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -159,7 +159,10 @@ document.addEventListener("DOMContentLoaded", function(){
         passwordLengthError.style.display = "none";
         emptyPasswordError.style.display = "none";
     
-        let existingPassword = sessionStorage.getItem("userPassword");
+        let encryptedPassword = sessionStorage.getItem("userPassword");
+        console.log("Existing password before decryption", encryptedPassword);
+        let existingPassword = caesarDecipher(encryptedPassword, 4);
+        console.log("Existing password after encryption: ", existingPassword);
         if (newPassword !== "" && confirmPassword !== ""){
             if (newPassword === existingPassword){
                 samePasswordError.style.display = "block";
@@ -177,7 +180,9 @@ document.addEventListener("DOMContentLoaded", function(){
                 return;
             }
             else{
-                updatedUserData["user-new-password"] = newPassword //Store the new password
+                let newEncryptedPassword = caesarCipher(newPassword, 4);
+                console.log("New encrypted password: ", newEncryptedPassword);
+                updatedUserData["user-new-password"] = newEncryptedPassword //Store the new password
                 console.log("New password updated: ", updatedUserData["user-new-password"]);
             }      
         }
@@ -261,6 +266,62 @@ document.addEventListener("DOMContentLoaded", function(){
             console.log("Error updating password in allUserInfo API: ", error);
             saveChanges.disabled = false;
           })
+    }
+
+    function caesarDecipher(str, shift){
+        let decrypted = "";
+        for (let i = 0; i< str.length; i++){
+            let charCode = str.charCodeAt(i);
+
+            if (charCode >= 65 && charCode <= 90){
+                let shiftedCode = charCode - shift;
+                if (shiftedCode < 65){
+                    shiftedCode = 90 - (64 - shiftedCode);
+                }
+                decrypted += String.fromCharCode(shiftedCode);
+            }
+
+            else if (charCode >= 97 && charCode <= 122){
+                let shiftedCode = charCode - shift;
+                if (shiftedCode < 97){
+                    shiftedCode = 122 - (96 - shiftedCode);
+                }
+                decrypted += String.fromCharCode(shiftedCode);
+            }
+            else{
+                decrypted += str[i];
+            }
+        }
+        return decrypted;
+    };
+
+    function caesarCipher(str, shift){
+        let encrypted = "";
+        for (let i =0; i< str.length; i++){
+           // Use what we learn in sem 1, just the way to get the unicode for each character is different
+           let charCode = str.charCodeAt(i);
+
+           // Shift letters only (A-Z, a-z)
+           if ((charCode >= 65 && charCode <= 90) || (charCode >= 97 && charCode <= 122)){
+            let shiftedCode = charCode + shift;
+
+            // Make sure if Z + 1 it goes back to A
+            if (charCode >= 65 && charCode <= 90 && shiftedCode > 90){
+                shiftedCode = 65 + (shiftedCode - 91);
+            }
+
+            // Do the same for lowwercase letters
+            if (charCode >= 97 && charCode <= 122 && shiftedCode > 122){
+                shiftedCode = 97 + (shiftedCode - 123);
+            }
+
+            encrypted += String.fromCharCode(shiftedCode);
+           }
+           else{
+            encrypted += str[i];
+           }
+        }
+        return encrypted;
     }
 
 })
