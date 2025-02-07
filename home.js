@@ -175,11 +175,11 @@ document.addEventListener("DOMContentLoaded", function(){
             let cardHTML = `
                 <div class="col-md-3">
                     <div class="card custom-card text-light shadow-sm">
-                        <div class="d-flex align-items-center p-3">
+                        <div class="d-flex align-items-center p-3 profile-info">
                             <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
                             <div>
-                                <p class="mb-0 fw-bold">${item["reverb-shopname"]}</p>
-                                <small class="text-muted">${randomDays} days ago</small>
+                                <p class="mb-0 fw-bold profile-name">${item["reverb-shopname"]}</p>
+                                <small class="text-muted join-date">${randomDays} days ago</small>
                             </div>
                         </div>
                         <a href="product-details.html" class="product-link" data-index="${index}">
