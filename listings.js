@@ -54,10 +54,28 @@ document.addEventListener("DOMContentLoaded", function(){
 
         for (let i = 0; i< data.length; i++){
             let item = data[i];
+            let category = item["reverb-category"];
+            let product = "";
 
-            if(item["reverb-category"].includes(listingCategory)){ // If the items belong to the selected category, add it to 'filteredData'
-                filteredData.push(item);
+            console.log("Original Category: ", category);
+
+            if (category.includes("Keyboard")){
+                product = "Keyboards";
             }
+            else if (category.includes("Guitar")){
+                product = "Guitar";
+            }
+            else if (category.includes("Percussion")){
+                product = "Percussion"
+            }
+
+            console.log("Processed Product: ", product);
+            
+            if(product.includes(listingCategory)){ // If the items belong to the selected category, add it to 'filteredData'
+                filteredData.push(item);
+                console.log(category);
+            }
+
         }
 
         if (filteredData.length === 0){

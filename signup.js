@@ -54,7 +54,6 @@ document.addEventListener("DOMContentLoaded", function(){
                 alert("This email is already registered. Please use a different email.");
                 signupButton.disabled = false;
                 signupButton.textContent = "Sign up";
-                loadingScreen.style.display = 'none';
                 signupForm.reset();
                 return;
             }
@@ -117,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function(){
                 .finally(() => {
                     signupButton.disabled = false;
                     signupButton.textContent = "Sign Up"; 
-                    loadingScreen.style.display = 'none';
                 })
             });
 
