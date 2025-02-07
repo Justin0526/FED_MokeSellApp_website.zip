@@ -14,12 +14,22 @@ document.addEventListener("DOMContentLoaded", function(){
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
     }
-    
+
     let shuffledData = []; 
+
+    document.querySelectorAll(".listings-btn")
+      .forEach(button => {
+        button.addEventListener("click", function(){
+            let selectedCategory = this.innerText.trim(); //Get Button text
+            console.log(selectedCategory);
+            sessionStorage.setItem("selectedCategory", selectedCategory);
+            window.location.href = "listings.html";
+        })
+      })
 
     // getReverbData();
     // get and display data when the page loads
-    getAndDisplayRestDBData();
+    // getAndDisplayRestDBData();
 
     // Function to fetch data from Reverb API
     // function getReverbData() {
