@@ -23,6 +23,9 @@ document.addEventListener("DOMContentLoaded", function(){
         let confirmPasswordError = document.getElementById("confirmPasswordError");
         let emailError = document.getElementById("emailError");
 
+        let loadingScreen = document.getElementById("loading-screen");
+        
+        loadingScreen.style.display = "none";
         passwordError.style.display = 'none';
         confirmPasswordError.style.display = 'none';
         emailError.style.display = 'none';
@@ -81,17 +84,33 @@ document.addEventListener("DOMContentLoaded", function(){
               })
                .then(response => response.json())
                .then(profileData => {
-                console.log("User Profile Created: ", profileData);
+                    console.log("User Profile Created: ", profileData);
 
-                // Store userID in session for future use
-                sessionStorage.setItem("userID", profileData["linked-userID"]);
-                sessionStorage.setItem("userEmail", userEmail);
-                sessionStorage.setItem("userName", userName);
-                sessionStorage.setItem("userPassword", userPassword);
+                    // Store userID in session for future use
+                    sessionStorage.setItem("userID", profileData["linked-userID"]);
+                    sessionStorage.setItem("userEmail", userEmail);
+                    sessionStorage.setItem("userName", userName);
+                    sessionStorage.setItem("userPassword", userPassword);
 
-                alert(`Signup Successful! Hi ${userName}`);
-                window.location.href = "index.html";
-               })
+                    loadingScreen.style.display = 'flex';
+                    
+                    // Initialize Lottie animation
+                    const animation = lottie.loadAnimation({
+                        container: document.getElementById('lottie-player'), // Render inside this div
+                        renderer: 'svg', // Render type
+                        loop: true, // Loop animation
+                        autoplay: true, // Start automatically
+                        path: 'https://lottie.host/0d391166-1d36-4e1c-bd8f-acf3bd0eabb3/qk0ba9dlOI.json' // Replace with your desired Lottie animation URL
+                    });
+
+                    animation.play();
+                
+                    setTimeout(() => {
+                        // Redirect to home page (change URL as needed)
+                        alert(`Welcome ${userName}`);
+                        // window.location.href = 'index.html';
+                        }, 3000); // Adjust delay time here (3 seconds)
+                })
                 .catch(error => {
                     console.error("Error: ", error)
                     alert("An error occured while signing up. Please try again.")

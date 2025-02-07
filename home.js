@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // getReverbData();
     // get and display data when the page loads
-    // getAndDisplayRestDBData();
+    getAndDisplayRestDBData();
 
     // Function to fetch data from Reverb API
     // function getReverbData() {
