@@ -235,7 +235,7 @@ html, body {
     margin-bottom: 1rem; /* Spacing below the heading */
 }
 
-.browsing-category .strings-btn {
+.browsing-category #strings {
     background: url('images/string-button.png') no-repeat ;
     background-color: #121b20;
     color: white;
@@ -249,22 +249,22 @@ html, body {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-.browsing-category .strings-btn:hover {
+.browsing-category #strings:hover {
     background-color: #121b20;
     transform: scale(1.1); /* Increased hover scaling for emphasis */
     color: #C89872;
 }
 
-.browsing-category .strings-btn:focus {
+.browsing-category #strings:focus {
     outline: none;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Enhanced focus shadow */
 }
 
-.browsing-category .strings-btn:active {
+.browsing-category #strings:active {
     transform: scale(0.9); /* Slightly reduce size when clicked */
 }
 
-.browsing-category .keyboard-btn {
+.browsing-category #keyboards {
     background: url('images/keyboard-button.png') no-repeat ;
     background-color: #121b20;
     color: white;
@@ -278,22 +278,22 @@ html, body {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-.browsing-category .keyboard-btn:hover {
+.browsing-category #keyboards:hover {
     background-color: #121b20;
     transform: scale(1.1); /* Increased hover scaling for emphasis */
     color: #C89872;
 }
 
-.browsing-category .keyboard-btn:focus {
+.browsing-category #keyboards:focus {
     outline: none;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Enhanced focus shadow */
 }
 
-.browsing-category .keyboard-btn:active {
+.browsing-category #keyboards:active {
     transform: scale(0.9); /* Slightly reduce size when clicked */
 }
 
-.browsing-category .percussion-btn {
+.browsing-category #percussions {
     background: url('images/percussion-button.png') no-repeat ;
     background-color: #121b20;
     color: white;
@@ -307,18 +307,18 @@ html, body {
     transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-.browsing-category .percussion-btn:hover {
+.browsing-category #percussions:hover {
     background-color: #121b20;
     transform: scale(1.1); /* Increased hover scaling for emphasis */
     color: #C89872;
 }
 
-.browsing-category .percussion-btn:focus {
+.browsing-category #percussions:focus {
     outline: none;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Enhanced focus shadow */
 }
 
-.browsing-category .percussion-btn:active {
+.browsing-category #percussions:active {
     transform: scale(0.9); /* Slightly reduce size when clicked */
 }
 
