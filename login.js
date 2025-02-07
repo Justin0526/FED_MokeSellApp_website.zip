@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", function(){
         // Retrieve form data
         let userEmail = document.getElementById("user-email").value;
         let userPassword = document.getElementById("user-password").value;
+        let loadingScreen = document.getElementById("loading-screen");
+
+        loadingScreen.style.display = "none";
 
         // let emailError = document.getElementById("emailError");
         let passwordError = document.getElementById("passwordError");
@@ -37,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
             if (userPassword === correctPassword){
                 console.log("YAY");
-                alert(`Welcome back ${userName}`);
 
                 sessionStorage.setItem("userID", userID);
                 sessionStorage.setItem("userEmail", userEmail);
@@ -50,7 +52,25 @@ document.addEventListener("DOMContentLoaded", function(){
                             
                 console.log("UserID: ", userID)
                 console.log("Login successful:", userData);
-                window.location.href = "index.html";
+
+                loadingScreen.style.display = 'flex';
+
+                // Initialize Lottie animation
+                const animation = lottie.loadAnimation({
+                    container: document.getElementById('lottie-player'), // Render inside this div
+                    renderer: 'svg', // Render type
+                    loop: true, // Loop animation
+                    autoplay: true, // Start automatically
+                    path: 'https://lottie.host/0d391166-1d36-4e1c-bd8f-acf3bd0eabb3/qk0ba9dlOI.json' // Replace with your desired Lottie animation URL
+                });
+
+                animation.play();
+            
+                setTimeout(() => {
+                    // Redirect to home page (change URL as needed)
+                    alert(`Welcome back ${userName}`);
+                    window.location.href = 'index.html';
+                    }, 3000); // Adjust delay time here (3 seconds)
     
             }
             else{
@@ -61,41 +81,40 @@ document.addEventListener("DOMContentLoaded", function(){
             console.error("Login error: ", error);
             alert("An error occured while logging in. Pleasee try again");
         })
-
-            // A regular expression (emailRegex) ensures that the email follows a basic structure
-            // /^[^\s@]+: Begins with one or more non-whitespace and non @characters
-            // @[^\s@]+: Includes an @ symbol followed by one or more valid characters
-            // \.[^\s@]+$/: Ends with a dot and a valid domain (eg: .com, .org)
-            function validateInput(email){
-                let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                // test() returns true if the string matches the pattern defined by the regular expression, false otherwise
-                if (!emailRegex.test(email)){
-                    alert ("Please enter a valid email address.");
-                    return false;
-                }
-                
-                return true;
-            }
-
-            function checkEmailExists(email){
-                let queryUrl = `${allUserInfoUrl}?q={"user-email": "${email}"}`;
-
-                let settings = {
-                    method: "GET",
-                    headers: header
-                }
-                return fetch(queryUrl, settings)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length === 0){
-                        return null;
-                    }
-                    return data[0];
-                })
-                .catch(error =>{
-                    console.error("Error checking email: ", error);
-                    return null;
-                })
-            }
     })
+    // A regular expression (emailRegex) ensures that the email follows a basic structure
+    // /^[^\s@]+: Begins with one or more non-whitespace and non @characters
+    // @[^\s@]+: Includes an @ symbol followed by one or more valid characters
+    // \.[^\s@]+$/: Ends with a dot and a valid domain (eg: .com, .org)
+    function validateInput(email){
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        // test() returns true if the string matches the pattern defined by the regular expression, false otherwise
+        if (!emailRegex.test(email)){
+            alert ("Please enter a valid email address.");
+            return false;
+        }
+        
+        return true;
+    }
+
+    function checkEmailExists(email){
+        let queryUrl = `${allUserInfoUrl}?q={"user-email": "${email}"}`;
+
+        let settings = {
+            method: "GET",
+            headers: header
+        }
+        return fetch(queryUrl, settings)
+        .then(response => response.json())
+        .then(data => {
+            if (data.length === 0){
+                return null;
+            }
+            return data[0];
+        })
+        .catch(error =>{
+            console.error("Error checking email: ", error);
+            return null;
+        })
+    }
 })

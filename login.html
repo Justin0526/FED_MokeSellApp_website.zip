@@ -66,31 +66,6 @@
         </div>
 
     </div>
-
-    <script>
-        // Initialize Lottie animation
-        const animation = lottie.loadAnimation({
-          container: document.getElementById('lottie-player'), // Render inside this div
-          renderer: 'svg', // Render type
-          loop: true, // Loop animation
-          autoplay: true, // Start automatically
-          path: 'https://lottie.host/0d391166-1d36-4e1c-bd8f-acf3bd0eabb3/qk0ba9dlOI.json' // Replace with your desired Lottie animation URL
-        });
-    
-        // Form submission logic
-        document.getElementById('login-form').addEventListener('submit', function (e) {
-          e.preventDefault(); // Prevent form submission
-    
-          // Show the Lottie loading animation
-          document.getElementById('loading-screen').style.display = 'flex';
-    
-          // Simulate login delay and redirect to the home page
-          setTimeout(() => {
-            // Redirect to home page (change URL as needed)
-            window.location.href = 'index.html';
-          }, 3000); // Adjust delay time here (3 seconds)
-        });
-      </script>
     <script src="login.js"></script>
 </body>
 </html>
