@@ -9,10 +9,18 @@ html, body {
     overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
+.fp-box h2{
+    color: #7f604c;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
 
+.fp-box p {
+    color: white;
+}
 
 /* Login Container Styles */
-.login-container {
+.fp-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,13 +28,14 @@ html, body {
     height: 100vh;
     padding: 0px;
     margin-bottom: 100px;
+    color: white;
 }
 
-.login-container .logo {
+.fp-container .logo {
     margin-bottom: 0px;
     padding: 0px;
 }
-.login-container .logo img {
+.fp-container .logo img {
     height: 250px; /* Adjust the height for the enlarged logo */
     max-width: 100%;
     margin-bottom: 0px;
@@ -34,7 +43,7 @@ html, body {
 }
 
 
-.login-box {
+.fp-box {
     text-align: center;
     background-color: #121b20;
     padding: 30px;
@@ -44,9 +53,10 @@ html, body {
     max-width: 400px;
     box-sizing: border-box;
     margin-top: 0;
+    color: white;
 }
 
-.login-box label {
+.fp-box label {
     color: white;
     margin-bottom: 5px;
     display: flex;
@@ -54,7 +64,7 @@ html, body {
     justify-content: flex-start;
 }
 
-.login-box input{
+.fp-box input{
     width: 100%;
     padding: 10px;
     font-size: 14px;
@@ -65,7 +75,7 @@ html, body {
     box-sizing: border-box;
 }
 
-.login-box #emailError, #passwordError{
+.fp-box #emailError, #passwordError{
     color: red;
     text-align: left;
     display: none;
@@ -74,11 +84,11 @@ html, body {
     margin-left: 15px;
 }
 
-.login-box input:focus {
+.fp-box input:focus {
     border-color: #c89872;
 }
 
-.login-box .btn {
+.fp-box .btn {
     margin-top: 10px;
     border-radius: 25px; /* Rounded corners */
     background-color: #362c26 !important; /* Change to your desired color (green in this case) */
@@ -90,49 +100,19 @@ html, body {
     font-weight: bold;
 }
 
-.login-box .btn:hover {
+.fp-box .btn:hover {
     color: black;
     border-color: white;
     background-color: #C89872!important; /* Darken the button on hover */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Social Login Button Styles */
-.social-login {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.social-login button {
-    width: 48%;
-    border-radius: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.social-login button img {
-    height: 20px;
-    margin-right: 10px;
-}
-
-/* Link Styles */
-.login-box p {
-    color: #555;
-}
-.login-box a {
-    
+.fp-box a {  
     color: #6c63ff;    
     text-decoration: none;
 }
 
-.login-box a:hover {
-    color: #6c63ff;
-    text-decoration: underline;
+.fp-box a:hover {
     font-weight: bold;
 }
 
