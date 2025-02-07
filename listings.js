@@ -49,9 +49,25 @@ document.addEventListener("DOMContentLoaded", function(){
             return;
         }
 
+        console.log("Filtering for category: ", listingCategory);
+        let filteredData = [];
+
+        for (let i = 0; i< data.length; i++){
+            let item = data[i];
+
+            if(item["reverb-category"].includes(listingCategory)){ // If the items belong to the selected category, add it to 'filteredData'
+                filteredData.push(item);
+            }
+        }
+
+        if (filteredData.length === 0){
+            console.log(`No products found for category: ${listingCategory}`);
+            return;
+        }
+
         let listingContent = "";
-        for (let index = 0; index < data.length && index < 20; index ++) {
-            let item = data[index];
+        for (let index = 0; index < filteredData.length && index < 20; index ++) {
+            let item = filteredData[index];
             randomDays = Math.floor(Math.random() * 30) + 1;
             let imageLink = item["reverb-links"].photo.href;
             let productName = item["reverb-title"];
