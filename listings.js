@@ -17,6 +17,16 @@ document.addEventListener("DOMContentLoaded", function(){
     console.log(listingCategory);
     document.getElementById("category-name").textContent = listingCategory;
 
+    document.querySelectorAll(".listings-btn")
+      .forEach(button => {
+        button.addEventListener("click", function(){
+            let selectedCategory = this.innerText.trim();
+            console.log(selectedCategory);
+            sessionStorage.setItem("selectedCategory", selectedCategory);
+            window.location.href = "listings.html";
+        })
+      })
+
     fetch(listingUrl, GETsettings)
       .then(response => response.json())
       .then(data => {
