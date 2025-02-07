@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="index.html">
+                <img src="images/Logo.png" alt="MokeSell Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="toggler-icon top-bar"></span>
+                <span class="toggler-icon middle-bar"></span>
+                <span class="toggler-icon bottom-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chat.html">
+                            <i class="fas fa-comment-dots"></i> <!-- Updated Chat Icon -->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> <!-- Updated Cart Icon -->
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="sell.html">Sell</a></li>
+                    <li class="nav-item"><a class="nav-link" href="user-profile.html">My Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTACT SECTION -->
+    <div class="contact-us">
+        <h2 class="text-center mb-4 mt-5">Contact Us</h2>
+    </div>
+
+    <div class="container">
+        <div class="contact-form">
+        <h5 class="text-center mb-4">Got a question? We'd love to hear from you.</h5>
+        <form id="contactForm" novalidate>
+            <div class="mb-3">
+            <label for="category" class="form-label">What can we help you with? <span class="text-danger">(required)</span></label>
+            <select class="form-select" id="category" required>
+                <option value="">Select an option</option>
+                <option value="technical">Technical Issues</option>
+                <option value="report">Report User</option>
+                <option value="others">Others</option>
+            </select>
+            <div class="error-text" id="categoryError"></div>
+            </div>
+            <div class="mb-3">
+            <label for="name" class="form-label">Name <span class="text-danger">(required)</span></label>
+            <input type="text" class="form-control" id="name" placeholder="Your Full Name" required>
+            <div class="error-text" id="nameError"></div>
+            </div>
+            <div class="mb-3">
+            <label for="email" class="form-label">Email <span class="text-danger">(required)</span></label>
+            <input type="email" class="form-control" id="email" placeholder="Your Email Address" required>
+            <div class="error-text" id="emailError"></div>
+            </div>
+            <div class="mb-3">
+            <label for="message" class="form-label">Message <span class="text-danger">(required)</span></label>
+            <textarea class="form-control" id="message" rows="4" placeholder="Enter your message here" required></textarea>
+            <div class="error-text" id="messageError"></div>
+            </div>
+            <div class="text-center">
+            <button type="submit" class="btn btn-custom">Submit</button>
+            </div>
+        </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer text-light py-5">
+        <div class="container">
+            <div class="row gy-4">
+                <!-- Logo and Social Links -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-logo mb-4">
+                        <img src="images/Logo.png" alt="Kicks On A Dime Logo" class="img-fluid" style="cursor: pointer;" onclick="location.href='home.html';">
+                    </div>
+                    <div class="social-links">
+                        <ul class="list-unstyled d-flex gap-3">
+                            <li><a href="https://www.facebook.com/" class="text-light"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="https://www.instagram.com/" class="text-light"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="https://x.com/?mx=2" class="text-light"><i class="fab fa-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="footer-heading" onclick="location.href='contact.html';" style="cursor: pointer;">Contact Us</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="tel:45243676" class="text-light text-decoration-none">73846784</a></li>
+                        <li><a href="mailto:hello@kicksonadime.com" class="text-light text-decoration-none">hello@mokesell.com</a></li>
+                    </ul>
+                </div>
+
+                <!-- Account Section -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="footer-heading" onclick="location.href='user-profile.html';" style="cursor: pointer;">Account</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">Manage Account</a></li>
+                    </ul>
+                </div>
+
+                <!-- About Us Section -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="footer-heading">About Us</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="aboutus.html" class="text-light text-decoration-none">Learn More</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Privacy & Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+   <!-- Bootstrap JS Bundle for menu toggle bar -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+   <!-- validations -->
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      let isValid = true;
+
+      // Clear previous error messages
+      document.querySelectorAll(".error-text").forEach(el => el.textContent = "");
+
+      // Validate category
+      const category = document.getElementById("category");
+      if (!category.value) {
+        isValid = false;
+        document.getElementById("categoryError").textContent = "Please select a category.";
+      }
+
+      // Validate name
+      const name = document.getElementById("name");
+      if (!name.value.trim()) {
+        isValid = false;
+        document.getElementById("nameError").textContent = "Name is required.";
+      }
+
+      // Validate email
+      const email = document.getElementById("email");
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email.value.trim()) {
+        isValid = false;
+        document.getElementById("emailError").textContent = "Email is required.";
+      } else if (!emailRegex.test(email.value)) {
+        isValid = false;
+        document.getElementById("emailError").textContent = "Please enter a valid email address.";
+      }
+
+      // Validate message
+      const message = document.getElementById("message");
+      if (!message.value.trim()) {
+        isValid = false;
+        document.getElementById("messageError").textContent = "Message is required.";
+      }
+
+      if (isValid) {
+        alert("Form submitted successfully!");
+        // Add further submission logic here
+      }
+    });
+  </script>
+</body>
+</html>
