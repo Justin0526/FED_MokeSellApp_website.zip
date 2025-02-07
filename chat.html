@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat-container {
+            display: flex;
+            height: 90vh;
+            margin: auto;
+            max-width: 1200px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: white;
+        }
+
+        .chat-headers {
+            flex: 1;
+            background-color: #f8f9fa;
+            overflow-y: auto;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .chat-header-item {
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .chat-header-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .chat-header-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .main-chat {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            background-color: #f8f9fa;
+        }
+
+        .chat-header {
+            display: none; /* Initially hidden */
+            align-items: center;
+            padding: 15px;
+            gap: 10px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .chat-header h5 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .chat-box {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .message.user {
+            background-color: #d1e7ff;
+            align-self: flex-end;
+        }
+
+        .message img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+
+        .message-text {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+
+        .input-container {
+            padding: 10px;
+            display: flex;
+            background-color: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            outline: none;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .input-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container mt-5">
+        <!-- Left Sidebar -->
+        <div class="chat-headers">
+            <div class="chat-header-item" onclick="loadChat('Rebecca Dixon', 'images/man.jpg')">
+                <img src="images/man.jpg" alt="User">
+                <span>Rebecca Dixon</span>
+            </div>
+            <div class="chat-header-item" onclick="loadChat('Sarah Howard', 'images/man.jpg')">
+                <img src="images/man.jpg" alt="User">
+                <span>Sarah Howard</span>
+            </div>
+            <div class="chat-header-item" onclick="loadChat('Rebecca Dixon', 'images/man.jpg')">
+                <img src="images/man.jpg" alt="User">
+                <span>Rebecca Dixon</span>
+            </div>
+            <div class="chat-header-item" onclick="loadChat('Sarah Howard', 'images/man.jpg')">
+                <img src="images/man.jpg" alt="User">
+                <span>Sarah Howard</span>
+            </div>
+            <div class="chat-header-item" onclick="loadChat('Rebecca Dixon', 'images/man.jpg')">
+                <img src="images/man.jpg" alt="User">
+                <span>Rebecca Dixon</span>
+            </div>
+            <div class="chat-header-item" onclick="loadChat('Sarah Howard', 'images/man.jpg')">
+                <img src="images/man.jpg" alt="User">
+                <span>Sarah Howard</span>
+            </div>
+            <div class="chat-header-item" onclick="loadChat('Rebecca Dixon', 'images/man.jpg')">
+                <img src="images/man.jpg" alt="User">
+                <span>Rebecca Dixon</span>
+            </div>
+            <div class="chat-header-item" onclick="loadChat('Sarah Howard', 'images/man.jpg')">
+                <img src="images/man.jpg" alt="User">
+                <span>Sarah Howard</span>
+            </div>
+            <div class="chat-header-item" onclick="loadChat('Rebecca Dixon', 'images/man.jpg')">
+                <img src="images/man.jpg" alt="User">
+                <span>Rebecca Dixon</span>
+            </div>
+            <div class="chat-header-item" onclick="loadChat('Sarah Howard', 'images/man.jpg')">
+                <img src="images/man.jpg" alt="User">
+                <span>Sarah Howard</span>
+            </div>
+            
+        </div>
+        <!-- Main Chat Section -->
+        <div class="main-chat">
+            <!-- Chat Header -->
+            <div class="chat-header" id="chatHeader">
+                <img src="images/man.jpg" alt="User" id="chatHeaderImg">
+                <h5 id="chatUsername" style="cursor: pointer;" onclick="goToProfile()">Select a Chat</h5>
+            </div>
+            <!-- Chat Box -->
+            <div class="chat-box" id="chatBox">
+                <p class="text-center text-muted">Start a conversation by selecting a chat from the left.</p>
+            </div>
+            <!-- Input Container -->
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="Type your message..." disabled>
+                <button onclick="sendMessage()" disabled>Send</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const conversations = {};
+
+        function loadChat(username, imgUrl) {
+            // Display Chat Header
+            const chatHeader = document.getElementById('chatHeader');
+            chatHeader.style.display = 'flex';
+
+            // Set Chat Header
+            document.getElementById('chatUsername').innerText = username;
+            document.getElementById('chatHeaderImg').src = imgUrl;
+
+            // Load or Initialize Chat
+            const chatBox = document.getElementById('chatBox');
+            chatBox.innerHTML = ''; // Clear chat box
+            if (!conversations[username]) {
+                conversations[username] = [];
+            }
+            conversations[username].forEach(msg => {
+                const message = document.createElement('div');
+                message.className = `message ${msg.type}`;
+                if (msg.type === 'other') {
+                    message.innerHTML = `
+                        <img src="${imgUrl}" alt="User">
+                        <div class="message-text">${msg.text}</div>
+                    `;
+                } else {
+                    message.innerHTML = `<span>${msg.text}</span>`;
+                }
+                chatBox.appendChild(message);
+            });
+
+            // Enable Input
+            const userInput = document.getElementById('userInput');
+            userInput.disabled = false;
+            const sendButton = userInput.nextElementSibling;
+            sendButton.disabled = false;
+
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+        }
+
+        function sendMessage() {
+            const username = document.getElementById('chatUsername').innerText;
+            const userInput = document.getElementById('userInput');
+            const messageText = userInput.value.trim();
+            if (messageText && username !== 'Select a Chat') {
+                // Store Message
+                if (!conversations[username]) {
+                    conversations[username] = [];
+                }
+                conversations[username].push({ type: 'user', text: messageText });
+
+                // Display Message
+                const chatBox = document.getElementById('chatBox');
+                const newMessage = document.createElement('div');
+                newMessage.className = 'message user';
+                newMessage.innerHTML = `<span>${messageText}</span>`;
+                chatBox.appendChild(newMessage);
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                userInput.value = '';
+
+                // Simulate the other user's response
+                setTimeout(() => simulateResponse(username), 1000); // Delay for realism
+            }
+        }
+
+        function simulateResponse(username) {
+            const responses = [
+                "That's interesting!",
+                "Can you tell me more?",
+                "I completely agree!",
+                "Thanks for sharing!",
+                "Let me think about that.",
+                "I'll get back to you on that.",
+            ];
+
+            // Choose a random response
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+
+            // Store and display the other user's response
+            if (!conversations[username]) {
+                conversations[username] = [];
+            }
+            conversations[username].push({ type: 'other', text: randomResponse });
+
+            const chatBox = document.getElementById('chatBox');
+            const otherMessage = document.createElement('div');
+            otherMessage.className = 'message other';
+            const imgUrl = document.getElementById('chatHeaderImg').src;
+
+            // Separate the profile picture and the message text
+            otherMessage.innerHTML = `
+                <img src="${imgUrl}" alt="User">
+                <div class="message-text">${randomResponse}</div>
+            `;
+
+            chatBox.appendChild(otherMessage);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
+        }
+
+            function goToProfile() {
+        // Redirect to the profile page
+        window.location.href = "other-user-profile.html";
+}
+
+     // Ensure the chat container is responsive
+     window.addEventListener('resize', adjustChatContainer);
+
+    function adjustChatContainer() {
+        const chatContainer = document.querySelector('.chat-container');
+        if (window.innerWidth <= 768) {
+            chatContainer.style.flexDirection = 'column';
+        } else {
+            chatContainer.style.flexDirection = 'row';
+        }
+    }
+
+    // Initial adjustment
+    adjustChatContainer();
+    </script>
+</body>
+</html>
+<!-- <script>
+    // Ensure the chat container is responsive
+    window.addEventListener('resize', adjustChatContainer);
+
+    function adjustChatContainer() {
+        const chatContainer = document.querySelector('.chat-container');
+        if (window.innerWidth <= 768) {
+            chatContainer.style.flexDirection = 'column';
+        } else {
+            chatContainer.style.flexDirection = 'row';
+        }
+    }
+
+    // Initial adjustment
+    adjustChatContainer();
+</script> -->
