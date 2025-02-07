@@ -28,12 +28,29 @@ document.addEventListener("DOMContentLoaded", function(){
       let userProfile = data[0]; 
 
       console.log(userProfile)
+      // Update user profile picture
+      let profileContainer = document.getElementById("user-picture");
+
+      if (profileContainer){
+        let profileImage = profileContainer.querySelector("img"); //Get the <img> inside the div
+        if (profileImage && userProfile["user-profile-picture"]){
+          profileImage.src = userProfile["user-profile-picture"];
+        }
+        else{
+          console.error("Profile image element not found or image URL is missing.")
+        }
+      }
+      else{
+        console.error("Profile conatainer not found in the DOM");
+      }
+      
       // Update User Name
       document.getElementById("user-name").textContent = userProfile["user-username"];
 
       // Update User Email
       document.getElementById("user-email").textContent = userProfile["user-email"];
 
+      // Update user coins
       document.getElementById("user-coins").textContent = userProfile["user-coins"];
 
       let userListings = `${createListingUrl}?q={"linked-userID": "${userProfile["linked-userID"]}"}`; // https://fedassg2-66ea.restdb.io/rest/create-listing?q={"linked-userID": "${userProfile["linked-userID"]}"}
