@@ -106,5 +106,24 @@ document.addEventListener("DOMContentLoaded", function(){
             `
         };
         listingContainer.innerHTML = listingContent;
+
+        // Add event listeners after inserting HTML
+        document.querySelectorAll(".product-link")
+        .forEach((element) => {
+            element.addEventListener("click", function(event){
+                event.preventDefault(); //Prevent immediate navigation
+
+                // "this" refers to the clicked element
+                // getAttribute("data-index") retrieves the value of data-index from clicked element
+                let itemIndex = this.getAttribute("data-index");
+
+                let selectedItem = filteredData[itemIndex]; // Get item from array
+
+                // Stores the selected product in localStorage so that product-details.html can retireve it
+                sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
+                console.log(selectedItem);
+                window.location.href = "product-details.html";
+            })
+        })
     }
 })

@@ -31,6 +31,105 @@ document.addEventListener("DOMContentLoaded", function(){
     // get and display data when the page loads
     getAndDisplayRestDBData();
 
+     // Function to fetch and display data from RestDB
+     function getAndDisplayRestDBData() {
+        let settings = {
+            method: "GET",
+            headers: header
+        }
+        fetch(listingUrl, settings)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json(); // Parse the JSON response
+            })
+            .then(data => {
+                if (data.length > 0) {
+                    displayGalleryData(data);
+                }
+                else {
+                    console.log("No data found in RestDB.");
+                    document.getElementById("product-list").innerHTML = "<p>No products found.</p>";
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching data from RestDB:", error);
+                document.getElementById("product-list").innerHTML = "<p>Error fetching data from RestDB.</p>";
+            });
+    }
+
+    // Function to display data for home page
+    function displayGalleryData(data) {
+        let trendingContainer = document.getElementById("trending-items-gallery");
+        let recommendContainer = document.getElementById("recommended-items-gallery");
+    
+        if (!trendingContainer || !recommendContainer) {
+            console.error("Trending or Recommended gallery not found in the DOM.");
+            return;
+        }
+    
+        // Shuffle data 
+        shuffledData = data.sort(() => Math.random() - 0.5);
+
+        let trendingCardsHTML = "";
+        let recommendCardsHTML = "";
+    
+       // Loop through shuffled data and separate it into two sections
+        shuffledData.forEach((item, index) => {
+            randomDays = Math.floor(Math.random() * 30) + 1;
+            let imageLink = item["reverb-links"].photo.href;
+            let cardHTML = `
+                <div class="col-md-3">
+                    <div class="card custom-card text-light shadow-sm">
+                        <div class="d-flex align-items-center p-3 profile-info">
+                            <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
+                            <div>
+                                <p class="mb-0 fw-bold profile-name">${item["reverb-shopname"]}</p>
+                                <small class="text-muted join-date">${randomDays} days ago</small>
+                            </div>
+                        </div>
+                        <a href="product-details.html" class="product-link" data-index="${index}">
+                            <img src="${imageLink}" alt="${item["reverb-title"]}" class="card-img-top">
+                        </a>
+                        <div class="card-body text-start">
+                            <p class="card-title fw-bold mb-2">${item["reverb-title"]}</p>
+                            <p class="text-warning fw-bold">S$${item["reverb-price"]}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (index < 4) {
+                trendingCardsHTML += cardHTML; // First 4 items go to Trending
+            } else if (index < 8) {
+                recommendCardsHTML += cardHTML; // Next 4 items go to Recommended
+            }
+        });
+
+        trendingContainer.innerHTML = trendingCardsHTML;
+        recommendContainer.innerHTML = recommendCardsHTML;
+
+        // Add event listeners after inserting HTML
+        document.querySelectorAll(".product-link")
+        .forEach((element) => {
+            element.addEventListener("click", function(event){
+                event.preventDefault(); //Prevent immediate navigation
+
+                // "this" refers to the clicked element
+                // getAttribute("data-index") retrieves the value of data-index from clicked element
+                let itemIndex = this.getAttribute("data-index");
+
+                let selectedItem = shuffledData[itemIndex]; // Get item from array
+
+                // Stores the selected product in localStorage so that product-details.html can retireve it
+                sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
+                console.log(selectedItem);
+                window.location.href = "product-details.html";
+            })
+        })
+    }   
+
     // Function to fetch data from Reverb API
     // function getReverbData() {
     //     let settings = {
@@ -133,104 +232,5 @@ document.addEventListener("DOMContentLoaded", function(){
     //         }
     //     });
     // }
-
-    // Function to fetch and display data from RestDB
-    function getAndDisplayRestDBData() {
-        let settings = {
-            method: "GET",
-            headers: header
-        }
-        fetch(listingUrl, settings)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json(); // Parse the JSON response
-            })
-            .then(data => {
-                if (data.length > 0) {
-                    displayGalleryData(data);
-                }
-                else {
-                    console.log("No data found in RestDB.");
-                    document.getElementById("product-list").innerHTML = "<p>No products found.</p>";
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching data from RestDB:", error);
-                document.getElementById("product-list").innerHTML = "<p>Error fetching data from RestDB.</p>";
-            });
-    }
-
-    // Function to display data for home page
-    function displayGalleryData(data) {
-        let trendingContainer = document.getElementById("trending-items-gallery");
-        let recommendContainer = document.getElementById("recommended-items-gallery");
-    
-        if (!trendingContainer || !recommendContainer) {
-            console.error("Trending or Recommended gallery not found in the DOM.");
-            return;
-        }
-    
-        // Shuffle data 
-        shuffledData = data.sort(() => Math.random() - 0.5);
-
-        let trendingCardsHTML = "";
-        let recommendCardsHTML = "";
-    
-       // Loop through shuffled data and separate it into two sections
-        shuffledData.forEach((item, index) => {
-            randomDays = Math.floor(Math.random() * 30) + 1;
-            let imageLink = item["reverb-links"].photo.href;
-            let cardHTML = `
-                <div class="col-md-3">
-                    <div class="card custom-card text-light shadow-sm">
-                        <div class="d-flex align-items-center p-3 profile-info">
-                            <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
-                            <div>
-                                <p class="mb-0 fw-bold profile-name">${item["reverb-shopname"]}</p>
-                                <small class="text-muted join-date">${randomDays} days ago</small>
-                            </div>
-                        </div>
-                        <a href="product-details.html" class="product-link" data-index="${index}">
-                            <img src="${imageLink}" alt="${item["reverb-title"]}" class="card-img-top">
-                        </a>
-                        <div class="card-body text-start">
-                            <p class="card-title fw-bold mb-2">${item["reverb-title"]}</p>
-                            <p class="text-warning fw-bold">S$${item["reverb-price"]}</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            if (index < 4) {
-                trendingCardsHTML += cardHTML; // First 4 items go to Trending
-            } else if (index < 8) {
-                recommendCardsHTML += cardHTML; // Next 4 items go to Recommended
-            }
-        });
-
-        trendingContainer.innerHTML = trendingCardsHTML;
-        recommendContainer.innerHTML = recommendCardsHTML;
-
-        // Add event listeners after inserting HTML
-        document.querySelectorAll(".product-link")
-        .forEach((element) => {
-            element.addEventListener("click", function(event){
-                event.preventDefault(); //Prevent immediate navigation
-
-                // "this" refers to the clicked element
-                // getAttribute("data-index") retrieves the value of data-index from clicked element
-                let itemIndex = this.getAttribute("data-index");
-
-                let selectedItem = shuffledData[itemIndex]; // Get item from array
-
-                // Stores the selected product in localStorage so that product-details.html can retireve it
-                sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
-                console.log(selectedItem);
-                window.location.href = "product-details.html";
-            })
-        })
-    }   
 
 })
