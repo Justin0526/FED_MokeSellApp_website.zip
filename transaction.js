@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function(){
         deleteCartItem(transactionData);
 
         setTimeout(() => {
-            location.href = "payment-success.html";
+            location.href = "transaction-receipt.html";
         }, 3000);
     })
 
@@ -107,10 +107,10 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
 });
-
 function displayOrderSummary(cartItems){
     let orderSummaryContainer = document.getElementById("order-summary");
     let totalAmount = 0;
+    let totalProducts = 0;
     let orderSummaryContent = 
         ` <h4 class="mb-3">Order Summary</h4>
         <div class="order-summary-header">
@@ -126,11 +126,12 @@ function displayOrderSummary(cartItems){
             <span><a href="product-details.html" class="product-link">${item["product-name"]}</a></span><span>${item["product-quantity"]}</span><span>S$${totalPrice.toFixed(2)}</span>
         </div>
         <hr> `;
+        totalProducts += item["product-quantity"];
     })
 
     orderSummaryContent += `
     <div class="order-summary-total">
-            <span>Total Due</span><span>${cartItems.length}</span><span>S$ ${totalAmount.toFixed(2)}</span>
+            <span>Total Due</span><span>${cartItems.length * totalProducts}</span><span>S$ ${totalAmount.toFixed(2)}</span>
         </div>`;
         
     orderSummaryContainer.innerHTML = orderSummaryContent;
