@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "67875f7d9e18b182ee6941f0";  //    678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
-    let allUserInfoUrl = "https://tryuse-a494.restdb.io/rest/alluserinfo ";   //  https://fedassg2-66ea.restdb.io/rest/alluserinfo https://experiment-d5c7.restdb.io/rest/alluserinfo
-    let userProfileUrl = "https://tryuse-a494.restdb.io/rest/user-profile";  //   https://fedassg2-66ea.restdb.io/rest/user-profile https://experiment-d5c7.restdb.io/rest/user-profile 
+    let APIKEY = "678fbb8a58174779225315d5";  // 67875f7d9e18b182ee6941f0 67972e07f9d2bb46c9181e32
+    let allUserInfoUrl = "https://fedassg2-66ea.restdb.io/rest/alluserinfo";   //   https://tryuse-a494.restdb.io/rest/alluserinfohttps://experiment-d5c7.restdb.io/rest/alluserinfo
+    let userProfileUrl = "https://fedassg2-66ea.restdb.io/rest/user-profile";  //  https://tryuse-a494.restdb.io/rest/user-profile https://experiment-d5c7.restdb.io/rest/user-profile 
     let header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -30,6 +30,15 @@ document.addEventListener("DOMContentLoaded", function(){
         signupButton.disabled = true;
         signupButton.textContent = "Processing...";
 
+        // Initialize Lottie animation
+        const animation = lottie.loadAnimation({
+            container: document.getElementById('lottie-player'), // Render inside this div
+            renderer: 'svg', // Render type
+            loop: true, // Loop animation
+            autoplay: true, // Start automatically
+            path: 'https://lottie.host/0d391166-1d36-4e1c-bd8f-acf3bd0eabb3/qk0ba9dlOI.json' // Replace with your desired Lottie animation URL
+        });
+
         if (!validateInput(userEmail, userPassword, confirmUserPassword, passwordError, confirmPasswordError, emailError)){
             console.log("Validation failed!");
             signupButton.disabled = false;
@@ -38,8 +47,10 @@ document.addEventListener("DOMContentLoaded", function(){
             return;
         }
 
-        checkEmailUnique(userEmail).then(isUnique => {
+        checkEmailUnique(userEmail)
+        .then(isUnique => {
             if (!isUnique) {
+                animation.play();
                 alert("This email is already registered. Please use a different email.");
                 signupButton.disabled = false;
                 signupButton.textContent = "Sign up";
@@ -81,33 +92,24 @@ document.addEventListener("DOMContentLoaded", function(){
               })
                .then(response => response.json())
                .then(profileData => {
-                console.log("User Profile Created: ", profileData);
+                    console.log("User Profile Created: ", profileData);
 
-                // Store userID in session for future use
-                sessionStorage.setItem("userID", profileData["linked-userID"]);
-                sessionStorage.setItem("userEmail", userEmail);
-                sessionStorage.setItem("userName", userName);
-                sessionStorage.setItem("userPassword", userPassword);
+                    // Store userID in session for future use
+                    sessionStorage.setItem("userID", profileData["linked-userID"]);
+                    sessionStorage.setItem("userEmail", userEmail);
+                    sessionStorage.setItem("userName", userName);
+                    sessionStorage.setItem("userPassword", userPassword);
 
-                loadingScreen.style.display = 'flex';
+                    loadingScreen.style.display = 'flex';
 
-                // Initialize Lottie animation
-                const animation = lottie.loadAnimation({
-                    container: document.getElementById('lottie-player'), // Render inside this div
-                    renderer: 'svg', // Render type
-                    loop: true, // Loop animation
-                    autoplay: true, // Start automatically
-                    path: 'https://lottie.host/0d391166-1d36-4e1c-bd8f-acf3bd0eabb3/qk0ba9dlOI.json' // Replace with your desired Lottie animation URL
-                });
-
-                animation.play();
-                console.log(userName);
-            
-                // setTimeout(() => {
-                //     // Redirect to home page (change URL as needed)
-                //     alert(`Signup Successful! Hi ${userName}`);
-                //     //  window.location.href = 'index.html';
-                //     }, 3000); // Adjust delay time here (3 seconds)
+                    animation.play();
+                    console.log(userName);
+                
+                    setTimeout(() => {
+                        // Redirect to home page (change URL as needed)
+                        alert(`Signup Successful! Hi ${userName}`);
+                        //  window.location.href = 'index.html';
+                        }, 3000); // Adjust delay time here (3 seconds)
                })
                 .catch(error => {
                     console.error("Error: ", error)
@@ -118,43 +120,43 @@ document.addEventListener("DOMContentLoaded", function(){
                     signupButton.textContent = "Sign Up"; 
                 })
             });
+
+        function validateInput(email, password, confirmPassword, passwordError, confirmPasswordError, emailError) {
+            if (password.length < 6) {
+                passwordError.style.display = 'block';
+                return false;
+            }
+    
+            if (password !== confirmPassword) {
+                confirmPasswordError.style.display = 'block';
+                return false;
+            }
+    
+            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                emailError.style.display = 'block';
+                return false;
+            }
+    
+            return true;
+        }
+    
+        function checkEmailUnique(email) {
+            // Construct the query URL
+            const queryUrl = `${allUserInfoUrl}?q={"user-email": "${email}"}`;
+    
+            return fetch(queryUrl, {
+                method: "GET",
+                headers: header
+            })
+            .then(response => response.json())
+            .then(data => {
+                return data.length === 0; // If data is empty, email is unique
+            })
+            .catch(error => {
+                console.error("Error checking email:", error);
+                return null; // Return false if an error occurs
+            });
+        }
     });
-        
-    function validateInput(email, password, confirmPassword, passwordError, confirmPasswordError, emailError) {
-        if (password.length < 6) {
-            passwordError.style.display = 'block';
-            return false;
-        }
-
-        if (password !== confirmPassword) {
-            confirmPasswordError.style.display = 'block';
-            return false;
-        }
-
-        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            emailError.style.display = 'block';
-            return false;
-        }
-
-        return true;
-    }
-
-    function checkEmailUnique(email) {
-        // Construct the query URL
-        const queryUrl = `${allUserInfoUrl}?q={"user-email": "${email}"}`;
-
-        return fetch(queryUrl, {
-            method: "GET",
-            headers: header
-        })
-        .then(response => response.json())
-        .then(data => {
-            return data.length === 0; // If data is empty, email is unique
-        })
-        .catch(error => {
-            console.error("Error checking email:", error);
-            return null; // Return false if an error occurs
-        });
-    }
 });

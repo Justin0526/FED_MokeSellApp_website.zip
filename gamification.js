@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "67875f7d9e18b182ee6941f0";  //    678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
-    let leaderboard = "https://tryuse-a494.restdb.io/rest/leaderboard";
-    let userProfileUrl = "https://tryuse-a494.restdb.io/rest/user-profile";  //   https://fedassg2-66ea.restdb.io/rest/user-profile https://experiment-d5c7.restdb.io/rest/user-profile 
+    let APIKEY = "678fbb8a58174779225315d5";  // 67875f7d9e18b182ee6941f0 67972e07f9d2bb46c9181e32
+    let leaderboard = "https://fedassg2-66ea.restdb.io/rest/leaderboard";  // https://tryuse-a494.restdb.io/rest/leaderboard
+    let userProfileUrl = "https://fedassg2-66ea.restdb.io/rest/user-profile";  //    https://tryuse-a494.restdb.io/rest/user-profile https://experiment-d5c7.restdb.io/rest/user-profile 
     let duckduckGo = "https://serpapi.com/search.json?engine=duckduckgo&q=Windows&kl=sg-en"
 
     let userID = sessionStorage.getItem("userID");
