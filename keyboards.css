@@ -1,0 +1,762 @@
+html, body {
+
+    background-color: #172228;
+    /* background-color: #2e464a; */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #b6cbd2;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Navigation Bar */
+.navbar {
+    background-color: #7F604c; /* Match the background color */
+}
+
+.navbar-toggler {
+    width: 50px;
+    height: 10px;
+    position: relative;
+    transition: .5s ease-in-out;
+}
+
+.navbar-toggler, 
+.navbar-toggler:focus, 
+.navbar-toggler:active, 
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+    border: 0;
+}
+
+.navbar-toggler span {
+    margin: 0;
+    padding: 0;
+}
+
+.toggler-icon {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: black;
+    border-radius: 1px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out; 
+}
+
+.middle-bar {
+    margin-top: 0px;
+}
+
+.navbar-toggler .top-bar {
+    margin-top: 0px;
+    transform: rotate(135deg);
+}
+
+.navbar-toggler .middle-bar{
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.navbar-toggler .bottom-bar {
+    margin-top: 0px;
+    transform: rotate(-135deg);
+}
+
+/*State when the navbar is collapsed */
+.navbar-toggler.collapsed .top-bar {
+    margin-top: -20px;
+    transform: rotate(0deg);
+}
+
+.navbar-toggler.collapsed .middle-bar {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.navbar-toggler.collapsed .bottom-bar {
+    margin-top: 20px;
+    transform: rotate(0deg);
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    margin-right: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-right: 35px;
+}
+
+.navbar-nav .nav-link:hover {
+    color: black!important; /* Light hover effect */   
+}
+
+/* Logo styles */
+.navbar-brand img, /* For homepage */
+.logo img { /* For login page */
+    height: 150px; /* Adjust the height for the enlarged logo */
+    max-width: 100%;
+}
+
+/* Search Button  */
+.search-bar-section .form-control {
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.search-bar-section button {
+    border-radius: 25px; /* Rounded corners */
+    background-color: #362c26 !important; /* Change to your desired color (green in this case) */
+    color: white; /* Button text color */
+    padding: 10px 20px; /* Adjust padding for better appearance */
+    border: 1.5px solid #c89872; /* Add border */
+}
+
+.search-bar-section button:hover {
+    color: black;
+    border-color: white;
+    background-color: #C89872!important; /* Darken the button on hover */
+    transform: scale(1.1); /* Slightly enlarge the button */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Login Container Styles */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    padding: 10px;
+}
+
+/* Login Box Styles */
+.login-box {
+    background-color: #d9e6ec;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+/* Input Fields */
+.login-box input[type="email"],
+.login-box input[type="password"] {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Submit Button Styles */
+.login-box .btn {
+    background-color: #89A8B2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.login-box .btn:hover {
+    background-color: #6c8891;
+}
+
+/* Social Login Button Styles */
+.social-login {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.social-login button {
+    width: 48%;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.social-login button img {
+    height: 20px;
+    margin-right: 10px;
+}
+
+/* Link Styles */
+.login-box a {
+    color: #B3C8CF;
+    text-decoration: none;
+}
+
+.login-box a:hover {
+    color: #84989e;
+    text-decoration: underline;
+}
+
+/* Full-Width Slideshow Styling */
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    
+    padding: 10px;
+}
+
+.carousel {
+    width: 100%; /* Full width */
+    margin-top: 20px; /* Add spacing between the search bar and the slideshow */
+    margin-bottom: 0;
+}
+
+.carousel-item img {
+    width: 100%; /* Ensure images fill the container width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure proper image fit */
+   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for better aesthetics */
+}
+
+/* Browsing Categories */
+.browsing-category h2{
+    color: #7f604c; /* Keeps the header text white */
+    font-size: 2.3rem; /* Large font size for the heading */
+    margin-bottom: 1rem; /* Spacing below the heading */
+}
+
+.browsing-category .strings-btn {
+    background: url('images/string-button.png') no-repeat ;
+    background-color: #121b20;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.5rem; /* Increased font size for better visibility */
+    height: 100px; /* Increased height for larger buttons */
+    padding: 20px 30px; /* Increased padding for larger buttons */
+    width: 100%; /* Ensure full-width buttons */
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.browsing-category .strings-btn:hover {
+    background-color: #121b20;
+    transform: scale(1.1); /* Increased hover scaling for emphasis */
+    color: #C89872;
+}
+
+.browsing-category .strings-btn:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Enhanced focus shadow */
+}
+
+.browsing-category .strings-btn:active {
+    transform: scale(0.9); /* Slightly reduce size when clicked */
+}
+
+.browsing-category .keyboard-btn {
+    background: url('images/keyboard-button.png') no-repeat ;
+    background-color: #121b20;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.5rem; /* Increased font size for better visibility */
+    height: 100px; /* Increased height for larger buttons */
+    padding: 20px 30px; /* Increased padding for larger buttons */
+    width: 100%; /* Ensure full-width buttons */
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.browsing-category .keyboard-btn:hover {
+    background-color: #121b20;
+    transform: scale(1.1); /* Increased hover scaling for emphasis */
+    color: #C89872;
+}
+
+.browsing-category .keyboard-btn:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Enhanced focus shadow */
+}
+
+.browsing-category .keyboard-btn:active {
+    transform: scale(0.9); /* Slightly reduce size when clicked */
+}
+
+.browsing-category .percussion-btn {
+    background: url('images/percussion-button.png') no-repeat ;
+    background-color: #121b20;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    font-size: 1.5rem; /* Increased font size for better visibility */
+    height: 100px; /* Increased height for larger buttons */
+    padding: 20px 30px; /* Increased padding for larger buttons */
+    width: 100%; /* Ensure full-width buttons */
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.browsing-category .percussion-btn:hover {
+    background-color: #121b20;
+    transform: scale(1.1); /* Increased hover scaling for emphasis */
+    color: #C89872;
+}
+
+.browsing-category .percussion-btn:focus {
+    outline: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Enhanced focus shadow */
+}
+
+.browsing-category .percussion-btn:active {
+    transform: scale(0.9); /* Slightly reduce size when clicked */
+}
+
+/* Game Section Styling */
+.game-section {
+    border: 2px solid #000;
+    border-radius: 25px;
+    padding: 30px;
+    background: url('images/goldbox.jpg') no-repeat center center;
+    background-size: cover;
+    color: white;
+    font-weight: bold;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Ensures text is centered inside */
+.game-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Heading Styling */
+.game-content h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Play Now Button */
+.play-now-btn {
+    background: linear-gradient(45deg, #ffcc00, #ff9900); /* Gold gradient */
+    color: #222; /* Dark text for contrast */
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 12px 30px;
+    border: 3px solid #ffcc00; /* Gold border */
+    border-radius: 50px; /* Rounded button */
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 8px rgba(255, 204, 0, 0.5);
+}
+
+/* Hover Effect */
+.play-now-btn:hover {
+    background: linear-gradient(45deg, #ff9900, #ff6600); /* Darker gold on hover */
+    color: white;
+    border-color: #ff9900;
+    transform: scale(1.1); /* Slight increase in size */
+    box-shadow: 0px 6px 15px rgba(255, 153, 0, 0.6);
+}
+
+/* Click Effect */
+.play-now-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0px 3px 6px rgba(255, 153, 0, 0.5);
+}
+
+/* Image Gallery Heading */
+.image-gallery h2.text-center.mb-4 {
+    font-weight: bold;
+    color: #7f604c; /* Keeps the header text white */
+    font-size: 2.3rem; /* Large font size for the heading */
+    margin-bottom: 2rem; /* Spacing below the heading */
+}
+
+/* Card Styling */
+.custom-card {
+    background-color: #121b20; /* Replace this with your desired color */
+    color: white; /* Ensure text contrast */
+    border: solid 1px #7f604c; /* Remove border */
+    border-radius: 25px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */  
+    overflow: hidden; /* Ensure content doesn't overflow */
+    transition: transform 0.2s ease-in-out; /* Add a hover animation */
+    height: 500px; /* Make all cards have a consistent height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden; /* Ensure content doesn't overflow */
+    transition: transform 0.2s ease-in-out; /* Add a hover animation */
+}
+
+.custom-card .profile-info {
+    height: 110px;
+}
+
+.custom-card .profile-name {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 1 line */
+    line-clamp: 2; /* Standard property */
+    -webkit-box-orient: vertical;
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Add '...' to truncated text */
+    white-space: normal; /* Allow normal wrapping */
+    max-width: 100%;
+    color: white;
+    /* 0ptional */
+    line-height: 1.5rem; 
+    max-height: 3rem;
+}
+
+.custom-card .profile-info .join-date {
+    color: grey !important;
+}
+
+/* Add a hover effect */
+.custom-card:hover {
+    transform: scale(1.02); /* Slight enlargement on hover */
+}
+
+/* Product Image Styling */
+.image-gallery .card-img-top {
+    height: 200px; /* Uniform height for product images */
+    object-fit: cover; /* Ensures the image maintains its aspect ratio */
+    border-radius: 0; /* Remove extra rounding */
+}
+
+/* Card Body Styling */
+.image-gallery .card-body {
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space between elements */
+}
+
+.image-gallery .card-body p {
+    margin: 0; /* Remove default margins for paragraphs */
+}
+
+.image-gallery .card-title {
+    font-weight: bold;
+    color: white;
+    font-size: 17px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit product name to 3 lines */
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 4.5rem; /* Ensure title height is consistent */
+    line-height: 1.5rem; /* Adjust line height for better spacing */
+    margin-bottom: 0.5rem;
+   
+}
+
+.image-gallery .text-warning {
+    font-size: 1rem;
+    margin-top: auto; /* Push price to the bottom of the card */
+}
+/* User Information Section */
+.image-gallery .d-flex {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.1); /* Optional: Add a semi-transparent background */
+    padding: 0.75rem;
+}
+
+/* Make the profile picture circular with a border */
+.image-gallery .d-flex img {
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+/* Review Section Wrapper */
+.reviews-section {
+    background-color: #121b20; /* Light background */
+    border-radius: 15px; /* Rounded edges */
+    padding: 40px; /* Space around the section */
+    margin-bottom: 60px; /* Space below the section */
+}
+
+.reviews-section h2 {
+    color: #7f604c;
+    font-weight: bold;
+    font-size: 2.3rem; 
+    margin-bottom: 2rem;
+}
+
+/* Review Cards */
+.review-card {
+    background-color: #2e464a; /* Light blue background */
+    border-radius: 15px; /* Rounded edges for cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    color: white; /* White text color for readability */
+}
+
+/* Review Text */
+.review-text {
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Author Text */
+.review-author {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #7f604c; /* Footer background color */
+    color: #fff; /* Text color */
+    padding: 4rem 2rem; /* Spacing around the footer */
+    margin-top: 0;
+}
+
+/* Footer Logo */
+.footer .footer-logo img {
+    width: 150px; /* Adjust logo size */
+    display: block; /* Ensures the logo is displayed as a block element */
+    margin-bottom: 1.5rem; /* Space below the logo */
+}
+
+/* Social Links */
+.footer .social-links ul {
+    display: flex; /* Flex layout for horizontal alignment */
+    gap: 1.2rem; /* Space between social icons */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    list-style: none; /* Remove list styling */
+    justify-content: flex-start; /* Align icons to the left */
+}
+
+.footer .social-links a {
+    font-size: 1.5rem; /* Icon size */
+    color: #fff; /* Icon color */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Hover effects */
+}
+
+.footer .social-links a:hover {
+    transform: scale(1.2); /* Slight zoom effect */
+    opacity: 0.8; /* Dim the icon for a soft look */
+}
+
+/* Footer Headings */
+.footer-heading {
+    font-size: 1.4rem; /* Larger font size for headings */
+    font-weight: bold; /* Bold text */
+    margin-bottom: 1rem; /* Space below headings */
+}
+
+/* Footer Links */
+.footer ul {
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    list-style: none; /* Remove list styling */
+}
+
+.footer ul li {
+    margin-bottom: 0.8rem; /* Space between items */
+}
+
+.footer ul a {
+    text-decoration: none; /* Remove underline from links */
+    color: #fff; /* Link color */
+    transition: color 0.3s ease; /* Smooth color change */
+}
+
+.footer ul a:hover {
+    color: #dcdcdc; /* Light gray color on hover */
+    text-decoration: underline; /* Add underline on hover */
+}
+
+/* Responsive Grid */
+.footer .container {
+    max-width: 1200px; /* Limit footer width */
+    margin: 0 auto; /* Center align */
+    padding: 0 1.5rem; /* Add inner padding */
+}
+
+.footer .row {
+    margin-bottom: 1.5rem; /* Space between rows */
+}
+/* create-list page */
+/* Encapsulation for Create Listing Section */
+#create-listing {
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+/* Form Inputs */
+#create-listing .form-control,
+#create-listing .form-select {
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+#create-listing .create-listing-title{
+    color: black;
+}
+
+/* Submit Button */
+#create-listing .btn {
+    background-color: #89A8B2;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+    padding: 10px 20px;
+    border: 1.5px solid #7a959d;
+    color: white;
+}
+
+#create-listing .btn:hover {
+    background-color: #6c8891;
+    color: white;
+    background: linear-gradient(to right, #4a4a68, #81849f);
+    transform: scale(1.1);
+}
+
+#create-listing #create-listing-form #name-error, 
+                #description-error, #category-error, 
+                #condition-error, #quantity-error, 
+                #price-error, #picture-error{
+    color: red;
+    display: none;
+}
+/* Responsive Design */
+
+@media (max-width: 480px) {
+    /* game-section */
+    .game-content h2 {
+        font-size: 1.6rem;
+    }
+
+    .play-now-btn {
+        font-size: 0.9rem;
+        padding: 8px 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    /* image-gallery */
+    .image-gallery .card-img-top {
+        height: 120px; /* Further reduce image height for extra-small screens */
+    }
+
+    .image-gallery h2 {
+        font-size: 1.8rem; /* Smaller font size for very small screens */
+    }
+    /* Footer section */
+    .footer .row {
+        flex-direction: column; /* Stack rows vertically */
+    }
+
+    .footer .social-links ul {
+        gap: 1rem; /* Smaller gaps between icons */
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Browse Categories */
+    .category-btn {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    /* game-section */
+    .game-content h2 {
+        font-size: 1.8rem;
+    }
+
+    .play-now-btn {
+        font-size: 1rem;
+        padding: 10px 25px;
+    }
+
+    /* image-gallery */
+    .image-gallery .card-img-top {
+        height: 150px; /* Reduce image height for smaller screens */
+    }
+
+    .image-gallery h2 {
+        font-size: 2rem; /* Reduce font size for headings */
+    }
+
+    .custom-card {
+        margin-bottom: 1rem; /* Ensure spacing between cards on smaller screens */
+    }
+    /* Review Section */
+    .review-card {
+        font-size: 0.9rem; /* Slightly smaller text for smaller screens */
+        padding: 20px; /* Reduce padding for smaller screens */
+    }
+
+    .reviews-section {
+        padding: 20px; /* Less padding on smaller screens */
+    }
+
+    /* Footer Section */
+    .footer {
+        text-align: center; /* Center align all content */
+    }
+
+    .footer .footer-logo img {
+        width: 120px; /* Adjust logo size for smaller screens */
+        margin: 0 auto 1.5rem; /* Center the logo and maintain spacing */
+    }
+
+    .footer .social-links ul {
+        justify-content: center; /* Center social icons */
+    }
+
+    .footer-heading {
+        font-size: 1.2rem; /* Slightly smaller headings */
+    }
+
+    .footer .row {
+        margin-bottom: 1rem; /* Reduce row spacing on smaller screens */
+    }
+}
+
+@media (max-width: 959px) {
+    /* image-gallery */
+    .image-gallery .row .col-md-3 {
+        flex: 0 0 50%; /* Two items per row */
+        max-width: 50%;
+    }
+
+    .image-gallery .card-img-top {
+        height: 150px; /* Reduce image height */
+    }
+
+    .image-gallery h2 {
+        font-size: 2rem; /* Adjust heading size */
+    }
+}
+
+
+
