@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MokeSell Login</title>
+    <title>MokeSell Forget Password</title>
     <!-- Lottie Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
     <!-- External CSS -->
@@ -14,11 +14,6 @@
 </head>
 
 <body>
-    <!-- LOTTIE ANIMATION -->
-    <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div id="lottie-player"></div>
-  </div>
 
     <!-- Main forgot-password container -->
     <div class="fp-container">
@@ -30,21 +25,22 @@
         <div class="fp-box">
             <h2 class="text-center mt-0 mb-1">Forgot Password?</h2>
             <p class="text-center mt-0">No worries, we'll send you reset instructions</p>
-            <form id="login-form"> <!-- Redirects to homepage.html -->
+            <form id="OTP-form"> <!-- Redirects to homepage.html -->
                 <label for="user-email">Email</label>
                 <!-- Email input field -->
                 <input type="email" placeholder="Enter your email" required id="user-email">
                 <!-- <small id="emailError">Invalid Email. Please sign up first</small> -->
     
                 <!-- Submit button -->
-                <button type="submit" class="btn" id="user-login">Send OTP Now</button>
+                <button type="submit" class="btn" id="sendOTP">Send OTP Now</button>
             </form>
 
             <!-- Forgot Password link -->
             <div class="text-center mt-4">
-                <a href="login.html"><i class="fas fa-arrow-left"></i> Back to Log In</a>
+            <a href="login.html"><i class="fas fa-arrow-left"></i> Back to Log In</a>
         </div>
 
     </div>
+    <script src="forgot-pw.js"></script>
 </body>
 </html>
