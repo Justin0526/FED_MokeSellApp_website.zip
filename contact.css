@@ -119,6 +119,7 @@ html, body {
         border-radius: 25px;
     }
     .error-text {
+        display: none;
         color: red;
         font-size: 0.875rem;
     }
