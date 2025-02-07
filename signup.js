@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function(){
         signupButton.disabled = true;
         signupButton.textContent = "Processing...";
 
+        let loadingScreen = document.getElementById("loading-screen");
         // Initialize Lottie animation
         const animation = lottie.loadAnimation({
             container: document.getElementById('lottie-player'), // Render inside this div
@@ -50,10 +51,10 @@ document.addEventListener("DOMContentLoaded", function(){
         checkEmailUnique(userEmail)
         .then(isUnique => {
             if (!isUnique) {
-                animation.play();
                 alert("This email is already registered. Please use a different email.");
                 signupButton.disabled = false;
                 signupButton.textContent = "Sign up";
+                loadingScreen.style.display = 'none';
                 signupForm.reset();
                 return;
             }
@@ -99,16 +100,14 @@ document.addEventListener("DOMContentLoaded", function(){
                     sessionStorage.setItem("userEmail", userEmail);
                     sessionStorage.setItem("userName", userName);
                     sessionStorage.setItem("userPassword", userPassword);
+                    console.log(userName);
 
                     loadingScreen.style.display = 'flex';
-
-                    animation.play();
-                    console.log(userName);
                 
                     setTimeout(() => {
                         // Redirect to home page (change URL as needed)
                         alert(`Signup Successful! Hi ${userName}`);
-                        //  window.location.href = 'index.html';
+                        window.location.href = 'index.html';
                         }, 3000); // Adjust delay time here (3 seconds)
                })
                 .catch(error => {
@@ -118,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 .finally(() => {
                     signupButton.disabled = false;
                     signupButton.textContent = "Sign Up"; 
+                    loadingScreen.style.display = 'none';
                 })
             });
 
