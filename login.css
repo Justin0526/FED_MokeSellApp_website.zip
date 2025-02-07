@@ -95,7 +95,6 @@ html, body {
     border-color: white;
     background-color: #C89872!important; /* Darken the button on hover */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: scale(1.1); /* Slightly enlarge the button */
 }
 
 /* Social Login Button Styles */
