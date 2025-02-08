@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function(){
     console.log("User ID: ", UserID);
 
     let listingID = sessionStorage.getItem("editingListingID"); // Check if editing mode
-    console.log(listingID);
+    console.log("ListingID: ",listingID);
     let listingTitle = document.getElementById("listingTitle");
     if (listingID){
         // Fetch listing details if editing
@@ -148,34 +148,15 @@ document.addEventListener("DOMContentLoaded", function(){
             "product-shopname": userName
         };
 
-        let allListingData = {
-            "product-name": productName,
-            "product-price": productPrice,
-            "product-description": productDesc,
-            "product-category": productCat,
-            "product-condition": productCondition,
-            "product-quantity": productQty,
-            "product-picture": productPic,
-            "linked-userID": UserID,
-            "product-shopname": userName
-        }
-
         // API settings
         let userListingSettings = {
             method: listingID ? "PUT" : "POST", // PUT if updating, POST if creating
             headers: header,
             body: JSON.stringify(userListingdata),
         };     
-        
-        let allListingSettings = {
-            method: listingID ? "PUT" : "POST", // PUT if updating, POST if creating
-            headers: header,
-            body: JSON.stringify(allListingData),
-        }
 
         // If the listing exist means we are updating the listing, if not we are creating.
         let requestUrlForUserListing = listingID ? `${createListingUrl}/${listingID}` : createListingUrl;
-        let requestUrlForAllListing = listingID ? `${listingUrl}/${listingID}` : listingUrl;
 
         // Disable the button during the fetch
         document.getElementById("listing-submit").disabled = true;
@@ -189,6 +170,27 @@ document.addEventListener("DOMContentLoaded", function(){
                 listingID = data._id; // RestDB Auto generated ID
                 console.log(isNewListing ? "New Listing Created: " : "Listing Updated: ", data);
 
+                let allListingData = {
+                    "product-name": productName,
+                    "product-price": productPrice,
+                    "product-description": productDesc,
+                    "product-category": productCat,
+                    "product-condition": productCondition,
+                    "product-quantity": productQty,
+                    "product-picture": productPic,
+                    "linked-userID": UserID,
+                    "product-shopname": userName,
+                    "product-id": listingID
+                }
+
+                let requestUrlForAllListing = listingID ? `${listingUrl}/${listingID}` : listingUrl;
+            
+                let allListingSettings = {
+                    method: listingID ? "PUT" : "POST", // PUT if updating, POST if creating
+                    headers: header,
+                    body: JSON.stringify(allListingData),
+                }
+
                 fetch(requestUrlForAllListing, allListingSettings)
                   .then((response) => response.json())
                   .then((data) => {
@@ -198,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         document.getElementById("listing-submit").disabled = false;
                         document.getElementById("create-listing-form").reset();
                   })
-                  .catch((error) => console.error("Failed inserting into listing API"))
+                  .catch((error) => console.error("Failed inserting into listing API: ", error))
             })
             .catch((error) => console.error("Error creating product:", error));
     });
