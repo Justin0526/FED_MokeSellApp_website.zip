@@ -2,7 +2,13 @@ document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "67972e07f9d2bb46c9181e32";  // 67875f7d9e18b182ee6941f0 678fbb8a58174779225315d5
     let cartUrl = "https://experiment-d5c7.restdb.io/rest/cart"; // https://tryuse-a494.restdb.io/rest/cart https://fedassg2-66ea.restdb.io/rest/cart
     let offerUrl = "https://experiment-d5c7.restdb.io/rest/offer"; // https://tryuse-a494.restdb.io/rest/offer https://fedassg2-66ea.restdb.io/rest/offer
-  
+    let chatUrl = "https://experiment-d5c7.restdb.io/rest/chat"; // https://tryuse-a494.restdb.io/rest/chat https://fedassg2-66ea.restdb.io/rest/chat
+
+    const header = {
+        "Content-Type": "application/json",
+        "x-apikey": APIKEY,
+        "Cache-Control": "no-cache"
+    }
     let storedProduct = sessionStorage.getItem("selectedProduct");
     let userID = sessionStorage.getItem("userID");
     console.log(storedProduct);
@@ -104,14 +110,38 @@ document.addEventListener("DOMContentLoaded", function(){
         `;          
        itemContainer.innerHTML = allItemsContent;
     }
-    document.getElementById("chat-btn").addEventListener("click", function(e){
+    document.getElementById("chat-btn").addEventListener("click", function (e) {
         e.preventDefault();
+    
         let senderID = userID;
-        let receiverID = item["linked-userID"];
+        let receiverID = item["linked-userID"] || ""; // Fallback to empty if missing
         let shopName = productData.shopname;
-        sessionStorage.setItem("chatInformation", JSON.stringify({receiverID, shopName}));
-        // Redirect to chat page
-        location.href = "chat.html";
+        let chatUrl = "https://experiment-d5c7.restdb.io/rest/chat"; // Should use chatUrl, not cartUrl
+    
+        let GETsettings = {
+            method: "GET",
+            headers: header
+        };
+    
+        // Check if a chat already exists between these two users
+        // Step 2: Check if the chat exists with the seller
+        fetch(chatUrl, GETsettings)
+        .then(response => response.json())
+        .then(data => {
+            let existingChat = data.find(chat => 
+                chat.senderID === userID && chat.shopName === shopName
+            );
+
+            if (existingChat) {
+                console.log("Existing chat found. Redirecting...");
+                window.location.href = "chat.html"; // Step 2a: Direct to chat page
+            } else {
+                console.log("No existing chat. Storing shop name...");
+                sessionStorage.setItem("shopName", shopName); // Step 2b: Store in sessionStorage
+                window.location.href = "chat.html";
+            }
+    })
+    .catch(error => console.error("Error checking chat history:", error));
     });
 
     document.getElementById("buy-btn").addEventListener("click", function() {
@@ -160,11 +190,7 @@ document.addEventListener("DOMContentLoaded", function(){
         
         let settings = {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "x-apikey": APIKEY,
-                "Cache-Control": "no-cache"
-            },
+            headers: header,
             body: JSON.stringify(offer)
         };
 
@@ -192,11 +218,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         let GETsettings = {
             method : "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "x-apikey": APIKEY,
-                "Cache-Control": "no-cache"
-            }
+            headers: header
         };
 
         fetch (checkItemUrl, GETsettings)
@@ -213,11 +235,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
                 let PUTsettings = {
                     method : "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "x-apikey": APIKEY,
-                        "Cache-Control": "no-cache"
-                    },
+                    headers: header,
                     body: JSON.stringify(updateData)
                 };
 
@@ -244,11 +262,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 };
                 let POSTsettings = {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "x-apikey": APIKEY,
-                        "Cache-Control": "no-cache"
-                    },
+                    headers: header,
                     body: JSON.stringify(product)
                 };
 

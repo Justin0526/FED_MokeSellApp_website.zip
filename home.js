@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // getReverbData();
     // get and display data when the page loads
-    // getAndDisplayRestDBData();
+    getAndDisplayRestDBData();
 
     function getAndDisplayRestDBData() {
         let settings = {
