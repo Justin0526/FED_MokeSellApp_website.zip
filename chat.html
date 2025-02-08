@@ -4,156 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat Page</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 0;
-        }
-
-        .chat-container {
-            display: flex;
-            height: 90vh;
-            margin: auto;
-            max-width: 1200px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: white;
-        }
-
-        .chat-headers {
-            flex: 1;
-            background-color: #f8f9fa;
-            overflow-y: auto;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            border-right: 1px solid #e0e0e0;
-        }
-
-        .chat-header-item {
-            background-color: #ffffff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: background-color 0.2s;
-        }
-
-        .chat-header-item:hover {
-            background-color: #f1f1f1;
-        }
-
-        .chat-header-item img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .main-chat {
-            flex: 2;
-            display: flex;
-            flex-direction: column;
-            background-color: #f8f9fa;
-        }
-
-        .chat-header {
-            display: none; /* Initially hidden */
-            align-items: center;
-            padding: 15px;
-            gap: 10px;
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .chat-header img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-        }
-
-        .chat-header h5 {
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-
-        .chat-box {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            max-width: 70%;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .message.user {
-            background-color: #d1e7ff;
-            align-self: flex-end;
-        }
-
-        .message img {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-        }
-
-        .message-text {
-            background-color: #e9ecef;
-            padding: 10px;
-            border-radius: 10px;
-            max-width: 100%;
-            word-wrap: break-word;
-        }
-
-        .input-container {
-            padding: 10px;
-            display: flex;
-            background-color: white;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .input-container input {
-            flex: 1;
-            padding: 10px;
-            border-radius: 20px;
-            border: 1px solid #ccc;
-            outline: none;
-        }
-
-        .input-container button {
-            padding: 10px 20px;
-            margin-left: 10px;
-            border: none;
-            background-color: #007bff;
-            color: white;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-
-        .input-container button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="chat.css">
 </head>
 <body>
-    <div class="chat-container mt-5">
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand" href="#">
+                <img src="images/Logo.png" alt="MokeSell Logo" class="d-inline-block align-text-top">
+            </a>
+            <button class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="toggler-icon top-bar"></span>
+                <span class="toggler-icon middle-bar"></span>
+                <span class="toggler-icon bottom-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="chat.html">
+                            <i class="fas fa-comment-dots"></i> <!-- Updated Chat Icon -->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i> <!-- Updated Cart Icon -->
+                        </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="create-listing.html">Sell</a></li>
+                    <li class="nav-item"><a class="nav-link" href="user-profile.html">My Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- CONTACT SECTION -->
+    <div class="chat-here">
+        <h2 class="text-center mb-4 mt-5">Chat Here</h2>
+    </div>
+
+    <!-- CHAT PAGE -->
+    <div class="chat-container mt-5 mb-5">
         <!-- Left Sidebar -->
         <div class="chat-headers">
             <div class="chat-header-item" onclick="loadChat('Rebecca Dixon', 'images/man.jpg')">
@@ -216,6 +112,56 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer Section -->
+    <footer class="footer text-light py-5">
+        <div class="container">
+            <div class="row gy-4">
+                <!-- Logo and Social Links -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-logo mb-4">
+                        <img src="images/Logo.png" alt="Kicks On A Dime Logo" class="img-fluid" style="cursor: pointer;" onclick="location.href='#';">
+                    </div>
+                    <div class="social-links">
+                        <ul class="list-unstyled d-flex gap-3">
+                            <li><a href="https://www.facebook.com/" class="text-light"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="https://www.instagram.com/" class="text-light"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="https://x.com/?mx=2" class="text-light"><i class="fab fa-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="footer-heading" onclick="location.href='contact.html';" style="cursor: pointer;">Contact Us</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="tel:45243676" class="text-light text-decoration-none">73846784</a></li>
+                        <li><a href="mailto:hello@kicksonadime.com" class="text-light text-decoration-none">hello@mokesell.com</a></li>
+                    </ul>
+                </div>
+
+                <!-- Account Section -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="footer-heading" onclick="location.href='user-profile.html';" style="cursor: pointer;">Account</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">Manage Account</a></li>
+                    </ul>
+                </div>
+
+                <!-- About Us Section -->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="footer-heading">About Us</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="aboutus.html" class="text-light text-decoration-none">Learn More</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">Privacy & Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+     <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const conversations = {};
 
