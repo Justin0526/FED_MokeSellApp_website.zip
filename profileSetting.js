@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let GETsettings = {
         method: "GET",
         headers: header
-    }
+    };
     let fields = ["username", "email", "firstName", "lastName", "mobileNumber"];
     let gender = document.getElementById("gender");
     let saveChanges = document.getElementById("save-change");
@@ -41,16 +41,16 @@ document.addEventListener("DOMContentLoaded", function(){
 
                 updatedUserData[`user-${field}`] = inputElement.value.trim();
                 console.log("Updated User Data: ", updatedUserData);
-            })
+            });
 
             inputElement.addEventListener("keypress", function(event){
                 if (event.key === "Enter"){
                     event.preventDefault();
                     inputElement.blur();
                 }
-            })
+            });
         }
-    })
+    });
         
     fetch (userIDUrl, GETsettings)
       .then(response => response.json())
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
 
         let userProfile = data[0];
-        console.log(userProfile)
+        console.log(userProfile);
 
         let userProfileID = userProfile["_id"];
         let profileImage = document.getElementById("profileImage");
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     displayElement.textContent = userData;
                 }       
             }
-        })
+        });
         let userGender = userProfile["user-gender"];
         if (userGender && userGender.trim() !== ""){
             gender.value = userGender;
@@ -97,13 +97,13 @@ document.addEventListener("DOMContentLoaded", function(){
         gender.addEventListener("change", function(){
             updatedUserData["user-gender"] = gender.value;
             console.log("Gender updated to: ", updatedUserData["user-gender"]);
-        })
+        });
 
       })
       .catch(error => {
         console.error("Error: ", error);
         alert("Error loading profile. Please try again later");
-      })
+      });
 
       document.getElementById("changeImage").addEventListener("click", function(){
         alert("Open the image folder in the project to change your profile picture! It won't work otherwise");
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function(){
       document.getElementById("imageInput").addEventListener("change", function(event){
         let filePath = event.target.value; // Get file path (C:\fakepath\pic.jpg)
         console.log(filePath);
-        let fileName = filePath.split("\\").pop()// Extract the file name (pic.jpg)
+        let fileName = filePath.split("\\").pop();// Extract the file name (pic.jpg)
         console.log(fileName);
 
         if (fileName){
@@ -121,11 +121,11 @@ document.addEventListener("DOMContentLoaded", function(){
             document.getElementById("profileImage").src = newImagePath;
             updatedUserData["user-profile-picture"] = newImagePath;
         }
-      })
+      });
 
       document.getElementById("deleteImage").addEventListener("click", function(){
         let profileImage = document.getElementById("profileImage");
-        profileImage.src = "images/man.jpg" // Reset to default
+        profileImage.src = "images/man.jpg"; // Reset to default
         updatedUserData["user-profile-picture"] = "images/man.jpg";
         console.log("Profile image removed");
       });
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function(){
             else{
                 let newEncryptedPassword = caesarCipher(newPassword, 4);
                 console.log("New encrypted password: ", newEncryptedPassword);
-                updatedUserData["user-new-password"] = newEncryptedPassword //Store the new password
+                updatedUserData["user-new-password"] = newEncryptedPassword; //Store the new password
                 console.log("New password updated: ", updatedUserData["user-new-password"]);
             }      
         }
@@ -229,15 +229,15 @@ document.addEventListener("DOMContentLoaded", function(){
 
             alert("Profile updated successfully!");
             saveChanges.disabled = false;
-            updatedUserData = {} // Reset after saving
+            updatedUserData = {}; // Reset after saving
           })
           .catch(error => {
             console.log("Error updating profile: ", error);
             alert("An error occurred while updating your profile. Please try again.");
             saveChanges.disabled = false;
-          })
+          });
 
-      })
+      });
     
     function updateAllUserInfo(linkedUserID, newPassword){
         let allUserInfoUpdateUrl = `${allUserInfoUrl}/${linkedUserID}`;
@@ -253,19 +253,19 @@ document.addEventListener("DOMContentLoaded", function(){
         };
 
         console.log("Updating AllUserInfo API: ", allUserInfoUpdateUrl);
-        console.log("New password: ", updatePasswordData)
+        console.log("New password: ", updatePasswordData);
 
         fetch (allUserInfoUpdateUrl, updateSettings)
           .then(response => response.json())
           .then(updatedPassword => {
-            console.log("Password updated successfully: ", updatedPassword)
+            console.log("Password updated successfully: ", updatedPassword);
             saveChanges.disabled = false;
             updatedUserData = {};
           })
           .catch(error => {
             console.log("Error updating password in allUserInfo API: ", error);
             saveChanges.disabled = false;
-          })
+          });
     }
 
     function caesarDecipher(str, shift){
@@ -293,7 +293,7 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         }
         return decrypted;
-    };
+    }
 
     function caesarCipher(str, shift){
         let encrypted = "";
@@ -324,4 +324,4 @@ document.addEventListener("DOMContentLoaded", function(){
         return encrypted;
     }
 
-})
+});

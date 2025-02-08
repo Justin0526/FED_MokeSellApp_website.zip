@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function(){
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
-    }
+    };
 
     let selectedTransaction = sessionStorage.getItem("selectedTransaction");
     let userID = sessionStorage.getItem("userID");
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let transactionData = JSON.parse(selectedTransaction);
     console.log(transactionData);
     let itemID = transactionData[0]._id;
-    console.log(itemID)
+    console.log(itemID);
 
     displayOrderSummary(transactionData);
 
@@ -56,13 +56,13 @@ document.addEventListener("DOMContentLoaded", function(){
             return;
         }
 
-        alert("Payment successful! Processing your order...")
+        alert("Payment successful! Processing your order...");
         deleteCartItem(transactionData);
 
         setTimeout(() => {
             location.href = "transaction-receipt.html";
         }, 3000);
-    })
+    });
 
     function deleteCartItem(cartItems){
         cartItems.forEach(item => {
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function(){
             let GETsettings = {
                 method: "GET",
                 headers: header
-            }
+            };
 
             fetch(checkItemUrl, GETsettings)
             .then(response => {
@@ -102,8 +102,8 @@ document.addEventListener("DOMContentLoaded", function(){
             })
             .catch(error => {
                 console.error("Error deleting cart item: ", error);
-            })
-        })
+            });
+        });
     }
 
 });
@@ -127,7 +127,7 @@ function displayOrderSummary(cartItems){
         </div>
         <hr> `;
         totalProducts += item["product-quantity"];
-    })
+    });
 
     orderSummaryContent += `
     <div class="order-summary-total">
@@ -224,7 +224,7 @@ function validatePayment(cardName, cardNum, month, year, cvv){
     }
 
     // Validate Card Number (Must be 16 digits)
-    let cardRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/
+    let cardRegex = /^\d{4}-\d{4}-\d{4}-\d{4}$/;
     if (!cardRegex.test(cardNum)){
         cardError.style.display = "block";
         return false;
@@ -250,7 +250,7 @@ function validatePayment(cardName, cardNum, month, year, cvv){
     }
 
     // Validate CVV (Must be exactly 3 digit)
-    let cvvRegex = /^\d{3}$/
+    let cvvRegex = /^\d{3}$/;
     if (!cvvRegex.test(cvv)){
         cvvError.style.display = "block";
         return false;

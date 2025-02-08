@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
-    }
+    };
 
     document.getElementById("OTP-form").addEventListener("submit", function(e){
         e.preventDefault();
@@ -16,17 +16,17 @@ document.addEventListener("DOMContentLoaded", function(){
           .then(userdata => {
             console.log(userdata);
             if(!userdata){
-                alert("This email is not registered. Please signup first!")
+                alert("This email is not registered. Please signup first!");
                 return;
             }
 
             let sendButton = document.getElementById("sendOTP");
             sendButton.disabled = true;
-            alert("Your reset symphony is on its way! Check your email for the OTP 🎼")
+            alert("Your reset symphony is on its way! Check your email for the OTP 🎼");
           })
           .finally(()=> {
             document.getElementById("OTP-form").reset();
-          })
+          });
 
         function checkEmailExists(email){
             let queryUrl = `${allUserInfoUrl}?q={"user-email": "${email}"}`;
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function(){
             let settings = {
                 method: "GET",
                 headers: header
-            }
+            };
             return fetch(queryUrl, settings)
             .then(response => response.json())
             .then(data => {
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function(){
             .catch(error =>{
                 console.error("Error checking email: ", error);
                 return null;
-            })
+            });
         }
-    })
-})
+    });
+});

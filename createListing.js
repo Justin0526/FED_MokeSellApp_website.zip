@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function(){
         let updateSettings = {
             method: "GET",
             headers: header
-        }
+        };
 
         fetch(`${createListingUrl}/${listingID}`, updateSettings)
           .then(response => response.json())
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function(){
             quantityError.style.display = 'block';
         }
         else{
-            quantityError.style.display = 'none'
+            quantityError.style.display = 'none';
         }
         if (productPrice <= 0 || isNaN(productPrice)){
             isValid = false;
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(){
             descError.style.display = 'block';
         }
         else{
-            descError.style.display = 'none'
+            descError.style.display = 'none';
         }
         
         // Category validation 
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     "linked-userID": UserID,
                     "product-shopname": userName,
                     "product-id": listingID
-                }
+                };
 
                 let requestUrlForAllListing = listingID ? `${listingUrl}/${listingID}` : listingUrl;
             
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     method: listingID ? "PUT" : "POST", // PUT if updating, POST if creating
                     headers: header,
                     body: JSON.stringify(allListingData),
-                }
+                };
 
                 fetch(requestUrlForAllListing, allListingSettings)
                   .then((response) => response.json())
@@ -200,9 +200,9 @@ document.addEventListener("DOMContentLoaded", function(){
                         document.getElementById("listing-submit").disabled = false;
                         document.getElementById("create-listing-form").reset();
                   })
-                  .catch((error) => console.error("Failed inserting into listing API: ", error))
+                  .catch((error) => console.error("Failed inserting into listing API: ", error));
             })
             .catch((error) => console.error("Error creating product:", error));
     });
 
-})
+});

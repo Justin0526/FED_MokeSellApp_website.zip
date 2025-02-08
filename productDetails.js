@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "678fbb8a58174779225315d5";  // 67972e07f9d2bb46c9181e32 67875f7d9e18b182ee6941f0
     let cartUrl = "https://fedassg2-66ea.restdb.io/rest/cart"; //  https://experiment-d5c7.restdb.io/rest/cart https://tryuse-a494.restdb.io/rest/cart
-    let offerUrl = "https://fedassg2-66ea.restdb.io/rest/offer" // https://experiment-d5c7.restdb.io/rest/offer https://tryuse-a494.restdb.io/rest/offer
+    let offerUrl = "https://fedassg2-66ea.restdb.io/rest/offer"; // https://experiment-d5c7.restdb.io/rest/offer https://tryuse-a494.restdb.io/rest/offer
   
     let storedProduct = sessionStorage.getItem("selectedProduct");
     let userID = sessionStorage.getItem("userID");
@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
     if (!storedProduct || storedProduct === "undefined"){
         console.error("No product data found in localStorage");
-        document.getElementById("item-container").innerHTML = "<p>Product not found</p>"
-        return
+        document.getElementById("item-container").innerHTML = "<p>Product not found</p>";
+        return;
     }
 
     let item = JSON.parse(storedProduct);
@@ -23,12 +23,22 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     let isUserListing = !!item["linked-userID"];
+    let imageUrl;
+    if (isUserListing){
+        imageUrl = item["product-picutre"];
+    }
+    else{
+        if (item["reverb-links"] && item["reverb-links"].photo){
+            imageUrl = item["reverb-links"].photo.href;
+        }
+        else{
+            imageUrl = "images/man.jpg";
+        }
+    }
     let productData = {
         id: isUserListing ? item["_id"] : item["product-id"],
         shopname: item["product-shopname"], // Same for both listings
-        imageLink: isUserListing 
-            ? item["product-picture"] 
-            : item["reverb-links"] && item["reverb-links"].photo ? item["reverb-links"].photo.href : "images/placeholder.jpg",
+        imageLink: imageUrl,
         productName: item["product-name"],
         productPrice: item["product-price"],
         productDetails: item["product-description"],
@@ -40,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function(){
     displayData(productData);
 
     function displayData(product){
-        let itemContainer = document.getElementById("item-container")
+        let itemContainer = document.getElementById("item-container");
         let allItemsContent = "";
         allItemsContent += `
             <div class="product-details-section container py-5 position-relative">
@@ -88,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     </div>
                 </div>
             </div>
-        `          
+        `;          
        itemContainer.innerHTML = allItemsContent;
     }
     document.getElementById("chat-btn").addEventListener("click", function(e){
@@ -96,15 +106,15 @@ document.addEventListener("DOMContentLoaded", function(){
         let senderID = userID;
         let receiverID = item["linked-userID"];
         alert(receiverID);
-        let shopName = productData.shopname
+        let shopName = productData.shopname;
         sessionStorage.setItem("chatInformation", JSON.stringify({receiverID, shopName}));
 
         // Redirect to chat page
         location.href = "chat.html";
-    })
+    });
 
     document.getElementById("buy-btn").addEventListener("click", function() {
-        let validation = validateInput()
+        let validation = validateInput();
         if (!validation){
             return;
         }
@@ -116,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function(){
             "product-price": productData.productPrice,
             "product-quantity": validation.quantity,
             "linked-userID": item["linked-userID"] || ""
-        }
+        };
         sessionStorage.setItem("selectedTransaction", JSON.stringify([product]));
         console.log(product);
 
@@ -124,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function(){
     });
 
     document.getElementById("offer-btn").addEventListener("click", function(){  
-        let validation = validateInput()
+        let validation = validateInput();
         if (!validation){
             return;
         }
@@ -145,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function(){
             "product-id": productData.id,
             "shopname": productData.shopname,
             "product-quantity": validation.quantity 
-        }
+        };
         
         let settings = {
             method: "POST",
@@ -163,11 +173,11 @@ document.addEventListener("DOMContentLoaded", function(){
             console.log("Successfully made offer to seller: ", data);
             alert("Offer made successfully");
           })
-          .catch(error => console.error("Error when sending offer: ", error))
-    })
+          .catch(error => console.error("Error when sending offer: ", error));
+    });
 
     document.getElementById("add-to-cart").addEventListener("click", function(){   
-        let validation = validateInput()
+        let validation = validateInput();
         if (!validation){
             return;
         }
@@ -186,7 +196,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 "x-apikey": APIKEY,
                 "Cache-Control": "no-cache"
             }
-        }
+        };
 
         fetch (checkItemUrl, GETsettings)
           .then(response => response.json())
@@ -230,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     "product-picture": productData.imageLink,
                     "product-quantity": validation.quantity,
                     "shopname": productData.shopname
-                }
+                };
                 let POSTsettings = {
                     method: "POST",
                     headers: {
@@ -239,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         "Cache-Control": "no-cache"
                     },
                     body: JSON.stringify(product)
-                }
+                };
 
                 fetch (cartUrl, POSTsettings)
                 .then(response => response.json())
@@ -248,10 +258,10 @@ document.addEventListener("DOMContentLoaded", function(){
                     alert("Product successfully added to cart!");
                 })
                 .catch(error => {
-                console.error("Error adding product to cart: ", error)
+                console.error("Error adding product to cart: ", error);
                 });
             }
-          })
+          });
     });
     
     function validateInput(){

@@ -14,12 +14,12 @@ document.addEventListener("DOMContentLoaded", function(){
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
-    }
+    };
 
     let GETsettings = {
         method: "GET",
         headers: header
-    }
+    };
 
     let userCartUrl = `${cartUrl}?q={"linked-userID": "${userID}"}`;
 
@@ -30,13 +30,13 @@ document.addEventListener("DOMContentLoaded", function(){
             displayCart(data);
         }
         else{
-            let content = "<h2>No music, no magic! Start composing your perfect playlist</h2>"
+            let content = "<h2>No music, no magic! Start composing your perfect playlist</h2>";
             document.getElementById("shop-box").innerHTML = content;
         }
       })
       .catch(error => {
         console.log("Error fetching cart: ", error);
-      })
+      });
 
     function displayCart(data){
         let cartContainer = document.getElementById("shop-box");
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function(){
             `;
 
             shopItems.forEach(item => {
-                let productID = item["product-id"]
+                let productID = item["product-id"];
                 console.log(productID);
                 let productName = item["product-name"];
                 let productPrice = parseFloat(item["product-price"]);
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     </td>
                 </tr>
             `;
-            })
+            });
             shopContent += `
                         </tbody>
                     </table>
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     let productID = this.getAttribute("data-id"); // Get product ID
                     console.log(productID);
 
-                    let productUrl = `${listingUrl}?q={"product-id": ${productID}}` 
+                    let productUrl = `${listingUrl}?q={"product-id": ${productID}}`;
                     fetch (productUrl, GETsettings)
                       .then(response => response.json())
                       .then(product => {
@@ -145,17 +145,17 @@ document.addEventListener("DOMContentLoaded", function(){
                         }
                       })
                       .catch(error => console.error("Error fetching cart: ", error));
-                })
-            })
+                });
+            });
 
         document.querySelectorAll(".remove-btn")
             .forEach(button => {
                 button.addEventListener("click", function(){
-                    let cartID = this.getAttribute("data-id")
+                    let cartID = this.getAttribute("data-id");
                     console.log(cartID);
                     deleteCart(cartID);
-                })
-            })
+                });
+            });
 
         document.querySelectorAll(".checkout-btn")
             .forEach(button => {
@@ -170,18 +170,18 @@ document.addEventListener("DOMContentLoaded", function(){
                         console.log(selectedItems);
                         location.href = "transaction.html";
                     }
-                })
-            })
+                });
+            });
         
     }
 
     function deleteCart(cartID){
-        if (!confirm("Are you sure you want to delete this listing")) return
+        if (!confirm("Are you sure you want to delete this listing")) return;
 
         let DELETEsettings = {
             method: "DELETE",
             headers: header
-        }
+        };
 
         fetch(`${cartUrl}/${cartID}`, DELETEsettings)
           .then(response => response.json())
@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 let shopContainer = cartElement.closest(".shop-section");
                 cartElement.remove();
                 console.log(`Cart ${cartID} deleted successfully`);
-                alert("Item Removed successfully")
+                alert("Item Removed successfully");
 
                 // Check if the shop has any remaining listings
                 let remainingItems = shopContainer.querySelector("tbody").children.length;
@@ -200,6 +200,6 @@ document.addEventListener("DOMContentLoaded", function(){
                 }
             }        
           })
-          .catch(error => console.error("Error deleting cart", error))
-    }
+          .catch(error => console.error("Error deleting cart", error));
+    };
 })

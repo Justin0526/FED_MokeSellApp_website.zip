@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", function(){
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
-    }
+    };
 
     let GETsettings = {
         method: "GET",
         headers: header
-    }
+    };
 
     let listingCategory = sessionStorage.getItem("selectedCategory");
     console.log(listingCategory);
@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", function(){
             console.log(selectedCategory);
             sessionStorage.setItem("selectedCategory", selectedCategory);
             window.location.href = "listings.html";
-        })
-      })
+        });
+      });
 
     fetch(listingUrl, GETsettings)
       .then(response => response.json())
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function(){
       })
       .catch(error => {
         console.error("Error fetching data from RESTDB: ", error);
-      })
+      });
 
     function displayListings(data){
         let listingContainer = document.getElementById("listing-container");
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function(){
         for (let index = 0; index < filteredData.length && index < 20; index ++) {
             let item = filteredData[index];
 
-            randomDays = Math.floor(Math.random() * 30) + 1;
+            let randomDays = Math.floor(Math.random() * 30) + 1;
             let imageLink = item["reverb-links"].photo.href; 
             let productName = item["product-name"];
             listingContent += `
@@ -104,8 +104,8 @@ document.addEventListener("DOMContentLoaded", function(){
                         </div>
                     </div>
                 </div>
-            `
-        };
+            `;
+        }
         listingContainer.innerHTML = listingContent;
 
         // Add event listeners after inserting HTML
@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
                 console.log(selectedItem);
                 window.location.href = "product-details.html";
-            })
-        })
+            });
+        });
     }
-})
+});

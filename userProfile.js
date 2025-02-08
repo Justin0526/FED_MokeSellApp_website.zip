@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function(){
   let settings = {
       method: "GET",
       headers: header
-  }
+  };
 
   fetch(userIDUrl, settings)
     .then(response => response.json())
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
       let userProfile = data[0]; 
 
-      console.log(userProfile)
+      console.log(userProfile);
       // Update user profile picture
       let profileContainer = document.getElementById("user-picture");
 
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function(){
           profileImage.src = userProfile["user-profile-picture"];
         }
         else{
-          console.error("Profile image element not found or image URL is missing.")
+          console.error("Profile image element not found or image URL is missing.");
         }
       }
       else{
@@ -75,11 +75,11 @@ document.addEventListener("DOMContentLoaded", function(){
     .catch(error => {
       console.error("Error fetching user profile: ", error);
       alert("Error loading profile. Please try again later.");
-    })
+    });
 
   document.getElementById("edit-profile-btn").addEventListener("click", function(){
       window.location.href = "profile-setting.html";
-  })
+  });
 
   function displayListing(data){
     let totalListings = document.getElementById("totalListings");
@@ -106,8 +106,8 @@ document.addEventListener("DOMContentLoaded", function(){
           </div>
       </div>`;
 
-    })
-    listingContainer.innerHTML = listingContent
+    });
+    listingContainer.innerHTML = listingContent;
 
     document.querySelectorAll(".edit-listing")
       .forEach(button => {
@@ -118,25 +118,25 @@ document.addEventListener("DOMContentLoaded", function(){
           setTimeout(() => {
             window.location.href = "create-listing.html";
           }, 100);  // Small delay (100ms) if not cannot load
-        })
-      })
+        });
+      });
 
     document.querySelectorAll(".delete-listing")
       .forEach(button => {
         button.addEventListener("click", function(){
           let listingID = this.getAttribute("data-id");
           deleteListing(listingID);
-        })
-      })
+        });
+      });
   }
 
   function deleteListing(listingID){
-    if (!confirm("Are you sure you want to delete this listing?")) return
+    if (!confirm("Are you sure you want to delete this listing?")) return;
 
     let settings = {
       method: "DELETE",
       headers: header
-    }
+    };
 
     fetch(`${createListingUrl}/${listingID}`, settings)
       .then(response => response.json())
@@ -146,8 +146,8 @@ document.addEventListener("DOMContentLoaded", function(){
         if (listingElement){
           listingElement.remove(); // Remove from UI
         } 
-        alert("Listing Removed Successfully")
+        alert("Listing Removed Successfully");
       })
       .catch(error => console.error("Error deleting listing: ", error));
   }  
-})
+});

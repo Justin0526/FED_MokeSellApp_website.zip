@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
-    }
+    };
 
     document.querySelectorAll(".listings-btn")
       .forEach(button => {
@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", function(){
             console.log(selectedCategory);
             sessionStorage.setItem("selectedCategory", selectedCategory);
             window.location.href = "listings.html";
-        })
-      })
+        });
+      });
 
     // getReverbData();
     // get and display data when the page loads
@@ -152,8 +152,8 @@ document.addEventListener("DOMContentLoaded", function(){
             }
             })
             .catch(error => {
-            console.error(error.message)
-            })
+            console.error(error.message);
+            });
     }
 
     // Function to fetch existing data from RestDB
@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function(){
         let settings = {
             method: "GET",
             headers: header
-        }
+        };
         fetch(listingUrl, settings)
             .then(response => {
                 if (!response.ok) {
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 return response.json(); // Parse the JSON response
             })
             .then(restDbData => {
-                existingIds = restDbData.map(record => record["product-id"]); // Extract existing product IDs
+                let existingIds = restDbData.map(record => record["product-id"]); // Extract existing product IDs
                 insertNewDataToRestDB(reverbListings, existingIds); // Insert new data
             })
             .catch(error => {
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function(){
     // Function to insert New data into restDB
     function insertNewDataToRestDB(reverbListings, existingIds) {
         reverbListings.forEach(listing => {
-            productId = listing.id; // Unique product ID
+            let productId = listing.id; // Unique product ID
             if (!existingIds.includes(productId)) {
                 // Convert price to a numeric value
                 let price = 0;
@@ -191,10 +191,22 @@ document.addEventListener("DOMContentLoaded", function(){
                 }
     
                 // Generate random quantity as a number
-                quantity = Math.floor(Math.random() * 100) + 1;
+                let quantity = Math.floor(Math.random() * 100) + 1;
     
+                let productCategory;
+
+                if (listing.categories && listing.categories.length > 0){
+                    let categoryNames =[];
+                    for (let i = 0; i< listing.categories.length; i++){
+                        categoryNames.push(listing.categories[i].full_name);
+                    }
+                    productCategory = categoryNames.join(", ");
+                }
+                else{
+                    productCategory = "Uncategorised";
+                }
                 // Build product data for insertion
-                productData = {
+                let productData = {
                     "product-id": productId,
                     "product-name": listing.title || "No title",
                     "product-price": price, // Converted price as a number
@@ -203,9 +215,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     "product-description": listing.description || "No description",
                     "product-condition": listing.condition ? listing.condition.display_name : "Unknown",
                     "product-shopname": listing.shop_name || "Unknown",
-                    "product-category": listing.categories
-                        ? listing.categories.map(c => c.full_name).join(", ")
-                        : "Uncategorized",
+                    "product-category": productCategory,
                     "reverb-links": listing._links || {} // Save links for later use
                 };
     
@@ -237,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function(){
         });
     }
 
-})
+});
 
 // Chat Bot
 document.addEventListener("DOMContentLoaded", function(){
@@ -246,20 +256,20 @@ document.addEventListener("DOMContentLoaded", function(){
     let sendButton = document.getElementById("sendMessage");
     let userInput = document.getElementById("userInput");
     let chatContainer = document.querySelector(".chat-container");
-    let chatIcon = document.getElementById("chatIcon")
-    let exitChat = document.getElementById("closeChat")
+    let chatIcon = document.getElementById("chatIcon");
+    let exitChat = document.getElementById("closeChat");
 
     chatContainer.style.display = "none";
 
     chatIcon.addEventListener("click", function(){
         chatContainer.style.display = "block";
         chatIcon.style.display = "none";
-    })
+    });
 
     exitChat.addEventListener("click", function(){
         chatContainer.style.display = "none";
         chatIcon.style.display = "block";
-    })
+    });
 
     sendButton.addEventListener("click", sendMessage);
     userInput.addEventListener("keypress", function(e){
@@ -277,9 +287,9 @@ document.addEventListener("DOMContentLoaded", function(){
 
         getDuckDuckGoAnswer(userInputValue)
           .then(response => {
-            appendMessage("bot", response) // Display bot message
-          })
-    };
+            appendMessage("bot", response); // Display bot message
+          });
+    }
 
     function getDuckDuckGoAnswer(input){
         return fetch(`${duckduckGoUrl}/?q=${input}&format=json`)
@@ -308,7 +318,7 @@ document.addEventListener("DOMContentLoaded", function(){
         messageContainer.classList.add(
             "message-container",
             sender === "user" ? "user-container" : "bot-container" //User container if sender is user, else it is bot
-        )
+        );
 
         let profilePic = document.createElement("img");
         profilePic.src = sender === "user" ? "images/man.jpg" : "images/paypal.png";
@@ -316,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         let messageMsg = document.createElement("div");
         messageMsg.classList.add(sender === "user" ? "user-message" : "bot-message");
-        messageMsg.innerHTML = `<span>${message}</span>`
+        messageMsg.innerHTML = `<span>${message}</span>`;
 
         if (sender === "user"){
             messageContainer.appendChild(messageMsg);
@@ -331,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function(){
         // Auto scroll down to display the newest message
         chatbox.scrollTop = chatbox.scrollHeight;
     }
-})
+});
 
 
 // For transformation

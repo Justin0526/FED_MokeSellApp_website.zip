@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function(){
         categoryError.style.display = "none";
         nameError.style.display = "none";
         emailError.style.display = "none";
-        messageError.style.display = "none"
+        messageError.style.display = "none";
 
         let isValid = true;
 
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function(){
             "contact-name": contactName,
             "contact-email": contactEmail,
             "contact-message": contactMessage
-        }
+        };
 
         let settings = {
             method: "POST",
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function(){
           .catch(error => {
             console.error("Error: ", error);
             document.getElementById("contactSubmit").disabled = false;
-          })
-    })
+          });
+    });
 
-})
+});

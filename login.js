@@ -144,5 +144,5 @@ document.addEventListener("DOMContentLoaded", function(){
             }
         }
         return decrypted;
-    };
+    }
 });

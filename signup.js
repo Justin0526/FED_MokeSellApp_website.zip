@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function(){
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
-    }
+    };
 
     // Get the form element and attach the event listener
     document.getElementById("signup-form").addEventListener("submit", function(e){
@@ -75,14 +75,14 @@ document.addEventListener("DOMContentLoaded", function(){
                     "user-username": userName,
                     "user-email": userEmail,
                     "linked-userID": linkedUserID // Store 'allUserinfo' ID in 'user-profile'
-                }
+                };
                 
                 let userProfileSettings = {
                     method: "POST",
                     headers: header,
                     body: JSON.stringify(userProfileJsonData)
-                }
-                return fetch (userProfileUrl, userProfileSettings)
+                };
+                return fetch (userProfileUrl, userProfileSettings);
               })
                .then(response => response.json())
                .then(profileData => {
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     sessionStorage.setItem("userID", profileData["linked-userID"]);
                     sessionStorage.setItem("userEmail", userEmail);
                     sessionStorage.setItem("userName", userName);
-                    sessionStorage.setItem("userPassword", encryptedPassword)
+                    sessionStorage.setItem("userPassword", encryptedPassword);
                     console.log(userName);
                 
                     loadingScreen.style.display = 'flex';
@@ -113,17 +113,17 @@ document.addEventListener("DOMContentLoaded", function(){
                             alert(`Signup Successful! Hi ${userName}`);
                             window.location.href = 'index.html';
                             }, 3000); // Adjust delay time here (3 seconds)
-                    })
+                    });
                    
                })
                 .catch(error => {
-                    console.error("Error: ", error)
-                    alert("An error occured while signing up. Please try again.")
+                    console.error("Error: ", error);
+                    alert("An error occured while signing up. Please try again.");
                 })
                 .finally(() => {
                     signupButton.disabled = false;
                     signupButton.textContent = "Sign Up"; 
-                })
+                });
             });
 
         function validateInput(email, password, confirmPassword, passwordError, confirmPasswordError, emailError) {
