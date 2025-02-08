@@ -52,7 +52,7 @@
         <h5 class="text-center mb-4">Got a question? We'd love to hear from you.</h5>
         <form id="contactForm" novalidate>
             <div class="mb-3">
-            <label for="category" class="form-label">What can we help you with? <span class="text-danger">(required)</span></label>
+            <label for="contactCategory" class="form-label">What can we help you with? <span class="text-danger">(required)</span></label>
             <select class="form-select" id="contactCategory" required>
                 <option value="">Select an option</option>
                 <option value="technical">Technical Issues</option>
@@ -62,17 +62,17 @@
             <span class="error-text" id="categoryError">Category cannot be empty.</span>
             </div>
             <div class="mb-3">
-            <label for="name" class="form-label">Name <span class="text-danger">(required)</span></label>
+            <label for="contactName" class="form-label">Name <span class="text-danger">(required)</span></label>
             <input type="text" class="form-control" id="contactName" placeholder="Your Full Name" required>
             <span class="error-text" id="nameError">Name cannot be empty.</span>
             </div>
             <div class="mb-3">
-            <label for="email" class="form-label">Email <span class="text-danger">(required)</span></label>
+            <label for="contactEmail" class="form-label">Email <span class="text-danger">(required)</span></label>
             <input type="email" class="form-control" id="contactEmail" placeholder="Your Email Address" required>
             <span class="error-text" id="emailError">Email cannot be empty.</span>
             </div>
             <div class="mb-3">
-            <label for="message" class="form-label">Message <span class="text-danger">(required)</span></label>
+            <label for="contactMessage" class="form-label">Message <span class="text-danger">(required)</span></label>
             <textarea class="form-control" id="contactMessage" rows="4" placeholder="Enter your message here" required></textarea>
             <span class="error-text" id="messageError">Message cannot be empty.</span>
             </div>

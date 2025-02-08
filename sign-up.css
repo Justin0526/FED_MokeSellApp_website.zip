@@ -1,10 +1,12 @@
+/* Body styles */
 html, body {
+
     background-color: #172228;
     /* background-color: #2e464a; */
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    color: white;
+    color: #b6cbd2;
     overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
@@ -82,6 +84,7 @@ html, body {
     transform: rotate(0deg);
 }
 
+
 .navbar-nav .nav-link {
     color: white;
     margin-right: 10px;
@@ -100,6 +103,7 @@ html, body {
     height: 150px; /* Adjust the height for the enlarged logo */
     max-width: 100%;
 }
+
 /* Search Button */
 .search-bar-section .form-control {
     background-color: white;
@@ -123,103 +127,126 @@ html, body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* CART SECTION */
-.cart-container {
-    color: #ffffff;
-    padding: 20px;
-    margin-bottom: 20px;
+.signup-container .form-container #signup-form #passwordError, #confirmPasswordError, #emailError{
+    color: red;
+    text-align: left;
+    display: none;
 }
 
-.cart-container h2 {
-    color: #7f604c;
-    font-weight: bold;
-    font-size: 2.3rem;
-    margin-top: 10px;
-    margin-bottom: 30px;
-}
-
-.shop-box {
+/* Item Page */
+.product-details-section {
+    /* background-color: #172228; */
     background-color: #121b20;
     border-radius: 25px;
-    padding: 15px;
+    padding: 30px;
+    margin-top: 50px; /* Top, Right, Bottom, Left */
+    margin-bottom: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-details-section .row .product-image{
     margin-bottom: 20px;
 }
 
-.shop-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-.shop-header img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-.shop-header h5 {
-    margin: 0;
+/* Name and price section */
+.product-details-section .row .product-name-price {
+    margin-bottom: 40px;
+    margin-top: 80px;
 }
 
-.product-category {
+
+.product-details-section .row h2{
     color: #7f604c;
     font-weight: bold;
-    font-size: 23px;
-}
-.product-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-.product-info {
-    flex-grow: 1;
-}
-.product-info p {
-    margin: 0;
-}
-.product-info a {
-    color: #ffffff;
-    text-decoration: none;
-}
-.product-info a:hover {
-    color: #0056b3;
-}
-.product-name {
-    font-weight: bold;
-}
-.total-price {
-    font-weight: bold;
+    font-size: 2.5rem;
 }
 
-.remove-btn {
-    color: red;
-    cursor: pointer;
-}
-.button-container {
-    display: flex;
-    justify-content: center;
-}
-.checkout-btn {
-    margin-top: 10px;
-    width: 180px;
-    background-color: #e55634;
-    border: 1.5px solid white;
-    transition: background-color 0.3s ease;
+.product-details-section .row h3{
     color: white;
     font-weight: bold;
-    padding: 10px;
-    border-radius: 25px;
-}
-.checkout-btn:hover {
-    background-color: #C89872;
-    color: black;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2)
-}
-.fa-trash {
-    font-size: 18px;
+    margin-bottom: 15px;
+    
 }
 
-/* FOOTER SECTION */
+.product-details-section .row p{
+    color: white;
+}
+
+.product-details-section input,
+.product-details-section button{
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin-right: 10px;
+}
+
+.product-details-section .row .errors{
+    color: red;
+    display: none;
+}
+
+#add-to-cart {
+    background-color: #e55634 !important; /* Change to your desired color (green in this case) */
+    color: white; /* Button text color */
+    border: 1.5px solid white; /* Add border */
+
+}
+
+#add-to-cart:hover {
+    color: black;
+    border-color: white;
+    background-color: #C89872!important; /* Darken the button on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-details-section button{
+    background-color: #362c26 !important; /* Change to your desired color (green in this case) */
+    color: white; /* Button text color */
+    border: 1.5px solid #c89872; /* Add border */
+}
+
+.product-details-section button:hover {
+    color: black;
+    border-color: white;
+    background-color: #C89872!important; /* Darken the button on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Seller Profile */
+.seller-profile {
+    position: absolute; /* Keeps it anchored in the top-left corner */
+    top: 10px; /* Adjusted spacing to keep distance from the top */
+    left: 10px; /* Adjusted spacing to keep distance from the left */
+    display: flex; /* Aligns image and name side by side */
+    align-items: center; /* Centers image and name vertically */
+    
+    padding: 10px; /* Internal spacing for better visual appearance */
+    color: white; /* Text color for better visibility */
+    z-index: 10; /* Ensures it's above other content */
+    max-width: calc(100% - 20px); /* Prevents profile from overflowing the container */
+    overflow: hidden; /* Prevents text from overflowing */
+}
+
+/* Spacing adjustments to prevent overlap with product image */
+.product-details-section {
+    position: relative; /* Ensures child elements respect the boundaries */
+    padding-top: 120px; /* Added extra padding at the top to create space */
+}
+
+/* Seller Profile Image */
+.seller-profile img {
+    margin-right: 10px; /* Spacing between the image and name */
+    width: 50px; /* Profile image width */
+    height: 50px; /* Profile image height */
+    object-fit: cover; /* Keeps the image aspect ratio intact */
+}
+
+/* Seller Name */
+.seller-name {
+    font-size: 14px; /* Font size for the name */
+    margin: 0; /* Removes extra margin */
+}
+
+/* Footer Styling */
 .footer {
     background-color: #7f604c; /* Footer background color */
     color: #fff; /* Text color */
@@ -295,7 +322,100 @@ html, body {
     margin-bottom: 1.5rem; /* Space between rows */
 }
 
-/* RESPONSIVE DESIGN */
+/* Sign-up page */
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+.signup-container .form-container {
+    max-width: 650px;
+    width: 100%;
+    text-align: center;
+    background-color: #121b20;
+    border-radius: 25px;
+    padding: 30px;
+    margin-top: 50px; /* Top, Right, Bottom, Left */
+    margin-bottom: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+  
+.signup-container .form-container h1 {
+    color: #7f604c;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.signup-container .form-container p {
+    color: white;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.signup-container .form-group {
+margin-bottom: 15px;
+text-align: left;
+}
+
+.signup-container .form-container label {
+display: block;
+font-size: 14px;
+margin-bottom: 5px;
+color: white;
+}
+
+.signup-container .form-container input {
+width: 100%;
+padding: 10px;
+font-size: 14px;
+border: 1px solid #ddd;
+border-radius: 4px;
+outline: none;
+border-radius: 25px;
+}
+
+.signup-container .form-container .signup-btn a {
+    text-decoration: none;
+}
+.signup-container .form-container .signup-btn {
+    margin-top: 10px;
+    border-radius: 25px; /* Rounded corners */
+    background-color: #362c26 !important; /* Change to your desired color (green in this case) */
+    color: white; /* Button text color */
+    padding: 10px 20px; /* Adjust padding for better appearance */
+    border: 1.5px solid #c89872; /* Add border */
+    width: 25%;
+}
+
+.signup-container .form-container .signup-btn:hover {
+    color: black;
+    border-color: white;
+    background-color: #C89872!important; /* Darken the button on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.1); /* Slightly enlarge the button */
+}
+
+
+.signup-container .form-container .login-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+.signup-container .form-container .login-link a {
+    color: #6c63ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-container .form-container .login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+
 @media (max-width: 768px) {
 
     /* Browse Categories */
@@ -382,9 +502,84 @@ html, body {
         margin-top: 50px; /* Reduced margin for smaller screens */
     }
 
+    /* Sign-up page */
+    .signup-container {
+        padding: 20px;
+    }
+
+    .signup-container .form-container {
+        width: 100%; /* Full width for smaller screens */
+        padding: 20px;
+        margin: 20px 0; /* Reduce top and bottom margins */
+    }
+
+    .signup-container .form-container h1 {
+        font-size: 2rem; /* Slightly smaller font size for headings */
+    }
+
+    .signup-container .form-container .signup-btn {
+        width: 100%; /* Button takes full width on smaller devices */
+        padding: 12px; /* Adjust padding for better appearance */
+    }
+}
+
+/* LOTTIE ANIMATION */
+#loading-screen {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+#lottie-player {
+    width: 200px;
+    height: 200px;
+}
+
+@media (max-width: 480px) {
+    /* sign-up page */
+    .signup-container .form-container {
+        border-radius: 15px; /* Smaller border radius */
+        box-shadow: none; /* Remove shadows for a cleaner look */
+    }
+
+    .signup-container .form-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .signup-container .form-group input {
+        padding: 8px; /* Reduce padding for inputs */
+    }
+
+    .signup-container .form-container p {
+        font-size: 14px; /* Smaller font size for paragraph text */
+    }
+
+    .signup-container .form-container .signup-btn {
+        font-size: 16px; /* Adjust button text size */
+        padding: 10px;
+    }
+
+    .signup-container .form-container .login-link {
+        font-size: 12px; /* Smaller font size for login link */
+    }
 }
 
 @media (max-width: 576px) {
+    /* image-gallery */
+    .image-gallery .card-img-top {
+        height: 120px; /* Further reduce image height for extra-small screens */
+    }
+
+    .image-gallery h2 {
+        font-size: 1.8rem; /* Smaller font size for very small screens */
+    }
     /* Footer section */
     .footer .row {
         flex-direction: column; /* Stack rows vertically */
@@ -413,7 +608,7 @@ html, body {
     }
 }
 
-/*  Responsive Footer for 991px - 767px */
+/*  Responsiveness for 991px - 767px */
 @media (max-width: 991px) {
     /* Footer-section */
     .footer .row {
@@ -447,7 +642,6 @@ html, body {
     }
 }
 
-
 @media (max-width: 767px) {
     /* Footer-section */
     .footer .row {
@@ -470,6 +664,3 @@ html, body {
         font-size: 1.2rem; /* Slightly smaller headings */
     }
 }
-
-
-
