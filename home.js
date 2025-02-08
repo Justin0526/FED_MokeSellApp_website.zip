@@ -132,13 +132,16 @@ document.addEventListener("DOMContentLoaded", function(){
                 // "this" refers to the clicked element
                 // getAttribute("data-index") retrieves the value of data-index from clicked element
                 let itemIndex = this.getAttribute("data-index");
-
                 let selectedItem = shuffledData[itemIndex]; // Get item from array
+                console.log("Selected Product:", selectedItem);
 
-                // Stores the selected product in localStorage so that product-details.html can retireve it
-                sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
-                console.log(selectedItem);
-                window.location.href = "product-details.html";
+                // If selectedItem is valid, store it in sessionStorage
+                if (selectedItem) {
+                    sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
+                    window.location.href = "product-details.html";
+                } else {
+                    console.error("Error: selectedItem is undefined.");
+                }
             })
         })
     }   

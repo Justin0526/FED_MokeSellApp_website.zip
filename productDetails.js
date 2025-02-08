@@ -21,20 +21,23 @@ document.addEventListener("DOMContentLoaded", function(){
         document.getElementById("item-container").innerHTML = "<p>Product not found</p>";
         return;
     }
-    displayData();
 
-    function displayData(){
+    let isUserListing = !!item["linked-userID"];
+    let productData = {
+        id: isUserListing ? item["_id"] : item["reverb-id"],
+        shopname: isUserListing ? item["user-username"] : item["reverb-shopname"],
+        imageLink: isUserListing ? item["product-picture"] : item["reverb-links"].photo.href,
+        productName: isUserListing ? item["product-name"] : item["reverb-title"],
+        productPrice: isUserListing ? item["product-price"] : item["reverb-price"],
+        productDetails: isUserListing ? item["product-description"] : item["reverb-details"],
+        productCondition: isUserListing ? item["product-condition"] : item["reverb-condition"],
+        productCategory: isUserListing ? item["product-category"] : item["reverb-category"],
+        productAvailability: isUserListing ? "Available" : item["reverb-availability"],
+        productQuantity: isUserListing ? item["product-quantity"] : item["reverb-quantity"],
+    };
+    displayData(productData);
 
-        let shopname = item["linked-userID"] ? item["user-username"] : item["reverb-shopname"];
-        let imageLink = item["linked-userID"] ? item["product-picture"] : item["reverb-links"].photo.href;
-        let productName = item["linked-userID"] ? item["product-name"] : item["reverb-title"];
-        let productPrice = item["linked-userID"] ? item["product-price"] : item["reverb-price"];
-        let productDetails = item["linked-userID"] ? item["product-description"] : item["reverb-details"];
-        let productCondition = item["linked-userID"] ? item["product-condition"] : item["reverb-condition"];
-        let productCategory = item["linked-userID"] ? item["product-category"] : item["reverb-category"];
-        let productAvailability = item["linked-userID"] ? "Available" : item["reverb-availability"];
-        let productQuantity = item["linked-userID"] ? item["product-quantity"] : item["reverb-quantity"];
-        
+    function displayData(product){
         let itemContainer = document.getElementById("item-container")
         let allItemsContent = "";
         allItemsContent += `
@@ -42,27 +45,27 @@ document.addEventListener("DOMContentLoaded", function(){
                 <!-- Seller Section: Adjusted layout to avoid overlapping the product image -->
                 <div class="seller-profile text-center position-absolute p-3">
                     <img src="images/man.jpg" alt="Seller Profile" class="rounded-circle me-2" width="50" height="50">
-                    <h5 class="seller-name mb-0"> ${shopname}</h5>
+                    <h5 class="seller-name mb-0"> ${product.shopname}</h5>
                 </div> 
                 <div class="row">
                     <!-- Product Image Section -->
                     <div class="product-image col-md-6 d-flex justify-content-center align-items-center">
-                        <img src="${imageLink}" alt="Product Image" class="img-fluid rounded" id="product-picture">
+                        <img src="${product.imageLink}" alt="Product Image" class="img-fluid rounded" id="product-picture">
                     </div>
             
                     <!-- Product Details Section -->
                     <div class="col-md-6">
                         <div class="product-name-price" >
-                            <h2 class="product-name fw-bold" id="product-name">${productName}</h2>
-                            <h3 class="product-price" id="product-price">SGD ${productPrice}</h3>
+                            <h2 class="product-name fw-bold" id="product-name">${product.productName}</h2>
+                            <h3 class="product-price" id="product-price">SGD ${product.productPrice}</h3>
                         </div>
                         <p class="product-description" id="product-description">
-                            ${productDetails}
+                            ${product.productDetails}
                         </p>
-                        <p class="product-condition" id="product-condition"><strong>Condition:</strong> ${productCondition}</p>
-                        <p class="product-category" id="product-category"><strong>Category:</strong> ${productCategory}</p>
-                        <p class="product-category" id="product-availability"><strong>Availability:</strong> ${productAvailability}</p>
-                        <p class="product-category" id="product-quantity"><strong>Quantity:</strong> ${productQuantity}</p>
+                        <p class="product-condition" id="product-condition"><strong>Condition:</strong> ${product.productCondition}</p>
+                        <p class="product-category" id="product-category"><strong>Category:</strong> ${product.productCategory}</p>
+                        <p class="product-category" id="product-availability"><strong>Availability:</strong> ${product.productAvailability}</p>
+                        <p class="product-category" id="product-quantity"><strong>Quantity:</strong> ${product.productQuantity}</p>
             
                         <!-- Buttons Section -->
                         <div class="d-flex flex-column gap-3">
@@ -71,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                 <small class="errors" id="quantity-error">Quantity must be greater than 0!</small>
                                 <small class="errors" id="quantity-too-large">Quantity cannot be more than the product quantity</small>
                             </div>
-                            <button class="btn w-100" id="chat-btn" onclick="location.href='chat.html'">Chat</button>
+                            <button class="btn w-100" id="chat-btn">Chat</button>
                             <button class="btn w-100" id="buy-btn">Buy</button>
                             <div class="d-flex">
                                 <input type="money" class="form-control me-2" id="offerPrice" placeholder="SGD 100">
@@ -87,21 +90,7 @@ document.addEventListener("DOMContentLoaded", function(){
        itemContainer.innerHTML = allItemsContent;
     }
     document.getElementById("chat-btn").addEventListener("click", function(){
-        let storedProduct = sessionStorage.getItem("selectedProduct");
-
-        if (!storedProduct || storedProduct === "undefined") {
-            console.error("No product data found in sessionStorage");
-            return;
-        }
-        
-        let item = JSON.parse(storedProduct);
-        if (!item || !item["reverb-id"]) {
-            console.error("Invalid product data");
-            return;
-        }
-
-        // Save the reverb-id in sessionStorage for chat reference
-        sessionStorage.setItem("chatID", item["reverb-id"]);
+        sessionStorage.setItem("chatID", productData.id);
 
         // Redirect to chat page
         location.href = "chat.html";
@@ -112,15 +101,14 @@ document.addEventListener("DOMContentLoaded", function(){
         if (!validation){
             return;
         }
-        let {cart, quantity} = validation;
-        console.log("Checking for productID", cart["reverb-id"]);
 
         // Save selected product details with quantity for the transaction page
         let product = {
-            "product-id": cart["reverb-id"],
-            "product-name": cart["reverb-title"],
-            "product-price": cart["reverb-price"],
-            "product-quantity": quantity
+            "product-id": productData.id,
+            "product-name": productData.productName,
+            "product-price": productData.productPrice,
+            "product-quantity": validation.quantity,
+            "linked-userID": item["linked-userID"] || ""
         }
         sessionStorage.setItem("selectedTransaction", JSON.stringify([product]));
         console.log(product);
@@ -133,8 +121,6 @@ document.addEventListener("DOMContentLoaded", function(){
         if (!validation){
             return;
         }
-        let {cart, quantity} = validation;
-        console.log("Checking for productID", cart["reverb-id"])
         let offerError = document.getElementById("offerError");
         offerError.style.display = "none";
 
@@ -149,9 +135,9 @@ document.addEventListener("DOMContentLoaded", function(){
         let offer = {
             "linked-userID": userID,
             "offer-price": offerPrice,
-            "product-id": cart["reverb-id"],
-            "shopname": cart["reverb-shopname"],
-            "product-quantity": quantity 
+            "product-id": productData.id,
+            "shopname": productData.shopname,
+            "product-quantity": validation.quantity 
         }
         
         let settings = {
@@ -179,16 +165,12 @@ document.addEventListener("DOMContentLoaded", function(){
             return;
         }
 
-        let {cart, quantity} = validation;
-
         if (!userID){
             console.log("User not logged in!");
             return;
         }
-
-        let productID = cart["reverb-id"];
-        console.log("Checking for productID", productID);
-        let checkItemUrl = `${cartUrl}?q={"linked-userID": "${userID}", "product-id": ${productID}}`;
+        console.log("Checking for productID", productData.id);
+        let checkItemUrl = `${cartUrl}?q={"linked-userID": "${userID}", "product-id": "${productData.id}"}`;
 
         let GETsettings = {
             method : "GET",
@@ -205,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function(){
             if (cartItems.length > 0){
                 // If the item exists, update just the quantity
                 let existingItem = cartItems[0];
-                let updatedQuantity = existingItem["product-quantity"] + quantity;
+                let updatedQuantity = existingItem["product-quantity"] + validation.quantity;
 
                 let updateData = {
                     "product-quantity": updatedQuantity
@@ -232,14 +214,15 @@ document.addEventListener("DOMContentLoaded", function(){
                   });
             }
             else {
+
                 let product = {
                     "linked-userID": userID,
-                    "product-id": productID,
-                    "product-name": cart["reverb-title"],
-                    "product-price": cart["reverb-price"],
-                    "product-picture": cart["reverb-links"].photo.href,
-                    "product-quantity": quantity,
-                    "shopname": cart["reverb-shopname"]
+                    "product-id": productData.id,
+                    "product-name": productData.productName,
+                    "product-price": productData.productPrice,
+                    "product-picture": productData.imageLink,
+                    "product-quantity": validation.quantity,
+                    "shopname": productData.shopname
                 }
                 let POSTsettings = {
                     method: "POST",
@@ -277,20 +260,11 @@ document.addEventListener("DOMContentLoaded", function(){
             quantityError.style.display = "block";
             return false;
         }
-
-        let storedProduct = sessionStorage.getItem("selectedProduct");
-
-        if (!storedProduct || storedProduct == "Undefined"){
-            console.log("Coouldn't retrieve the item!");
-            return false;
-        }
-        let cart = JSON.parse(storedProduct);
-
-        if (quantity > cart["reverb-quantity"]){
+        if (quantity > productData.productQuantity){
             quantityTooLarge.style.display = "block";
             return false;    
         }
 
-        return {cart, quantity};
+        return { quantity };
     }
 });
