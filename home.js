@@ -31,24 +31,24 @@ document.addEventListener("DOMContentLoaded", function(){
     // get and display data when the page loads
     getAndDisplayRestDBData();
 
-     // Function to fetch and display data from RestDB
-     function getAndDisplayRestDBData() {
+    function getAndDisplayRestDBData() {
         let settings = {
             method: "GET",
             headers: header
-        }
+        };
+    
         fetch(listingUrl, settings)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                return response.json(); // Parse the JSON response
+                return response.json();
             })
             .then(data => {
                 if (data.length > 0) {
-                    displayGalleryData(data);
-                }
-                else {
+                    displayListings(data, "trending");
+                    displayListings(data, "recommended");
+                } else {
                     console.log("No data found in RestDB.");
                     document.getElementById("product-list").innerHTML = "<p>No products found.</p>";
                 }
@@ -57,44 +57,40 @@ document.addEventListener("DOMContentLoaded", function(){
                 console.error("Error fetching data from RestDB:", error);
                 document.getElementById("product-list").innerHTML = "<p>Error fetching data from RestDB.</p>";
             });
-
-        fetch (createListingUrl, settings)
-          .then(response => response.json())
-          .then(data => {
-            if (data.length > 0){
-                displayUserListings(data)
-            }
-            else{
-                console.log("User haven't created listings yet")
-                document.getElementById("user-listing-title").textContent = "";
-            }
-          })
-    }
-
-    // Function to display data for home page
-    function displayGalleryData(data) {
-        let trendingContainer = document.getElementById("trending-items-gallery");
-        let recommendContainer = document.getElementById("recommended-items-gallery");
     
-        if (!trendingContainer || !recommendContainer) {
-            console.error("Trending or Recommended gallery not found in the DOM.");
+        fetch(createListingUrl, settings)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    displayListings(data, "user");
+                } else {
+                    console.log("User hasn't created listings yet");
+                    document.getElementById("user-listing-title").textContent = "";
+                }
+            });
+    }
+    
+    function displayListings(data, type) {
+        let containerId = type === "trending" ? "trending-items-gallery" :
+                          type === "recommended" ? "recommended-items-gallery" :
+                          "user-listings-gallery";
+        
+        let container = document.getElementById(containerId);
+        if (!container) {
+            console.error(`${type} gallery not found in the DOM.`);
             return;
         }
     
-        // Shuffle data 
-        shuffledData = data.sort(() => Math.random() - 0.5);
-
-        let trendingCardsHTML = "";
-        let recommendCardsHTML = "";
-    
+        let cardsHTML = "";
+        let shuffledData = type !== "user" ? data.sort(() => Math.random() - 0.5) : data;
         let count = 0;
-       // Loop through shuffled data and separate it into two sections
-        shuffledData.forEach((item, index) => {
-            randomDays = Math.floor(Math.random() * 30) + 1;
-            if (!item["reverb-links"] || !item["reverb-links"].photo || !item["reverb-links"].photo.href) {
-                return; // Skip if image is missing
-            }
-            let imageLink = item["reverb-links"].photo.href 
+        let maxItems = type === "user" ? data.length : 4;
+    
+        shuffledData.slice(0, maxItems).forEach((item, index) => {
+            let randomDays = Math.floor(Math.random() * 30) + 1;
+            let imageLink = type !== "user" ? item["reverb-links"]?.photo?.href : item["product-picture"];
+            if (!imageLink) return;
+    
             let cardHTML = `
                 <div class="col-md-3">
                     <div class="card custom-card text-light shadow-sm">
@@ -115,97 +111,28 @@ document.addEventListener("DOMContentLoaded", function(){
                     </div>
                 </div>
             `;
+            cardsHTML += cardHTML;
             count++;
-
-            if (count <= 4) {
-                trendingCardsHTML += cardHTML; // First 4 items go to Trending
-            } else if (count <= 8) {
-                recommendCardsHTML += cardHTML; // Next 4 items go to Recommended
-            }
         });
-
-        trendingContainer.innerHTML = trendingCardsHTML;
-        recommendContainer.innerHTML = recommendCardsHTML;
-
-        // Add event listeners after inserting HTML
-        document.querySelectorAll(".product-link")
-        .forEach((element) => {
-            element.addEventListener("click", function(event){
-                event.preventDefault(); //Prevent immediate navigation
-
-                // "this" refers to the clicked element
-                // getAttribute("data-index") retrieves the value of data-index from clicked element
-                let itemIndex = this.getAttribute("data-index");
-                let selectedItem = shuffledData[itemIndex]; // Get item from array
-                console.log("Selected Product:", selectedItem);
-                // If selectedItem is valid, store it in sessionStorage
+    
+        container.innerHTML = cardsHTML;
+    
+        document.querySelectorAll(".product-link").forEach((element) => {
+            element.addEventListener("click", function (event) {
+                event.preventDefault();
+                let itemIndex = parseInt(this.getAttribute("data-index"), 10) + 1;
+                let selectedItem = shuffledData[itemIndex];
+                alert(selectedItem);
                 if (selectedItem) {
                     sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
-                    console.log("Before navigating:", sessionStorage.getItem("selectedProduct"));
-                    // alert(sessionStorage.getItem("selectedProduct"));
-                    setTimeout(() => {
-                        window.location.href = "product-details.html";
-                    }, 500);
+                    window.location.href = "product-details.html";
                 } else {
                     console.error("Error: selectedItem is undefined.");
                 }
-            })
-        })
-    }   
-
-    function displayUserListings(data){
-        let userListingContainer = document.getElementById("user-listings-gallery");
-        if (!userListingContainer){
-            console.error("User listing gallery not found in the DOM");
-            return;
-        }
-
-        let listingCards = "";
-
-        data.forEach((item,index) => {
-            randomDays = Math.floor(Math.random() * 30) + 1;
-            listingCards += `
-                <div class="col-md-3">
-                    <div class="card custom-card text-light shadow-sm">
-                        <div class="d-flex align-items-center p-3 profile-info">
-                            <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
-                            <div>
-                                <p class="mb-0 fw-bold profile-name">${item["product-shopname"]}</p>
-                                <small class="text-muted join-date">${randomDays} days ago</small>
-                            </div>
-                        </div>
-                        <a href="product-details.html" class="product-link" data-index="${index}">
-                            <img src="${item["product-picture"]}" alt="${item["product-name"]}" class="card-img-top">
-                        </a>
-                        <div class="card-body text-start">
-                            <p class="card-title fw-bold mb-2">${item["product-name"]}</p>
-                            <p class="text-warning fw-bold">S$${item["product-price"]}</p>
-                        </div>
-                    </div>
-                </div>
-            `
+            });
         });
-
-        userListingContainer.innerHTML = listingCards;
-
-        document.querySelectorAll(".product-link")
-        .forEach((element) => {
-            element.addEventListener("click", function(event){
-                event.preventDefault(); //Prevent immediate navigation
-
-                // "this" refers to the clicked element
-                // getAttribute("data-index") retrieves the value of data-index from clicked element
-                let itemIndex = this.getAttribute("data-index");
-
-                let selectedItem = data[itemIndex]; // Get item from array
-
-                // Stores the selected product in localStorage so that product-details.html can retireve it
-                sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
-                console.log(selectedItem);
-                window.location.href = "product-details.html";
-            })
-        })
     }
+    
 
     // Function to fetch data from Reverb API
     function getReverbData() {
