@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "67972e07f9d2bb46c9181e32";  // 67875f7d9e18b182ee6941f0  678fbb8a58174779225315d5
-    let createListingUrl = "https://experiment-d5c7.restdb.io/rest/create-listing"; //  https://tryuse-a494.restdb.io/rest/create-listing  https://fedassg2-66ea.restdb.io/rest/create-listing
-    let listingUrl = "https://experiment-d5c7.restdb.io/rest/reverblisting"; //   https://tryuse-a494.restdb.io/rest/testreverbapi  https://fedassg2-66ea.restdb.io/rest/reverblisting
-    let header = {
+    let APIKEY = "67875f7d9e18b182ee6941f0";  //   678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
+    let createListingUrl = "https://tryuse-a494.restdb.io/rest/create-listing"; //    https://fedassg2-66ea.restdb.io/rest/create-listing https://experiment-d5c7.restdb.io/rest/create-listing
+    let listingUrl = "https://tryuse-a494.restdb.io/rest/testreverbapi"; // https://fedassg2-66ea.restdb.io/rest/reverblisting https://experiment-d5c7.restdb.io/rest/reverblisting
+    let header = { 
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function(){
         let userName = sessionStorage.getItem("userName");
 
         // Prepare data for API
-        let jsondata = {
+        let userListingdata = {
             "product-name": productName,
             "product-price": productPrice,
             "product-description": productDesc,
@@ -148,34 +148,57 @@ document.addEventListener("DOMContentLoaded", function(){
             "product-shopname": userName
         };
 
+        let allListingData = {
+            "product-name": productName,
+            "product-price": productPrice,
+            "product-description": productDesc,
+            "product-category": productCat,
+            "product-condition": productCondition,
+            "product-quantity": productQty,
+            "product-picture": productPic,
+            "linked-userID": UserID,
+            "product-shopname": userName
+        }
+
         // API settings
-        let settings = {
+        let userListingSettings = {
             method: listingID ? "PUT" : "POST", // PUT if updating, POST if creating
             headers: header,
-            body: JSON.stringify(jsondata),
-        };          
+            body: JSON.stringify(userListingdata),
+        };     
+        
+        let allListingSettings = {
+            method: listingID ? "PUT" : "POST", // PUT if updating, POST if creating
+            headers: header,
+            body: JSON.stringify(allListingData),
+        }
 
         // If the listing exist means we are updating the listing, if not we are creating.
-        let requestUrl = listingID ? `${createListingUrl}/${listingID}` : createListingUrl;
+        let requestUrlForUserListing = listingID ? `${createListingUrl}/${listingID}` : createListingUrl;
+        let requestUrlForAllListing = listingID ? `${listingUrl}/${listingID}` : listingUrl;
 
         // Disable the button during the fetch
         document.getElementById("listing-submit").disabled = true;
         let isNewListing = !listingID; // true if creating, false if updating
 
         // Create or update product
-        fetch(requestUrl, settings)
+        fetch(requestUrlForUserListing, userListingSettings)
             .then((response) => response.json())
             .then((data) => {
                 console.log(listingID ? "Listing Updated: " : "New Listing Created: ", data);
                 listingID = data._id; // RestDB Auto generated ID
                 console.log(isNewListing ? "New Listing Created: " : "Listing Updated: ", data);
 
-                // Alert user
-                alert (isNewListing ? "Listing created successfully!" : "Listing updated successfully!");                  
-                
-                document.getElementById("listing-submit").disabled = false;
-                document.getElementById("create-listing-form").reset();
-                // getProducts(); // Fetch and update table
+                fetch(requestUrlForAllListing, allListingSettings)
+                  .then((response) => response.json())
+                  .then((data) => {
+                    // Alert user
+                        alert (isNewListing ? "Listing created successfully!" : "Listing updated successfully!");                  
+                        console.log(data);
+                        document.getElementById("listing-submit").disabled = false;
+                        document.getElementById("create-listing-form").reset();
+                  })
+                  .catch((error) => console.error("Failed inserting into listing API"))
             })
             .catch((error) => console.error("Error creating product:", error));
     });
