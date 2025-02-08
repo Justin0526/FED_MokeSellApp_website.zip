@@ -15,8 +15,6 @@ document.addEventListener("DOMContentLoaded", function(){
         "Cache-Control": "no-cache"
     }
 
-    let shuffledData = []; 
-
     document.querySelectorAll(".listings-btn")
       .forEach(button => {
         button.addEventListener("click", function(){
@@ -37,26 +35,26 @@ document.addEventListener("DOMContentLoaded", function(){
             headers: header
         };
     
-        fetch(listingUrl, settings)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.length > 0) {
-                    displayListings(data, "trending");
-                    displayListings(data, "recommended");
-                } else {
-                    console.log("No data found in RestDB.");
-                    document.getElementById("product-list").innerHTML = "<p>No products found.</p>";
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching data from RestDB:", error);
-                document.getElementById("product-list").innerHTML = "<p>Error fetching data from RestDB.</p>";
-            });
+        // fetch(listingUrl, settings)
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error(`HTTP error! Status: ${response.status}`);
+        //         }
+        //         return response.json();
+        //     })
+        //     .then(data => {
+        //         if (data.length > 0) {
+        //             displayListings(data, "trending");
+        //             displayListings(data, "recommended");
+        //         } else {
+        //             console.log("No data found in RestDB.");
+        //             document.getElementById("product-list").innerHTML = "<p>No products found.</p>";
+        //         }
+        //     })
+        //     .catch(error => {
+        //         console.error("Error fetching data from RestDB:", error);
+        //         document.getElementById("product-list").innerHTML = "<p>Error fetching data from RestDB.</p>";
+        //     });
     
         fetch(createListingUrl, settings)
             .then(response => response.json())
@@ -77,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function(){
         
         let container = document.getElementById(containerId);
         if (!container) {
-            console.error(`${type} gallery not found in the DOM.`);
+            alert(`${type} gallery not found in the DOM.`);
             return;
         }
     
@@ -121,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function(){
             element.addEventListener("click", function (event) {
                 event.preventDefault();
                 let itemId = this.getAttribute("data-id");
+                alert(itemId);
                 let selectedItem = shuffledData.find(item => item["product-id"] == itemId);
                 alert(selectedItem);
                 if (selectedItem) {
