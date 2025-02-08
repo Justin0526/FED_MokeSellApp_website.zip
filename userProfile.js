@@ -51,8 +51,10 @@ document.addEventListener("DOMContentLoaded", function(){
       document.getElementById("user-email").textContent = userProfile["user-email"];
 
       // Update user coins
-      document.getElementById("user-coins").textContent = userProfile["user-coins"];
-
+      if (userProfile["user-coins"]){
+        document.getElementById("user-coins").textContent = userProfile["user-coins"];
+      }
+      
       let userListings = `${createListingUrl}?q={"linked-userID": "${userProfile["linked-userID"]}"}`; // https://fedassg2-66ea.restdb.io/rest/create-listing?q={"linked-userID": "${userProfile["linked-userID"]}"}
 
       fetch (userListings, settings)
@@ -114,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function(){
           console.log(listingID);
           sessionStorage.setItem("editingListingID", listingID);
           setTimeout(() => {
-            window.location.href = "create-list.html";
+            window.location.href = "create-listing.html";
           }, 100);  // Small delay (100ms) if not cannot load
         })
       })
@@ -141,7 +143,9 @@ document.addEventListener("DOMContentLoaded", function(){
       .then(() => {
         console.log(`Listing ${listingID} deleted successfully`);
         let listingElement =  document.getElementById(`listing-${listingID}`);
-        if (listingElement) listingElement.remove(); // Remove from UI
+        if (listingElement){
+          listingElement.remove(); // Remove from UI
+        } 
         alert("Listing Removed Successfully")
       })
       .catch(error => console.error("Error deleting listing: ", error));

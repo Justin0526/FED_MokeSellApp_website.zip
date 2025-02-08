@@ -66,8 +66,6 @@ document.addEventListener("DOMContentLoaded", function(){
                     autoplay: true, // Start automatically
                     path: 'https://lottie.host/0d391166-1d36-4e1c-bd8f-acf3bd0eabb3/qk0ba9dlOI.json' // Replace with your desired Lottie animation URL
                 });
-
-                animation.play();
             
                 setTimeout(() => {
                     // Redirect to home page (change URL as needed)

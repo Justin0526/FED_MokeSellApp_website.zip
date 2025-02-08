@@ -132,6 +132,8 @@ document.addEventListener("DOMContentLoaded", function(){
             return;
         }
 
+        let userName = sessionStorage.getItem("userName");
+
         // Prepare data for API
         let jsondata = {
             "product-name": productName,
@@ -141,7 +143,8 @@ document.addEventListener("DOMContentLoaded", function(){
             "product-condition": productCondition,
             "product-quantity": productQty,
             "product-picture": productPic,
-            "linked-userID": UserID
+            "linked-userID": UserID,
+            "user-username": userName
         };
 
         // API settings

@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "67972e07f9d2bb46c9181e32";  // 67875f7d9e18b182ee6941f0  678fbb8a58174779225315d5
     let reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=10";
     let listingUrl = "https://experiment-d5c7.restdb.io/rest/reverblisting"; //   https://tryuse-a494.restdb.io/rest/testreverbapi  https://fedassg2-66ea.restdb.io/rest/reverblisting
- 
+    let createListingUrl = "https://experiment-d5c7.restdb.io/rest/create-listing"; //  https://tryuse-a494.restdb.io/rest/create-listing  https://fedassg2-66ea.restdb.io/rest/create-listing
+
     let reverbHeader = {
         "Content-Type": "application/hal+json",
         "Accept": "application/hal+json",
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     // getReverbData();
     // get and display data when the page loads
-    // getAndDisplayRestDBData();
+    getAndDisplayRestDBData();
 
      // Function to fetch and display data from RestDB
      function getAndDisplayRestDBData() {
@@ -57,6 +58,18 @@ document.addEventListener("DOMContentLoaded", function(){
                 console.error("Error fetching data from RestDB:", error);
                 document.getElementById("product-list").innerHTML = "<p>Error fetching data from RestDB.</p>";
             });
+
+        fetch (createListingUrl, settings)
+          .then(response => response.json())
+          .then(data => {
+            if (data.length > 0){
+                displayUserListings(data)
+            }
+            else{
+                console.log("User haven't created listings yet")
+                document.getElementById("user-listing-title").textContent = ""
+            }
+          })
     }
 
     // Function to display data for home page
@@ -129,6 +142,60 @@ document.addEventListener("DOMContentLoaded", function(){
             })
         })
     }   
+
+    function displayUserListings(data){
+        let userListingContainer = document.getElementById("user-listings-gallery");
+        if (!userListingContainer){
+            console.error("User listing gallery not found in the DOM");
+            return;
+        }
+
+        let listingCards = "";
+
+        data.forEach((item,index) => {
+            randomDays = Math.floor(Math.random() * 30) + 1;
+            listingCards += `
+                <div class="col-md-3">
+                    <div class="card custom-card text-light shadow-sm">
+                        <div class="d-flex align-items-center p-3 profile-info">
+                            <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
+                            <div>
+                                <p class="mb-0 fw-bold profile-name">${item["user-username"]}</p>
+                                <small class="text-muted join-date">${randomDays} days ago</small>
+                            </div>
+                        </div>
+                        <a href="product-details.html" class="product-link" data-index="${index}">
+                            <img src="${item["product-picture"]}" alt="${item["product-name"]}" class="card-img-top">
+                        </a>
+                        <div class="card-body text-start">
+                            <p class="card-title fw-bold mb-2">${item["product-name"]}</p>
+                            <p class="text-warning fw-bold">S$${item["product-price"]}</p>
+                        </div>
+                    </div>
+                </div>
+            `
+        });
+
+        userListingContainer.innerHTML = listingCards;
+
+        document.querySelectorAll(".product-link")
+        .forEach((element) => {
+            element.addEventListener("click", function(event){
+                event.preventDefault(); //Prevent immediate navigation
+
+                // "this" refers to the clicked element
+                // getAttribute("data-index") retrieves the value of data-index from clicked element
+                let itemIndex = this.getAttribute("data-index");
+
+                let selectedItem = data[itemIndex]; // Get item from array
+
+                // Stores the selected product in localStorage so that product-details.html can retireve it
+                sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
+                console.log(selectedItem);
+                window.location.href = "product-details.html";
+            })
+        })
+    }
 
     // Function to fetch data from Reverb API
     function getReverbData() {

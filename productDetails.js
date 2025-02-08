@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                 <small class="errors" id="quantity-error">Quantity must be greater than 0!</small>
                                 <small class="errors" id="quantity-too-large">Quantity cannot be more than the product quantity</small>
                             </div>
-                            <button class="btn w-100" onclick="location.href='chat.html'">Chat</button>
+                            <button class="btn w-100" id="chat-btn" onclick="location.href='chat.html'">Chat</button>
                             <button class="btn w-100" id="buy-btn">Buy</button>
                             <div class="d-flex">
                                 <input type="money" class="form-control me-2" id="offerPrice" placeholder="SGD 100">
@@ -77,6 +77,26 @@ document.addEventListener("DOMContentLoaded", function(){
         `          
        itemContainer.innerHTML = allItemsContent;
     }
+    document.getElementById("chat-btn").addEventListener("click", function(){
+        let storedProduct = sessionStorage.getItem("selectedProduct");
+
+        if (!storedProduct || storedProduct === "undefined") {
+            console.error("No product data found in sessionStorage");
+            return;
+        }
+        
+        let item = JSON.parse(storedProduct);
+        if (!item || !item["reverb-id"]) {
+            console.error("Invalid product data");
+            return;
+        }
+
+        // Save the reverb-id in sessionStorage for chat reference
+        sessionStorage.setItem("chatID", item["reverb-id"]);
+
+        // Redirect to chat page
+        location.href = "chat.html";
+    })
 
     document.getElementById("buy-btn").addEventListener("click", function() {
         let validation = validateInput()
