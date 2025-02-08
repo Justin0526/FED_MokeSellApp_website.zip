@@ -95,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function(){
                 return; // Skip if image is missing
             }
             let imageLink = item["reverb-links"].photo.href 
-            console.log(item["reverb-links"].photo)
             let cardHTML = `
                 <div class="col-md-3">
                     <div class="card custom-card text-light shadow-sm">
@@ -106,9 +105,9 @@ document.addEventListener("DOMContentLoaded", function(){
                                 <small class="text-muted join-date">${randomDays} days ago</small>
                             </div>
                         </div>
-                        <a href="product-details.html" class="product-link" data-index="${index}">
+                        <div class="product-link" data-index="${index}" role="button">
                             <img src="${imageLink}" alt="${item["product-name"]}" class="card-img-top">
-                        </a>
+                        </div>
                         <div class="card-body text-start">
                             <p class="card-title fw-bold mb-2">${item["product-name"]}</p>
                             <p class="text-warning fw-bold">S$${item["product-price"]}</p>
@@ -132,18 +131,21 @@ document.addEventListener("DOMContentLoaded", function(){
         document.querySelectorAll(".product-link")
         .forEach((element) => {
             element.addEventListener("click", function(event){
-                event.preventDefault(); //Prevent immediate navigatio
+                event.preventDefault(); //Prevent immediate navigation
 
                 // "this" refers to the clicked element
                 // getAttribute("data-index") retrieves the value of data-index from clicked element
                 let itemIndex = this.getAttribute("data-index");
                 let selectedItem = shuffledData[itemIndex]; // Get item from array
                 console.log("Selected Product:", selectedItem);
-
                 // If selectedItem is valid, store it in sessionStorage
                 if (selectedItem) {
                     sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
-                    window.location.href = "product-details.html";
+                    console.log("Before navigating:", sessionStorage.getItem("selectedProduct"));
+                    // alert(sessionStorage.getItem("selectedProduct"));
+                    setTimeout(() => {
+                        window.location.href = "product-details.html";
+                    }, 500);
                 } else {
                     console.error("Error: selectedItem is undefined.");
                 }

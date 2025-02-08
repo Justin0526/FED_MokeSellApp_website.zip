@@ -91,8 +91,13 @@ document.addEventListener("DOMContentLoaded", function(){
         `          
        itemContainer.innerHTML = allItemsContent;
     }
-    document.getElementById("chat-btn").addEventListener("click", function(){
-        sessionStorage.setItem("chatID", productData.id);
+    document.getElementById("chat-btn").addEventListener("click", function(e){
+        e.preventDefault();
+        let senderID = userID;
+        let receiverID = item["linked-userID"];
+        alert(receiverID);
+        let shopName = productData.shopname
+        sessionStorage.setItem("chatInformation", JSON.stringify({receiverID, shopName}));
 
         // Redirect to chat page
         location.href = "chat.html";
