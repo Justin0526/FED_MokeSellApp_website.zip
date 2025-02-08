@@ -25,15 +25,17 @@ document.addEventListener("DOMContentLoaded", function(){
     let isUserListing = !!item["linked-userID"];
     let productData = {
         id: isUserListing ? item["_id"] : item["product-id"],
-        shopname: isUserListing ? item["product-shopname"] : item["product-shopname"],
-        imageLink: isUserListing ? item["product-picture"] : item["reverb-links"].photo.href,
-        productName: isUserListing ? item["product-name"] : item["product-name"],
-        productPrice: isUserListing ? item["product-price"] : item["product-price"],
-        productDetails: isUserListing ? item["product-description"] : item["product-description"],
-        productCondition: isUserListing ? item["product-condition"] : item["product-condition"],
-        productCategory: isUserListing ? item["product-category"] : item["product-category"],
+        shopname: item["product-shopname"], // Same for both listings
+        imageLink: isUserListing 
+            ? item["product-picture"] 
+            : item["reverb-links"] && item["reverb-links"].photo ? item["reverb-links"].photo.href : "images/placeholder.jpg",
+        productName: item["product-name"],
+        productPrice: item["product-price"],
+        productDetails: item["product-description"] || "No description available",
+        productCondition: item["product-condition"] || "Condition not specified",
+        productCategory: item["product-category"] || "Uncategorized",
         productAvailability: isUserListing ? "Available" : item["product-availability"],
-        productQuantity: isUserListing ? item["product-quantity"] : item["product-quantity"],
+        productQuantity: item["product-quantity"] || 0, // Default to 0 if not provided
     };
     displayData(productData);
 
