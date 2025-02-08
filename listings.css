@@ -413,18 +413,18 @@ html, body {
 
 .custom-card .profile-name {
     display: -webkit-box;
-    -webkit-line-clamp: 2; /* Limit to 1 line */
-    line-clamp: 2; /* Standard property */
     -webkit-box-orient: vertical;
+    word-break: break-word;
+    overflow-wrap: break-word;
     overflow: hidden; /* Hide overflowing text */
     text-overflow: ellipsis; /* Add '...' to truncated text */
-    white-space: normal; /* Allow normal wrapping */
     max-width: 100%;
     color: white;
     /* 0ptional */
     line-height: 1.5rem; 
     max-height: 3rem;
 }
+
 
 .custom-card .profile-info .join-date {
     color: grey !important;
@@ -456,20 +456,20 @@ html, body {
 }
 
 .image-gallery .card-title {
+    word-break: break-word;
+    overflow-wrap: break-word;
     font-weight: bold;
     color: white;
     font-size: 17px;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limit product name to 3 lines */
     -webkit-box-orient: vertical;
-    line-clamp: 3;
     overflow: hidden;
     text-overflow: ellipsis;
     max-height: 4.5rem; /* Ensure title height is consistent */
     line-height: 1.5rem; /* Adjust line height for better spacing */
     margin-bottom: 0.5rem;
-   
 }
+
 
 .image-gallery .text-warning {
     font-size: 1rem;
