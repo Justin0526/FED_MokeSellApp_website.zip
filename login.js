@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
-    }
+    };
 
     document.getElementById("login-form").addEventListener("submit", function (e) {
         e.preventDefault();
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function(){
         checkEmailExists(userEmail)
           .then(userData => {
             if (!userData){           
-                alert("This email is not registered. Please signup first")
+                alert("This email is not registered. Please signup first");
                 return;
             }
 
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 let loginButton = document.getElementById("user-login");
                 loginButton.disabled = true;
                             
-                console.log("UserID: ", userID)
+                console.log("UserID: ", userID);
                 console.log("Login successful:", userData);
 
                 loadingScreen.style.display = 'flex';
@@ -81,8 +81,8 @@ document.addEventListener("DOMContentLoaded", function(){
         .catch(error => {
             console.error("Login error: ", error);
             alert("An error occured while logging in. Pleasee try again");
-        })
-    })
+        });
+    });
     // A regular expression (emailRegex) ensures that the email follows a basic structure
     // /^[^\s@]+: Begins with one or more non-whitespace and non @characters
     // @[^\s@]+: Includes an @ symbol followed by one or more valid characters
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function(){
         let settings = {
             method: "GET",
             headers: header
-        }
+        };
         return fetch(queryUrl, settings)
         .then(response => response.json())
         .then(data => {
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function(){
         .catch(error =>{
             console.error("Error checking email: ", error);
             return null;
-        })
+        });
     }
 
     function caesarDecipher(str, shift){
