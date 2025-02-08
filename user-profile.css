@@ -284,8 +284,8 @@ justify-content: space-between;
 
 .listing-card h5 {
 display: -webkit-box;
--webkit-line-clamp: 3; /* Limit product name to 2 lines */
-line-clamp: 3; /* Standard property for compatibility */
+word-break: break-word;
+overflow-wrap: break-word;
 -webkit-box-orient: vertical;
 overflow: hidden;
 text-overflow: ellipsis;
