@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "678fbb8a58174779225315d5";  //    67972e07f9d2bb46c9181e32 67875f7d9e18b182ee6941f0
+    let APIKEY = "67972e07f9d2bb46c9181e32";  // 67875f7d9e18b182ee6941f0 678fbb8a58174779225315d5
     let reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=1";
-    let listingUrl = "https://fedassg2-66ea.restdb.io/rest/reverblisting"; //  https://experiment-d5c7.restdb.io/rest/reverblisting https://tryuse-a494.restdb.io/rest/testreverbapi
-    let createListingUrl = "https://fedassg2-66ea.restdb.io/rest/create-listing"; //  https://experiment-d5c7.restdb.io/rest/create-listing https://tryuse-a494.restdb.io/rest/create-listing
+    let listingUrl = "https://experiment-d5c7.restdb.io/rest/reverblisting"; //  https://tryuse-a494.restdb.io/rest/testreverbapi https://fedassg2-66ea.restdb.io/rest/reverblisting
+    let createListingUrl = "https://experiment-d5c7.restdb.io/rest/create-listing"; //  https://tryuse-a494.restdb.io/rest/create-listing https://fedassg2-66ea.restdb.io/rest/create-listing
     let reverbHeader = {
         "Content-Type": "application/hal+json",
         "Accept": "application/hal+json",
         "Accept-Version": "3.0"
     };
     
-    let header = {
+    const header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
