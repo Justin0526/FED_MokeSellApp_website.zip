@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function(){
         document.querySelectorAll(".product-link")
         .forEach((element) => {
             element.addEventListener("click", function(event){
-                event.preventDefault(); //Prevent immediate navigation
+                event.preventDefault(); //Prevent immediate navigatio
 
                 // "this" refers to the clicked element
                 // getAttribute("data-index") retrieves the value of data-index from clicked element
