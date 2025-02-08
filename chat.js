@@ -9,4 +9,7 @@ document.addEventListener("DOMContentLoaded", function(){
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
     }
+
+    let chatID = sessionStorage.getItem("chatID");
+    console.log(chatID);
 })

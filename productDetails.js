@@ -31,9 +31,9 @@ document.addEventListener("DOMContentLoaded", function(){
             : item["reverb-links"] && item["reverb-links"].photo ? item["reverb-links"].photo.href : "images/placeholder.jpg",
         productName: item["product-name"],
         productPrice: item["product-price"],
-        productDetails: item["product-description"] || "No description available",
-        productCondition: item["product-condition"] || "Condition not specified",
-        productCategory: item["product-category"] || "Uncategorized",
+        productDetails: item["product-description"],
+        productCondition: item["product-condition"],
+        productCategory: item["product-category"],
         productAvailability: isUserListing ? "Available" : item["product-availability"],
         productQuantity: item["product-quantity"] || 0, // Default to 0 if not provided
     };
