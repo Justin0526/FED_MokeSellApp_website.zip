@@ -52,13 +52,16 @@
     <div class="chat-container mt-5 mb-5">
         <!-- Left Sidebar -->
         <div class="chat-headers">
+            <ul id="chatList">
+                <!-- Users will be added dynamically -->
+            </ul>
         </div>
         <!-- Main Chat Section -->
         <div class="main-chat">
             <!-- Chat Header -->
             <div class="chat-header" id="chatHeader">
                 <img src="images/man.jpg" alt="User" id="chatHeaderImg">
-                <h5 id="chatUsername" style="cursor: pointer;" onclick="goToProfile()">Select a Chat</h5>
+                <h5 id="chatUsername" style="cursor: pointer;">Select a Chat</h5>
             </div>
             <!-- Chat Box -->
             <div class="chat-box" id="chatBox">
@@ -67,9 +70,9 @@
             <!-- Input Container -->
             <div class="input-container">
                 <input type="text" id="userInput" placeholder="Type your message..." disabled>
-                <button onclick="sendMessage()" disabled>Send</button>
+                <button id="sendButton" disabled>Send</button>
             </div>
-        </div>
+        </div>        
     </div>
 
     <!-- Footer Section -->

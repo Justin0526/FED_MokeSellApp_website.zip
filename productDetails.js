@@ -25,7 +25,8 @@ document.addEventListener("DOMContentLoaded", function(){
     let isUserListing = !!item["linked-userID"];
     let imageUrl;
     if (isUserListing){
-        imageUrl = item["product-picutre"];
+        imageUrl = item["product-picture"];
+        console.log("User's listing", imageUrl);
     }
     else{
         if (item["reverb-links"] && item["reverb-links"].photo){
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function(){
         else{
             imageUrl = "images/man.jpg";
         }
+        console.log("Not a user listing");
     }
     let productData = {
         id: isUserListing ? item["_id"] : item["product-id"],
@@ -51,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function displayData(product){
         let itemContainer = document.getElementById("item-container");
+        console.log(product.imageLink);
         let allItemsContent = "";
         allItemsContent += `
             <div class="product-details-section container py-5 position-relative">
@@ -105,10 +108,8 @@ document.addEventListener("DOMContentLoaded", function(){
         e.preventDefault();
         let senderID = userID;
         let receiverID = item["linked-userID"];
-        alert(receiverID);
         let shopName = productData.shopname;
         sessionStorage.setItem("chatInformation", JSON.stringify({receiverID, shopName}));
-
         // Redirect to chat page
         location.href = "chat.html";
     });

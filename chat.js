@@ -1,122 +1,118 @@
 document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "678fbb8a58174779225315d5";  //    67972e07f9d2bb46c9181e32 67875f7d9e18b182ee6941f0
-    let allUserInfoUrl = "https://fedassg2-66ea.restdb.io/rest/alluserinfo";   // https://experiment-d5c7.restdb.io/rest/alluserinfo https://tryuse-a494.restdb.io/rest/alluserinfo
-    let chatUrl = "https://tryuse-a494.restdb.io/rest/chat";
+    let userProfileUrl = "https://fedassg2-66ea.restdb.io/rest/user-profile";  //  https://experiment-d5c7.restdb.io/rest/user-profile https://tryuse-a494.restdb.io/rest/user-profile
+    let chatUrl = "https://fedassg2-66ea.restdb.io/rest/chat"; // https://tryuse-a494.restdb.io/rest/chat
     let duckduckGoUrl = "https://api.duckduckgo.com";
     let userID = sessionStorage.getItem("userID");
-    let chatContainer = document.querySelector(".chat-headers");
+    let sendChat = document.getElementById("sendButton");
 
-    let header = {
+    const header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
         "Cache-Control": "no-cache"
-    }
+    };
 
-    let chatInfo = sessionStorage.getItem("chatInformation");
-    console.log(chatInfo);
+    let chatInformation = sessionStorage.getItem("chatInformation");
+
+    chatInfo = JSON.parse(chatInformation);
+    console.log(chatInfo.receiverID);
     console.log(userID);
 
     if (!chatInfo || !chatInfo.receiverID){
         console.log("No receiverID found in session storage");
+        startInstantAnswerChat();
         return;
-    }
+    };
 
     let receiverID = chatInfo.receiverID;
 
-    let GETsettings = {
+    const GETsettings = {
         method: "GET",
         headers: header
-    }
+    };
 
-    fetch(chatUrl, GETsettings)
+    const chatList = document.getElementById("chatList");
+
+    let users = [];
+    fetch(userProfileUrl, GETsettings)
       .then(response => response.json())
-      .then(chatData => {
-        let chatPartners = [];
-
-        chatData.forEach(chat => {
-            if (chat.senderID === userID && chatPartners.includes(chat.receiverID)){
-                chatPartners.push(chat.receiverID); // Add receiver if not already in the array
-            }
-            else if (chat.receiverID === userID && !chatPartners.includes(chat.senderID)){
-                chatPartners.push(chat.senderID); // Add sender if not already in the array
-            }
-        });
-
-        console.log(chatPartners);
-
-        fetch(allUserInfoUrl, GETsettings)
-            .then(response => response.json())
-            .then(users => {
-                chatContainer.innerHTML = ""; // Clear previous chat list
-
-                chatPartners.forEach(partnerID => {
-                    let user = users.find(u => u._id === partnerID)
-                    if (user){
-                        let chatItem = document.createElement("div");
-                        chatItem.className = "chat-header-item";
-                        chatItem.onclick = function(){
-                            loadChat(user["user-name"], "images/man.jpg");
-
-                            chatItem.innerHTML = `
-                                <img src="images/man.jpg"
-                                <span>${user["user-name"]}</span>
-                            `;
-
-                            chatContainer.appendChild(chatItem);
-                        }
-                    }
-                })
+      .then(data => {
+        if (data.length > 0){
+            data.forEach(user => {
+                users.push(user);
             })
-            .catch(error => console.error("Error fetching users: ", error));
-
-      })
-      .catch(error => console.error("Error fetching chat history: ", error));
-
-    function startInstantAnswerChat(){
-        let userInput = document.getElementById("userInput");
-        let messageText = userInput.value.trim();
-
-        if (!messageText) return;
-
-        let duckduckgo = `${duckduckGoUrl}/?q=${messageText}&format=json`;
-
-        fetch(apiUrl)
-          .then(response => response.json())
-          .then(data => {
-            let duckduckGo;
-
-            if (data.Abstract){
-                duckduckGo = data.Abstract;
-            }
-            else if (data.RelatedTopics.length > 0){
-                duckduckGo = data.RelatedTopics[0].Text;
-            }
-            else {
-                duckduckGo = "Sorry, I couldn't find an answer";
-            }
-
-            displayMessage(duckduckGo, "other")
-          })
-          .catch(error => {
-            console.error("Error fetcching instant answer: ", error);
-            displayMessage("Sorry, I couldn't retrieve an answer right now.", "other");
-          })
-        userInput.value = ""; // Clear input field
-    }
-
-    function displayMessage(text, sender){
-        let chatBox = document.getElementById("chatBox");
-        let newMessage = document.createElement("div");
-        newMessage.className = `message${sender}`;
-
-        if (sender === "other"){
-            newMessage.innerHTML = `<img src="images/paypal.png" alt="Bot"> <div class="message-text">${text}</div>`;
         }
         else{
-            newMessage.innerHTML = `<span>${text}</span>`;
+            console.log("You are the only user, time for some sad music. Meow meow meow meow");
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching users from RestDB: ", error);
+      })
+
+    users.forEach(user => {
+        let chatItem = document.createElement("li");
+        let image = user["user-profile-picture"] ? user["user-profile-picture"] : "images/man.jpg"
+        let username = user["user-username"]
+        chatItem.innerHTML = `
+            <img src="${image}" alt="${username}" class="chat-avatar">
+            <span>${username}</span>
+        `;
+
+        chatItem.addEventListener("click", () => loadChat(username, image));
+        chatList.appendChild(chatItem);
+    })
+
+    sendChat.addEventListener("click", sendMessage())
+
+    function sendMessage(){
+        let userName = document.getElementById("chatUsername").innerText;
+        let userInput = document.getElementById("userInput");
+        let messageText = userInput.value.trim();
+        let chatbox = document.getElementById("chatBox");
+
+        if (messageText && userName !== "Select a Chat"){
+            let message = {
+                "senderID": userID,
+                "receiverID": receiverID,
+                "message": messageText
+            };
+            const POSTsettings = {
+                method: "POST",
+                headers: header,
+                body: JSON.stringify(message)
+            };
+
+            fetch(chatUrl, POSTsettings)
+              .then(response => response.json())
+              .then(data => {
+                console.log("Data being sent: ", data)
+                const messageBox = document.createElement("div");
+                messageBox.className = "message user";
+                messageBox.innerHTML = `<span>${messageText}</span>`;
+                chatbox.ATTRIBUTE_NODE.appendChild(messageBox);
+              })
+              .catch(error => console.error("Error: ", error));
         }
 
-        chatBox.appendChild(newMessage);
-        chatBox.scrollTop = chatBox.scrollHeight;
+        userInput.value = "";
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function loadChat(username, imgUrl){
+        document.getElementById("chatUsername").innerText = username;
+        document.getElementById("chatHeaderImg").src = imgUrl;
+
+        let chatBox = document.getElementById("chatBox");
+        chatBox.innerHTML = "";
+
+        fetch(chatUrl, GETsettings)
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.error("Error fetching chat history: ", error);
+          })
     }
 })
