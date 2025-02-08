@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         for (let i = 0; i< data.length; i++){
             let item = data[i];
-            let category = item["reverb-category"].toLowerCase();
+            let category = item["product-category"].toLowerCase();
 
             // console.log("Original Category: ", category);
 
@@ -82,14 +82,14 @@ document.addEventListener("DOMContentLoaded", function(){
             let item = filteredData[index];
             randomDays = Math.floor(Math.random() * 30) + 1;
             let imageLink = item["reverb-links"].photo.href;
-            let productName = item["reverb-title"];
+            let productName = item["product-name"];
             listingContent += `
                 <div class="col-md-3">
                     <div class="card custom-card text-light shadow-sm">
                         <div class="d-flex align-items-center p-3 profile-info">
                             <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
                             <div>
-                                <p class="mb-0 fw-bold profile-name">${item["reverb-shopname"]}</p>
+                                <p class="mb-0 fw-bold profile-name">${item["product-shopname"]}</p>
                                 <small class="text-muted join-date">${randomDays} days ago</small>
                             </div>
                         </div>
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         </a>
                         <div class="card-body text-start">
                             <p class="card-title fw-bold mb-2">${productName}</p>
-                            <p class="text-warning fw-bold">S$ ${item["reverb-price"]}</p>
+                            <p class="text-warning fw-bold">S$ ${item["product-price"]}</p>
                         </div>
                     </div>
                 </div>

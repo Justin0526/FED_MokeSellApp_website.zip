@@ -24,16 +24,16 @@ document.addEventListener("DOMContentLoaded", function(){
 
     let isUserListing = !!item["linked-userID"];
     let productData = {
-        id: isUserListing ? item["_id"] : item["reverb-id"],
-        shopname: isUserListing ? item["user-username"] : item["reverb-shopname"],
+        id: isUserListing ? item["_id"] : item["product-id"],
+        shopname: isUserListing ? item["product-shopname"] : item["product-shopname"],
         imageLink: isUserListing ? item["product-picture"] : item["reverb-links"].photo.href,
-        productName: isUserListing ? item["product-name"] : item["reverb-title"],
-        productPrice: isUserListing ? item["product-price"] : item["reverb-price"],
-        productDetails: isUserListing ? item["product-description"] : item["reverb-details"],
-        productCondition: isUserListing ? item["product-condition"] : item["reverb-condition"],
-        productCategory: isUserListing ? item["product-category"] : item["reverb-category"],
-        productAvailability: isUserListing ? "Available" : item["reverb-availability"],
-        productQuantity: isUserListing ? item["product-quantity"] : item["reverb-quantity"],
+        productName: isUserListing ? item["product-name"] : item["product-name"],
+        productPrice: isUserListing ? item["product-price"] : item["product-price"],
+        productDetails: isUserListing ? item["product-description"] : item["product-description"],
+        productCondition: isUserListing ? item["product-condition"] : item["product-condition"],
+        productCategory: isUserListing ? item["product-category"] : item["product-category"],
+        productAvailability: isUserListing ? "Available" : item["product-availability"],
+        productQuantity: isUserListing ? item["product-quantity"] : item["product-quantity"],
     };
     displayData(productData);
 

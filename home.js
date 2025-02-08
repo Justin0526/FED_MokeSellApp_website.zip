@@ -98,16 +98,16 @@ document.addEventListener("DOMContentLoaded", function(){
                         <div class="d-flex align-items-center p-3 profile-info">
                             <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
                             <div>
-                                <p class="mb-0 fw-bold profile-name">${item["reverb-shopname"]}</p>
+                                <p class="mb-0 fw-bold profile-name">${item["product-shopname"]}</p>
                                 <small class="text-muted join-date">${randomDays} days ago</small>
                             </div>
                         </div>
                         <a href="product-details.html" class="product-link" data-index="${index}">
-                            <img src="${imageLink}" alt="${item["reverb-title"]}" class="card-img-top">
+                            <img src="${imageLink}" alt="${item["product-name"]}" class="card-img-top">
                         </a>
                         <div class="card-body text-start">
-                            <p class="card-title fw-bold mb-2">${item["reverb-title"]}</p>
-                            <p class="text-warning fw-bold">S$${item["reverb-price"]}</p>
+                            <p class="card-title fw-bold mb-2">${item["product-name"]}</p>
+                            <p class="text-warning fw-bold">S$${item["product-price"]}</p>
                         </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function(){
                         <div class="d-flex align-items-center p-3 profile-info">
                             <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
                             <div>
-                                <p class="mb-0 fw-bold profile-name">${item["user-username"]}</p>
+                                <p class="mb-0 fw-bold profile-name">${item["product-shopname"]}</p>
                                 <small class="text-muted join-date">${randomDays} days ago</small>
                             </div>
                         </div>
@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 return response.json(); // Parse the JSON response
             })
             .then(restDbData => {
-                existingIds = restDbData.map(record => record["reverb-id"]); // Extract existing product IDs
+                existingIds = restDbData.map(record => record["product-id"]); // Extract existing product IDs
                 insertNewDataToRestDB(reverbListings, existingIds); // Insert new data
             })
             .catch(error => {
@@ -261,15 +261,15 @@ document.addEventListener("DOMContentLoaded", function(){
     
                 // Build product data for insertion
                 productData = {
-                    "reverb-id": productId,
-                    "reverb-title": listing.title || "No title",
-                    "reverb-price": price, // Converted price as a number
-                    "reverb-availability": "Available", // Default value
-                    "reverb-quantity": quantity, // Numeric quantity
-                    "reverb-details": listing.description || "No description",
-                    "reverb-condition": listing.condition ? listing.condition.display_name : "Unknown",
-                    "reverb-shopname": listing.shop_name || "Unknown",
-                    "reverb-category": listing.categories
+                    "product-id": productId,
+                    "product-name": listing.title || "No title",
+                    "product-price": price, // Converted price as a number
+                    "product-availability": "Available", // Default value
+                    "product-quantity": quantity, // Numeric quantity
+                    "product-description": listing.description || "No description",
+                    "product-condition": listing.condition ? listing.condition.display_name : "Unknown",
+                    "product-shopname": listing.shop_name || "Unknown",
+                    "product-category": listing.categories
                         ? listing.categories.map(c => c.full_name).join(", ")
                         : "Uncategorized",
                     "reverb-links": listing._links || {} // Save links for later use

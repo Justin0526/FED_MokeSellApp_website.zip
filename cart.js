@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "67972e07f9d2bb46c9181e32";  // 67875f7d9e18b182ee6941f0  678fbb8a58174779225315d5
     let cartUrl = "https://experiment-d5c7.restdb.io/rest/cart"; //   https://tryuse-a494.restdb.io/rest/cart  https://fedassg2-66ea.restdb.io/rest/cart
     let listingUrl = "https://experiment-d5c7.restdb.io/rest/reverblisting"; //   https://tryuse-a494.restdb.io/rest/testreverbapi  https://fedassg2-66ea.restdb.io/rest/reverblisting
+    let createListingUrl = "https://experiment-d5c7.restdb.io/rest/create-listing"; //  https://tryuse-a494.restdb.io/rest/create-listing  https://fedassg2-66ea.restdb.io/rest/create-listing
     let userID = sessionStorage.getItem("userID");
 
     if (!userID){
@@ -129,8 +130,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     let productID = this.getAttribute("data-id"); // Get product ID
                     console.log(productID);
 
-                    let productUrl = `${listingUrl}?q={"reverb-id": ${productID}}`
-
+                    let productUrl = `${listingUrl}?q={"product-id": ${productID}}` 
                     fetch (productUrl, GETsettings)
                       .then(response => response.json())
                       .then(product => {
