@@ -16,9 +16,9 @@ document.addEventListener("DOMContentLoaded", function(){
     let chatInformation = sessionStorage.getItem("chatInformation");
     chatInfo = chatInformation ? JSON.parse(chatInformation) : null;
 
-    if (!chatInfo || !chatInfo.receiverID){
-        console.log("No receiverID found in session storage");
-    };
+    // if (!chatInfo || !chatInfo.receiverID){
+    //     console.log("No receiverID found in session storage");
+    // };
 
     // let receiverID = chatInfo.receiverID;
     // console.log(receiverID);
@@ -39,12 +39,13 @@ document.addEventListener("DOMContentLoaded", function(){
                     chatItem.className = "chat-header-item";
                     let image = user["user-profile-picture"] ? user["user-profile-picture"] : "images/man.jpg"
                     let username = user["user-username"]
+                    let receiverID = user["linked-userID"];
                     chatItem.innerHTML = `
                         <img src="${image}" alt="${username}" class="chat-avatar">
                         <span>${username}</span>
                     `;
             
-                    chatItem.addEventListener("click", () => loadChat(username, image));
+                    chatItem.addEventListener("click", () => loadChat(username, image, receiverID));
                     chatHeaders.appendChild(chatItem);
                 }
             })
@@ -65,7 +66,9 @@ document.addEventListener("DOMContentLoaded", function(){
         let messageText = userInput.value.trim();
         let chatbox = document.getElementById("chatBox");
 
-        if (messageText && userName !== "Select a Chat"){
+        let receiverID = sessionStorage.getItem("receiverID"); // Get the correct receiverID
+
+        if (messageText && userName !== "Select a Chat" && receiverID){
             let message = {
                 "senderID": userID,
                 "receiverID": receiverID,
@@ -93,7 +96,12 @@ document.addEventListener("DOMContentLoaded", function(){
         chatbox.scrollTop = chatbox.scrollHeight;
     }
 
-    function loadChat(username, imgUrl){
+    function loadChat(username, imgUrl, receiverID){
+
+        let chatHeader = document.getElementById("chatHeader");
+        chatHeader.style.display = "flex";
+
+        console.log("Chat loading...")
         document.getElementById("chatUsername").innerText = username;
         document.getElementById("chatHeaderImg").src = imgUrl;
 
@@ -105,16 +113,27 @@ document.addEventListener("DOMContentLoaded", function(){
           .then(data => {
             data.forEach(msg => {
                 console.log(data);
-                let messageBox = document.createElement("div");
-                messageBox.className = msg.senderID === userID ? "message user" : "message receiver";
-                messageBox.innerHTML = `<span>${msg.message}</span>`;
-                chatBox.appendChild(messageBox);
+                if ((msg.senderID === userID && msg.receiverID === receiverID) || 
+                    (msg.senderID === receiverID && msg.receiverID === userID)){
+                        let messageBox = document.createElement("div");
+                        messageBox.className = msg.senderID === userID ? "message user" : "message receiver";
+                        messageBox.innerHTML = `<span>${msg.message}</span>`;
+                        chatBox.appendChild(messageBox);
+                    }           
             });
+            const userInput = document.getElementById('userInput');
+            userInput.disabled = false;
+            const sendButton = userInput.nextElementSibling;
+            sendButton.disabled = false;
+
 
             chatBox.scrollTop = chatBox.scrollHeight;
           })
           .catch(error => {
             console.error("Error fetching chat history: ", error);
-          })
+          });
+
+        // Store receiverID dynamically for sending messages
+        sessionStorage.setItem("receiverID", receiverID);
     }
 })
