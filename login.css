@@ -115,7 +115,7 @@ html, body {
     box-sizing: border-box;
 }
 
-.social-login button img {
+.social-login a img {
     height: 20px;
     margin-right: 10px;
 }
