@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let duckduckGoUrl = "https://api.duckduckgo.com";
     let userID = sessionStorage.getItem("userID");
     let sendChat = document.getElementById("sendButton");
+    let chatHeaders = document.querySelector(".chat-headers");
 
     const header = {
         "Content-Type": "application/json",
@@ -13,33 +14,39 @@ document.addEventListener("DOMContentLoaded", function(){
     };
 
     let chatInformation = sessionStorage.getItem("chatInformation");
-
-    chatInfo = JSON.parse(chatInformation);
-    console.log(chatInfo.receiverID);
-    console.log(userID);
+    chatInfo = chatInformation ? JSON.parse(chatInformation) : null;
 
     if (!chatInfo || !chatInfo.receiverID){
         console.log("No receiverID found in session storage");
-        startInstantAnswerChat();
-        return;
     };
 
-    let receiverID = chatInfo.receiverID;
+    // let receiverID = chatInfo.receiverID;
+    // console.log(receiverID);
+    console.log(userID)
 
     const GETsettings = {
         method: "GET",
         headers: header
     };
 
-    const chatList = document.getElementById("chatList");
-
-    let users = [];
     fetch(userProfileUrl, GETsettings)
       .then(response => response.json())
       .then(data => {
         if (data.length > 0){
             data.forEach(user => {
-                users.push(user);
+                if (!(user["linked-userID"] == userID)){
+                    let chatItem = document.createElement("div");
+                    chatItem.className = "chat-header-item";
+                    let image = user["user-profile-picture"] ? user["user-profile-picture"] : "images/man.jpg"
+                    let username = user["user-username"]
+                    chatItem.innerHTML = `
+                        <img src="${image}" alt="${username}" class="chat-avatar">
+                        <span>${username}</span>
+                    `;
+            
+                    chatItem.addEventListener("click", () => loadChat(username, image));
+                    chatHeaders.appendChild(chatItem);
+                }
             })
         }
         else{
@@ -50,20 +57,7 @@ document.addEventListener("DOMContentLoaded", function(){
         console.error("Error fetching users from RestDB: ", error);
       })
 
-    users.forEach(user => {
-        let chatItem = document.createElement("li");
-        let image = user["user-profile-picture"] ? user["user-profile-picture"] : "images/man.jpg"
-        let username = user["user-username"]
-        chatItem.innerHTML = `
-            <img src="${image}" alt="${username}" class="chat-avatar">
-            <span>${username}</span>
-        `;
-
-        chatItem.addEventListener("click", () => loadChat(username, image));
-        chatList.appendChild(chatItem);
-    })
-
-    sendChat.addEventListener("click", sendMessage())
+    sendChat.addEventListener("click", sendMessage)
 
     function sendMessage(){
         let userName = document.getElementById("chatUsername").innerText;
@@ -90,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 const messageBox = document.createElement("div");
                 messageBox.className = "message user";
                 messageBox.innerHTML = `<span>${messageText}</span>`;
-                chatbox.ATTRIBUTE_NODE.appendChild(messageBox);
+                chatbox.appendChild(messageBox);
               })
               .catch(error => console.error("Error: ", error));
         }
@@ -109,7 +103,15 @@ document.addEventListener("DOMContentLoaded", function(){
         fetch(chatUrl, GETsettings)
           .then(response => response.json())
           .then(data => {
-            console.log(data);
+            data.forEach(msg => {
+                console.log(data);
+                let messageBox = document.createElement("div");
+                messageBox.className = msg.senderID === userID ? "message user" : "message receiver";
+                messageBox.innerHTML = `<span>${msg.message}</span>`;
+                chatBox.appendChild(messageBox);
+            });
+
+            chatBox.scrollTop = chatBox.scrollHeight;
           })
           .catch(error => {
             console.error("Error fetching chat history: ", error);
