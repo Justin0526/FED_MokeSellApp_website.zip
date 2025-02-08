@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "67972e07f9d2bb46c9181e32";  // 67875f7d9e18b182ee6941f0  678fbb8a58174779225315d5
-    let reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=10";
-    let listingUrl = "https://experiment-d5c7.restdb.io/rest/reverblisting"; //   https://tryuse-a494.restdb.io/rest/testreverbapi  https://fedassg2-66ea.restdb.io/rest/reverblisting
-    let createListingUrl = "https://experiment-d5c7.restdb.io/rest/create-listing"; //  https://tryuse-a494.restdb.io/rest/create-listing  https://fedassg2-66ea.restdb.io/rest/create-listing
-
+    let APIKEY = "67875f7d9e18b182ee6941f0";  //   678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
+    let reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=1";
+    let listingUrl = "https://tryuse-a494.restdb.io/rest/testreverbapi"; // https://fedassg2-66ea.restdb.io/rest/reverblisting https://experiment-d5c7.restdb.io/rest/reverblisting
+    let createListingUrl = "https://tryuse-a494.restdb.io/rest/create-listing"; //    https://fedassg2-66ea.restdb.io/rest/create-listing https://experiment-d5c7.restdb.io/rest/create-listing
     let reverbHeader = {
         "Content-Type": "application/hal+json",
         "Accept": "application/hal+json",
@@ -88,10 +87,15 @@ document.addEventListener("DOMContentLoaded", function(){
         let trendingCardsHTML = "";
         let recommendCardsHTML = "";
     
+        let count = 0;
        // Loop through shuffled data and separate it into two sections
         shuffledData.forEach((item, index) => {
             randomDays = Math.floor(Math.random() * 30) + 1;
-            let imageLink = item["reverb-links"].photo.href;
+            if (!item["reverb-links"] || !item["reverb-links"].photo || !item["reverb-links"].photo.href) {
+                return; // Skip if image is missing
+            }
+            let imageLink = item["reverb-links"].photo.href 
+            console.log(item["reverb-links"].photo)
             let cardHTML = `
                 <div class="col-md-3">
                     <div class="card custom-card text-light shadow-sm">
@@ -112,10 +116,11 @@ document.addEventListener("DOMContentLoaded", function(){
                     </div>
                 </div>
             `;
+            count++;
 
-            if (index < 4) {
+            if (count <= 4) {
                 trendingCardsHTML += cardHTML; // First 4 items go to Trending
-            } else if (index < 8) {
+            } else if (count <= 8) {
                 recommendCardsHTML += cardHTML; // Next 4 items go to Recommended
             }
         });
