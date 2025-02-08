@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
     let APIKEY = "67972e07f9d2bb46c9181e32";  // 67875f7d9e18b182ee6941f0 678fbb8a58174779225315d5
     let allUserInfoUrl = "https://experiment-d5c7.restdb.io/rest/alluserinfo";   // https://tryuse-a494.restdb.io/rest/alluserinfo https://fedassg2-66ea.restdb.io/rest/alluserinfo
+    let userProfileUrl = "https://experiment-d5c7.restdb.io/rest/user-profile";  // https://tryuse-a494.restdb.io/rest/user-profile https://fedassg2-66ea.restdb.io/rest/user-profile
     const header = {
         "Content-Type": "application/json",
         "x-apikey": APIKEY,
@@ -34,20 +35,21 @@ document.addEventListener("DOMContentLoaded", function(){
 
             // emailError.style.display = 'none';
             passwordError.style.display = 'none';
-            let userName = userData["user-name"];
-            let userID = userData["_id"]; // Get userID from database
+            let userName = userData["user-username"];
+            let userID = userData["linked-userID"]; // Get userID from database
+            let userProfilePic = userData["user-profile-picture"];
 
             let userEncryptedPassword = userData["user-password"];
             let decipheredPassword = caesarDecipher(userEncryptedPassword, 4);
             console.log(decipheredPassword);
 
             if (userPassword === decipheredPassword){
-                console.log("YAY");
 
                 sessionStorage.setItem("userID", userID);
                 sessionStorage.setItem("userEmail", userEmail);
                 sessionStorage.setItem("userName", userName);
                 sessionStorage.setItem("userPassword", userEncryptedPassword);
+                sessionStorage.setItem("userProfilePicture", userProfilePic);
 
                 // Disable login button while processing
                 let loginButton = document.getElementById("user-login");
@@ -99,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     function checkEmailExists(email){
-        let queryUrl = `${allUserInfoUrl}?q={"user-email": "${email}"}`;
+        let queryUrl = `${userProfileUrl}?q={"user-email": "${email}"}`;
 
         let settings = {
             method: "GET",

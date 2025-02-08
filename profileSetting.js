@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function(){
             let newImagePath = `images/${fileName}`; // All images are stored in images folder for this project
             document.getElementById("profileImage").src = newImagePath;
             updatedUserData["user-profile-picture"] = newImagePath;
+            sessionStorage.setItem("userProfilePicture", newImagePath);
         }
       });
 
@@ -127,6 +128,7 @@ document.addEventListener("DOMContentLoaded", function(){
         let profileImage = document.getElementById("profileImage");
         profileImage.src = "images/man.jpg"; // Reset to default
         updatedUserData["user-profile-picture"] = "images/man.jpg";
+        sessionStorage.setItem("userProfilePicture", "images/man.jpg")
         console.log("Profile image removed");
       });
 
@@ -182,8 +184,8 @@ document.addEventListener("DOMContentLoaded", function(){
             else{
                 let newEncryptedPassword = caesarCipher(newPassword, 4);
                 console.log("New encrypted password: ", newEncryptedPassword);
-                updatedUserData["user-new-password"] = newEncryptedPassword; //Store the new password
-                console.log("New password updated: ", updatedUserData["user-new-password"]);
+                updatedUserData["user-password"] = newEncryptedPassword; //Store the new password
+                console.log("New password updated: ", updatedUserData["user-password"]);
             }      
         }
         else if (newPassword != "" && confirmPassword === ""){
@@ -218,8 +220,8 @@ document.addEventListener("DOMContentLoaded", function(){
             let linkedUserID = updatedProfile["linked-userID"]; // Get the linked userID
             console.log("Linked User ID: ", linkedUserID);
 
-            if (linkedUserID && updatedUserData["user-new-password"]){
-                updateAllUserInfo(linkedUserID, updatedUserData["user-new-password"]);
+            if (linkedUserID && updatedUserData["user-password"]){
+                updateAllUserInfo(linkedUserID, updatedUserData["user-password"]);
             }
             else{
                 console.log("Everything but password is not updated");

@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 let userProfileJsonData = {
                     "user-username": userName,
                     "user-email": userEmail,
+                    "user-password": encryptedPassword,
                     "linked-userID": linkedUserID // Store 'allUserinfo' ID in 'user-profile'
                 };
                 
