@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "67875f7d9e18b182ee6941f0";  //   678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
+    let APIKEY = "678fbb8a58174779225315d5";  //    67972e07f9d2bb46c9181e32 67875f7d9e18b182ee6941f0
     let reverbApiUrl = "https://api.reverb.com/api/listings/?page=1&per_page=1";
-    let listingUrl = "https://tryuse-a494.restdb.io/rest/testreverbapi"; // https://fedassg2-66ea.restdb.io/rest/reverblisting https://experiment-d5c7.restdb.io/rest/reverblisting
-    let createListingUrl = "https://tryuse-a494.restdb.io/rest/create-listing"; //    https://fedassg2-66ea.restdb.io/rest/create-listing https://experiment-d5c7.restdb.io/rest/create-listing
+    let listingUrl = "https://fedassg2-66ea.restdb.io/rest/reverblisting"; //  https://experiment-d5c7.restdb.io/rest/reverblisting https://tryuse-a494.restdb.io/rest/testreverbapi
+    let createListingUrl = "https://fedassg2-66ea.restdb.io/rest/create-listing"; //  https://experiment-d5c7.restdb.io/rest/create-listing https://tryuse-a494.restdb.io/rest/create-listing
     let reverbHeader = {
         "Content-Type": "application/hal+json",
         "Accept": "application/hal+json",
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                 <small class="text-muted join-date">${randomDays} days ago</small>
                             </div>
                         </div>
-                        <div class="product-link" data-index="${index}" role="button">
+                        <div class="product-link" data-id="${item["product-id"]}" role="button">
                             <img src="${imageLink}" alt="${item["product-name"]}" class="card-img-top">
                         </div>
                         <div class="card-body text-start">
@@ -120,8 +120,8 @@ document.addEventListener("DOMContentLoaded", function(){
         document.querySelectorAll(".product-link").forEach((element) => {
             element.addEventListener("click", function (event) {
                 event.preventDefault();
-                let itemIndex = parseInt(this.getAttribute("data-index"), 10) + 1;
-                let selectedItem = shuffledData[itemIndex];
+                let itemId = this.getAttribute("data-id");
+                let selectedItem = shuffledData.find(item => item["product-id"] == itemId);
                 alert(selectedItem);
                 if (selectedItem) {
                     sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
