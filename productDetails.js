@@ -25,15 +25,24 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function displayData(){
 
+        let shopname = item["linked-userID"] ? item["user-username"] : item["reverb-shopname"];
+        let imageLink = item["linked-userID"] ? item["product-picture"] : item["reverb-links"].photo.href;
+        let productName = item["linked-userID"] ? item["product-name"] : item["reverb-title"];
+        let productPrice = item["linked-userID"] ? item["product-price"] : item["reverb-price"];
+        let productDetails = item["linked-userID"] ? item["product-description"] : item["reverb-details"];
+        let productCondition = item["linked-userID"] ? item["product-condition"] : item["reverb-condition"];
+        let productCategory = item["linked-userID"] ? item["product-category"] : item["reverb-category"];
+        let productAvailability = item["linked-userID"] ? "Available" : item["reverb-availability"];
+        let productQuantity = item["linked-userID"] ? item["product-quantity"] : item["reverb-quantity"];
+        
         let itemContainer = document.getElementById("item-container")
         let allItemsContent = "";
-        let imageLink = item["reverb-links"].photo.href;    
         allItemsContent += `
             <div class="product-details-section container py-5 position-relative">
                 <!-- Seller Section: Adjusted layout to avoid overlapping the product image -->
                 <div class="seller-profile text-center position-absolute p-3">
                     <img src="images/man.jpg" alt="Seller Profile" class="rounded-circle me-2" width="50" height="50">
-                    <h5 class="seller-name mb-0"> ${item["reverb-shopname"]}</h5>
+                    <h5 class="seller-name mb-0"> ${shopname}</h5>
                 </div> 
                 <div class="row">
                     <!-- Product Image Section -->
@@ -44,16 +53,16 @@ document.addEventListener("DOMContentLoaded", function(){
                     <!-- Product Details Section -->
                     <div class="col-md-6">
                         <div class="product-name-price" >
-                            <h2 class="product-name fw-bold" id="product-name">${item['reverb-title']}</h2>
-                            <h3 class="product-price" id="product-price">SGD ${item['reverb-price']}</h3>
+                            <h2 class="product-name fw-bold" id="product-name">${productName}</h2>
+                            <h3 class="product-price" id="product-price">SGD ${productPrice}</h3>
                         </div>
                         <p class="product-description" id="product-description">
-                            ${item['reverb-details']}
+                            ${productDetails}
                         </p>
-                        <p class="product-condition" id="product-condition"><strong>Condition:</strong> ${item['reverb-condition']}</p>
-                        <p class="product-category" id="product-category"><strong>Category:</strong> ${item['reverb-category']}</p>
-                        <p class="product-category" id="product-availability"><strong>Availability:</strong> ${item['reverb-availability']}</p>
-                        <p class="product-category" id="product-quantity"><strong>Quantity:</strong> ${item['reverb-quantity']}</p>
+                        <p class="product-condition" id="product-condition"><strong>Condition:</strong> ${productCondition}</p>
+                        <p class="product-category" id="product-category"><strong>Category:</strong> ${productCategory}</p>
+                        <p class="product-category" id="product-availability"><strong>Availability:</strong> ${productAvailability}</p>
+                        <p class="product-category" id="product-quantity"><strong>Quantity:</strong> ${productQuantity}</p>
             
                         <!-- Buttons Section -->
                         <div class="d-flex flex-column gap-3">

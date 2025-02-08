@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function(){
             }
             else{
                 console.log("User haven't created listings yet")
-                document.getElementById("user-listing-title").textContent = ""
+                document.getElementById("user-listing-title").textContent = "";
             }
           })
     }
