@@ -84,18 +84,24 @@ document.addEventListener("DOMContentLoaded", function(){
         let shuffledData = type !== "user" ? data.sort(() => Math.random() - 0.5) : data;
         let count = 0;
         let maxItems = type === "user" ? data.length : 4;
+
+        let userProfilePic = sessionStorage.getItem("userProfilePicture");
+        if (!userProfilePic || userProfilePic == null || userProfilePic == undefined){
+            userProfilePic = "images/man.jpg"
+        }
     
         shuffledData.slice(0, maxItems).forEach((item, index) => {
             let randomDays = Math.floor(Math.random() * 30) + 1;
             let productID = type !== "user" ? item["product-id"]: item._id;
             let imageLink = type !== "user" ? item["reverb-links"]?.photo?.href : item["product-picture"];
             if (!imageLink) return;
+            let profilePicture = type === "user" ? userProfilePic : "images/man.jpg";
     
             let cardHTML = `
                 <div class="col-md-3">
                     <div class="card custom-card text-light shadow-sm">
                         <div class="d-flex align-items-center p-3 profile-info">
-                            <img src="images/man.jpg" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
+                            <img src="${profilePicture}" alt="User Photo" class="rounded-circle me-3" width="50" height="50">
                             <div>
                                 <p class="mb-0 fw-bold profile-name">${item["product-shopname"]}</p>
                                 <small class="text-muted join-date">${randomDays} days ago</small>

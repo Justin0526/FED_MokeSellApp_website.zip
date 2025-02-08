@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function(){
     let imageUrl;
     if (isUserListing){
         imageUrl = item["product-picture"];
+        document.getElementById("")
         console.log("User's listing", imageUrl);
     }
     else{
@@ -42,6 +43,13 @@ document.addEventListener("DOMContentLoaded", function(){
             imageUrl = "images/man.jpg";
         }
         console.log("Not a user listing");
+    }
+    let userProfilePic = sessionStorage.getItem("userProfilePicture");
+    if (!userProfilePic || userProfilePic == null || userProfilePic == undefined){
+        userProfilePic = "images/man.jpg"
+    }
+    else{
+        userProfilePic = String(userProfilePic);
     }
     let productData = {
         id: isUserListing ? item["_id"] : item["product-id"],
@@ -54,7 +62,9 @@ document.addEventListener("DOMContentLoaded", function(){
         productCategory: item["product-category"],
         productAvailability: isUserListing ? "Available" : item["product-availability"],
         productQuantity: item["product-quantity"] || 0, // Default to 0 if not provided
+        userPicture: String(userProfilePic)
     };
+
     displayData(productData);
 
     function displayData(product){
@@ -65,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function(){
             <div class="product-details-section container py-5 position-relative">
                 <!-- Seller Section: Adjusted layout to avoid overlapping the product image -->
                 <div class="seller-profile text-center position-absolute p-3">
-                    <img src="images/man.jpg" alt="Seller Profile" class="rounded-circle me-2" width="50" height="50">
+                    <img src="${product.userPicture}" alt="Seller Profile" class="rounded-circle me-2" width="50" height="50">
                     <h5 class="seller-name mb-0"> ${product.shopname}</h5>
                 </div> 
                 <div class="row">
@@ -114,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function(){
         e.preventDefault();
     
         let senderID = userID;
-        let receiverID = item["linked-userID"] || ""; // Fallback to empty if missing
+        let receiverID = item["linked-userID"] || null; // Fallback to empty if missing
         let shopName = productData.shopname;
         let chatUrl = "https://experiment-d5c7.restdb.io/rest/chat"; // Should use chatUrl, not cartUrl
     
@@ -131,8 +141,7 @@ document.addEventListener("DOMContentLoaded", function(){
             let existingChat = data.find(chat => 
                 chat.senderID === userID && chat.shopName === shopName
             );
-
-            if (existingChat) {
+            if (existingChat || senderID == receiverID ) {
                 console.log("Existing chat found. Redirecting...");
                 window.location.href = "chat.html"; // Step 2a: Direct to chat page
             } else {
