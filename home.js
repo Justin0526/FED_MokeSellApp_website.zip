@@ -35,26 +35,26 @@ document.addEventListener("DOMContentLoaded", function(){
             headers: header
         };
     
-        // fetch(listingUrl, settings)
-        //     .then(response => {
-        //         if (!response.ok) {
-        //             throw new Error(`HTTP error! Status: ${response.status}`);
-        //         }
-        //         return response.json();
-        //     })
-        //     .then(data => {
-        //         if (data.length > 0) {
-        //             displayListings(data, "trending");
-        //             displayListings(data, "recommended");
-        //         } else {
-        //             console.log("No data found in RestDB.");
-        //             document.getElementById("product-list").innerHTML = "<p>No products found.</p>";
-        //         }
-        //     })
-        //     .catch(error => {
-        //         console.error("Error fetching data from RestDB:", error);
-        //         document.getElementById("product-list").innerHTML = "<p>Error fetching data from RestDB.</p>";
-        //     });
+        fetch(listingUrl, settings)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.length > 0) {
+                    displayListings(data, "trending");
+                    displayListings(data, "recommended");
+                } else {
+                    console.log("No data found in RestDB.");
+                    document.getElementById("product-list").innerHTML = "<p>No products found.</p>";
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching data from RestDB:", error);
+                document.getElementById("product-list").innerHTML = "<p>Error fetching data from RestDB.</p>";
+            });
     
         fetch(createListingUrl, settings)
             .then(response => response.json())
@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", function(){
     
         shuffledData.slice(0, maxItems).forEach((item, index) => {
             let randomDays = Math.floor(Math.random() * 30) + 1;
+            let productID = type !== "user" ? item["product-id"]: item._id;
             let imageLink = type !== "user" ? item["reverb-links"]?.photo?.href : item["product-picture"];
             if (!imageLink) return;
     
@@ -99,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function(){
                                 <small class="text-muted join-date">${randomDays} days ago</small>
                             </div>
                         </div>
-                        <div class="product-link" data-id="${item["product-id"]}" role="button">
+                        <div class="product-link" data-id="${productID}" role="button">
                             <img src="${imageLink}" alt="${item["product-name"]}" class="card-img-top">
                         </div>
                         <div class="card-body text-start">
@@ -119,9 +120,9 @@ document.addEventListener("DOMContentLoaded", function(){
             element.addEventListener("click", function (event) {
                 event.preventDefault();
                 let itemId = this.getAttribute("data-id");
-                alert(itemId);
-                let selectedItem = shuffledData.find(item => item["product-id"] == itemId);
-                alert(selectedItem);
+                let selectedItem = shuffledData.find(item => 
+                    (type !== "user" ? item["product-id"] : item._id) == itemId
+                );
                 if (selectedItem) {
                     sessionStorage.setItem("selectedProduct", JSON.stringify(selectedItem));
                     window.location.href = "product-details.html";
