@@ -80,8 +80,12 @@ document.addEventListener("DOMContentLoaded", function(){
         let listingContent = "";
         for (let index = 0; index < filteredData.length && index < 20; index ++) {
             let item = filteredData[index];
+            if (item["linked-userID"]){
+                index--;
+                continue;
+            } 
             randomDays = Math.floor(Math.random() * 30) + 1;
-            let imageLink = item["reverb-links"].photo.href;
+            let imageLink = item["reverb-links"].photo.href; 
             let productName = item["product-name"];
             listingContent += `
                 <div class="col-md-3">
