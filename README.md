@@ -298,9 +298,9 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 ---
 
 ### **📝 Languages**
-1. **[HTML5](https://developer.mozilla.org/en-US/docs/Web/HTML)** – Structures the content and layout of all web pages.
-2. **[CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS)** – Styles the user interface and ensures responsiveness.
-3. **[JavaScript (ES6+)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)** – Handles dynamic interactions, API calls, data retrieval, and form validations.
+1. **[HTML5](https://dev.w3.org/html5/spec-LC/)** – Structures the content and layout of all web pages.
+2. **[CSS3](https://www.w3.org/Style/CSS/Overview.en.html)** – Styles the user interface and ensures responsiveness.
+3. **[JavaScript (ES6+)](https://262.ecma-international.org/)** – Handles dynamic interactions, API calls, data retrieval, and form validations.
 
 ---
 
@@ -318,20 +318,15 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 
 ---
 
-### **🔒 Security & Encryption**
-10. **[Caesar Cipher (Custom Implementation in JavaScript)](https://en.wikipedia.org/wiki/Caesar_cipher)** – Provides simple password encryption before storing credentials in the database.
-
----
-
 ### **📂 Tools & Utilities**
-11. **[Session Storage (JavaScript)](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)** – Temporarily stores user session data, such as login details and cart items.
-12. **[Fetch API (JavaScript)](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)** – Handles HTTP requests to retrieve and update data from **RestDB.io**.
-13. **[WebSockets (Planned for Future Use)](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API)** – Could be used for real-time chat updates and leaderboard tracking.
+11. **Session Storage (JavaScript)** – Temporarily stores user session data, such as login details and cart items.
+12. **Fetch API (JavaScript)** – Handles HTTP requests to retrieve and update data from **RestDB.io**.
+13. **WebSockets (Planned for Future Use)** – Could be used for real-time chat updates and leaderboard tracking.
 
 ---
 
 ## **💡 Why These Technologies?**
-- **[HTML](https://developer.mozilla.org/en-US/docs/Web/HTML), [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS), and [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)** provide a complete front-end solution without requiring a separate back-end framework.
+- **[HTML](https://dev.w3.org/html5/spec-LC/), [CSS](https://www.w3.org/Style/CSS/Overview.en.html), and [JavaScript](https://262.ecma-international.org/)** provide a complete front-end solution without requiring a separate back-end framework.
 - **[Bootstrap](https://getbootstrap.com/) & [Font Awesome](https://fontawesome.com/)** ensure a consistent and responsive UI design.
 - **[RestDB.io](https://restdb.io/)** simplifies database management without complex server-side setup.
 - **[SessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) & [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)** improve data retrieval efficiency, keeping pages lightweight.
