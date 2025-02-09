@@ -394,4 +394,4 @@ Thank you all for your contributions! 🎊
 1. Repository Link : https://github.com/Justin0526/FED_MokeSellApp_website.zip
 
 ### ✅ **Figma WireFrames**
-1. WireFrames Link : https://github.com/Justin0526/FED_MokeSellApp_website.zip
+1. WireFrames Link : https://www.figma.com/design/UBKXPtwVoZ5SBUJAie2ez3/MokeSell_WireFrames_Justin%26Shein?node-id=0-1&t=LEAg0takzISwVKcG-1
