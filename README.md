@@ -341,12 +341,15 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 ![Real Time Validation](images/RealTimeTransactionInput.jpg)
 ### 4. Caesar Cipher Implementation with ChatGPT:
 ![Caesar Cipher](images/caesarCipher.jpg)
-### 5. Chat Bot - ChatGPT is used to write frame and style for Chat Bot :
+### 5. Gamification Implementation with ChatGPT :
+![Gamification](images/gamification.png)
+![Gamification](images/gamification1.png)
+![Gamification](images/gamification2.png)
+### 6. Chat Bot - ChatGPT is used to write frame and style for Chat Bot :
 ![Chat Bot](images/chat-bot.png)
 ![Chat Bot](images/chat-bot-css.png)
 ![Chat Bot](images/chat-bot-css1.png)
-### 5. Chat-Bot - ChatGPT is used to write frame and style :
-![Chat Bot](images/chat-bot.png)
+
 
 ## **Testing**
 **This section contains a detailed breakdown of all 16 HTML pages and scenario testing that have not been automated.**  
