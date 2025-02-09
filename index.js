@@ -171,12 +171,7 @@ document.addEventListener("DOMContentLoaded", function(){
             headers: header
         };
         fetch(listingUrl, settings)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json(); // Parse the JSON response
-            })
+            .then(response => response.json())
             .then(restDbData => {
                 let existingIds = restDbData.map(record => record["product-id"]); // Extract existing product IDs
                 insertNewDataToRestDB(reverbListings, existingIds); // Insert new data
