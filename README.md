@@ -378,7 +378,7 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 ---
 
 ### 🎉 Acknowledgements
-We would like to extend our heartfelt gratitude to everyone who contributed to the development of the **MokeSell Interactive Web Application**:
+We would like to extend our heartfelt gratitude to everyone who contributed to the development of the **MokeSell: An Interactive Instrument Marketplace**:
 
 - **Our Lecturer** – for providing invaluable advice, constructive feedback, and motivation throughout the project.
 - **Our Teammates** – for their relentless dedication, hard work, and commitment. This project is a product of our collective effort, and while it may not be perfect, we take pride in what we have built together.
