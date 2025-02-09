@@ -45,12 +45,15 @@ document.addEventListener("DOMContentLoaded", function(){
         console.log("Not a user listing");
     }
     let userProfilePic = sessionStorage.getItem("userProfilePicture");
-    if (!userProfilePic || userProfilePic == null || userProfilePic == undefined){
-        userProfilePic = "images/man.jpg"
+    console.log(userProfilePic)
+    let userPic = "";
+    if (userProfilePic == "undefined" || !userProfilePic){
+        userPic = 'images/man.jpg'
     }
     else{
-        userProfilePic = String(userProfilePic);
+        userPic = String(userProfilePic);
     }
+    console.log(userPic)
     let productData = {
         id: isUserListing ? item["_id"] : item["product-id"],
         shopname: item["product-shopname"], // Same for both listings
@@ -62,14 +65,14 @@ document.addEventListener("DOMContentLoaded", function(){
         productCategory: item["product-category"],
         productAvailability: isUserListing ? "Available" : item["product-availability"],
         productQuantity: item["product-quantity"] || 0, // Default to 0 if not provided
-        userPicture: String(userProfilePic)
+        userPicture: userPic
     };
 
     displayData(productData);
 
     function displayData(product){
         let itemContainer = document.getElementById("item-container");
-        console.log(product.imageLink);
+        console.log(product.userPicture);
         let allItemsContent = "";
         allItemsContent += `
             <div class="product-details-section container py-5 position-relative">
@@ -277,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 fetch (cartUrl, POSTsettings)
                 .then(response => response.json())
                 .then(data => {
-                    console.log("Product added to cart: ", data);
+                    console.log("Product added to cart: ", data);        
                     alert("Product successfully added to cart!");
                 })
                 .catch(error => {
