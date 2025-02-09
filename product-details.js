@@ -225,7 +225,10 @@ document.addEventListener("DOMContentLoaded", function(){
             return;
         }
         console.log("Checking for productID", productData.id);
-        let checkItemUrl = `${cartUrl}?q={"linked-userID": "${userID}", "product-id": "${productData.id}"}`;
+        console.log("userID", userID);
+        let checkItemUrl = (typeof productData.id === "number") 
+        ? `${cartUrl}?q={"linked-userID": "${userID}", "product-id": ${productData.id}}` 
+        : `${cartUrl}?q={"linked-userID": "${userID}", "product-id": "${productData.id}"}`;
 
         let GETsettings = {
             method : "GET",

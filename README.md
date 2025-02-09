@@ -354,6 +354,9 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 ![Chat Bot](images/chat-bot.png)
 ![Chat Bot](images/chat-bot-css.png)
 ![Chat Bot](images/chat-bot-css1.png)
+### 7. Sorting Data for User Score using Sort(), taught by ChatGPT:
+![Sort Data](images/SortData.jpg)
+![Sort Data](images/SortData2.jpg)
 
 ---
 
@@ -395,3 +398,6 @@ Thank you all for your contributions! 🎊
 
 ### ✅ **Figma WireFrames**
 1. WireFrames Link : https://www.figma.com/design/UBKXPtwVoZ5SBUJAie2ez3/MokeSell_WireFrames_Justin%26Shein?node-id=0-1&t=LEAg0takzISwVKcG-1
+
+### ✅ **Google Drive Link to Video**
+1. https://drive.google.com/drive/folders/19LY3NYMo5FO-k1i_SNCqqToUxCKjZLaI?usp=drive_link 
