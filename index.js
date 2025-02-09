@@ -312,7 +312,7 @@ document.addEventListener("DOMContentLoaded", function(){
         messageContainer.classList.add("message-container", sender === "user" ? "user-container" : "bot-container");
 
         let profilePic = document.createElement("img");
-        profilePic.src = sender === "user" ? String(userProfilePic) : "images/paypal.png";
+        profilePic.src = sender === "user" ? String(userProfilePic) : "images/robot.png";
         profilePic.classList.add("profile-pic");
 
         let messageMsg = document.createElement("div");
