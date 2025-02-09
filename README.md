@@ -336,13 +336,6 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 ### ✅ **How to Use This Repo**
 1. Repository Link : https://github.com/Justin0526/FED_MokeSellApp_website.zip
 
-# MokeSell - Testing Summary
-
-## Overview
-MokeSell is a marketplace platform designed for buying and selling second-hand musical instruments. This document provides a comprehensive testing summary, detailing test scenarios, expected outcomes, and bug reports for different pages and functionalities.
-
----
-
 ## 📌 **Testing Summary**
 The MokeSell website has been tested across multiple browsers and screen sizes to ensure proper functionality, responsiveness, and error handling. Below are the findings based on individual page testing.
 
@@ -687,15 +680,5 @@ The MokeSell website has been tested across multiple browsers and screen sizes t
 - **Enhance API error handling** for smoother fallback when requests fail.  
 - **Improve mobile UI layout** for better responsiveness.  
 - **Optimize image loading** by converting images to WebP format for faster performance.  
-
----
-
-
-
-
-### Content & Layout
-**Test Scenario 1: Readability & Responsiveness**
-- **Steps:** View About Us on desktop and mobile.
-- **Expected Result:** The text should be readable, and sections should align properly.
 
 ---
