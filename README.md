@@ -334,7 +334,7 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 
 ## **Assistive AI**
 ### 1. Email Validation using expressions: 
-    ![Email Validation](images/EmailValidation.jpg)
+![Email Validation](images/EmailValidation.jpg)
 
 ## **Testing**
 **This section contains a detailed breakdown of all 16 HTML pages and scenario testing that have not been automated.**  
