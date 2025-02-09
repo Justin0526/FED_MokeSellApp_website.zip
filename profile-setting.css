@@ -212,32 +212,43 @@ html, body {
     margin-bottom: 1.5rem; /* Space between rows */
 }
 
-/* Profile-setting  */ 
+/* Profile-setting */
 .profile-page-title h2 {
     color: #7f604c;
     font-weight: bold;
     font-size: 2.3rem;
 }
 
+/* Profile Setting Container */
 .profile-setting {
     background-color: #121b20;
-    margin-top: 50px;
+    margin: 50px auto;
     padding: 30px;
     border-radius: 25px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 900px;
-    margin: 50px auto;
+    max-width: 1000px;
 }
 
+#username-input, #email-input, #firstName-input, #lastName-input, #mobileNumber-input{
+    display: none;
+}
+
+#confirmPasswordError, #samePasswordError, #passwordLengthError, #emptyPasswordError{
+    color: red;
+    display: none;
+}
+
+/* Profile Section */
 .profile-section {
     text-align: center;
 }
 
+/* Profile Image Wrapper */
 .profile-image-wrapper {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    background-color: #362c26; /* Light gray background */
+    background-color: #362c26;
     overflow: hidden;
     border: 2px solid #ddd;
     display: flex;
@@ -253,69 +264,258 @@ html, body {
     display: block;
 }
 
-.profile-section .btn-group .change-btn {
+/* Buttons for Change/Delete Image */
+.profile-section .btn-group .change-btn,
+.profile-section .btn-group .delete-btn {
     border-radius: 25px !important;
-    padding: 0px 20px;
+    padding: 8px 20px;
     width: 150px !important;
     height: 40px;
-    justify-content: space-between;
-    box-sizing: border-box;
     border: 1.5px solid #c89872 !important;
     background-color: #362c26 !important;
     color: white;
+    transition: all 0.3s ease-in-out;
 }
-
 
 .profile-section .btn-group .delete-btn {
     background-color: #e55634 !important;
-    border-radius: 25px !important;
-    padding: 0px 20px;
-    width: 150px !important;
-    height: 40px;
-    justify-content: space-between;
-    box-sizing: border-box;
-    border: 1.5px solid #362c26!important;
-    color: white;
 }
 
 .profile-section .btn-group button:hover {
     border: 1.5px solid white !important;
     color: black !important;
-    background-color: #C89872!important;
+    background-color: #c89872 !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
 }
 
+/* Form Styling */
+.userProfileForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
+/* Labels */
 .userProfileForm label {
     font-weight: bold;
     color: white;
 }
 
-.userProfileForm input,
-.userProfileForm select{
+/* Inputs & Select Dropdown */
+/* Ensure consistent width for Gender, New Password, and Confirm Password */
+.userProfileForm select,
+.userProfileForm input[type="password"] {
+    width: 100%; /* Ensures full-width alignment */
+    max-width: 400px; /* Adjusts to a standard maximum width */
     border-radius: 25px;
-    padding: 8px 20px;
-    /* margin-right: 5px; */
-}
-
-.userProfileForm button {
-    border-radius: 25px !important;
-    padding: 0px 13px;
-    /* width: 163px !important; */
-    height: 40px;
-    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    color: black;
+    transition: all 0.3s ease-in-out;
     box-sizing: border-box;
-    border: 1.5px solid #c89872 !important;
-    background-color: #2e464a !important;
-    font-weight: bold;
 }
 
-.userProfileForm button:hover {
-    border: 1.5px solid white !important;
+/* Adjust the surrounding column to align properly */
+.userProfileForm .col-md-6 {
+    flex: 1 1 auto; /* Ensures flex-basis adjusts automatically */
+    max-width: 400px; /* Ensures columns don’t exceed the input width */
+    margin-bottom: 20px; /* Adds spacing between rows */
+}
+
+/* Focus styling for better UX */
+.userProfileForm select:focus,
+.userProfileForm input[type="password"]:focus {
+    border-color: #c89872;
+    outline: none;
+}
+
+/* Error Messages */
+#samePasswordError,
+#passwordLengthError,
+#confirmPasswordError,
+#emptyPasswordError {
+    display: none;
+    color: #e55634;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+/* Grid Layout for Input Sections */
+.userProfileForm .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Each Input Block */
+.userProfileForm .col-md-6 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-grow: 1;
+}
+/* Styling for hidden inputs that become visible when editing */
+.userProfileForm input[type="text"],
+.userProfileForm input[type="email"],
+.userProfileForm input[type="password"] {
+    width: 100%; /* Ensures full-width alignment */
+    max-width: 390px; /* Adjusts to a standard maximum width */
+    border-radius: 25px;
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    color: black;
+    transition: all 0.3s ease-in-out;
+    box-sizing: border-box;
+    border-radius: 25px;
+    width: 100%;
+    display: block; /* Ensure the input is displayed */
+}
+/* Styling specifically for the Mobile Number input group */
+#mobileNumber-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Spacing between dropdown and input */
+    width: 100%; /* Full width for consistency */
+    max-width: 400px; /* Matches other input field widths */
+    border-radius: 25px; /* Rounded corners for consistency */
+    background-color: white;
+    padding: 5px 10px; /* Internal spacing */
+    border: 1px solid #ddd; /* Light border */
+    box-sizing: border-box; /* Ensure padding/border are included in width */
+}
+
+/* Specific styling for the country code dropdown */
+#mobileNumber-input-group select {
+    border: none; /* Removes default border */
+    background: white; /* Transparent background */
+    color: #fff; /* Text color */
+    font-size: 1rem; /* Consistent font size */
+    padding: 5px 10px; /* Internal padding */
+    border-radius: 25px; /* Matches the group style */
+    flex: 0 0 auto; /* Prevents stretching */
+    appearance: none; /* Removes default dropdown styling */
+}
+
+/* Styling specifically for the Mobile Number input field */
+#mobileNumber-input {
+    border: none; /* Removes default border */
+    background: white; /* Transparent background */
+    color: black; /* Matches other input styles */
+    font-size: 1rem; /* Uniform font size */
+    flex: 1; /* Input takes up the remaining space */
+    padding: 10px; /* Comfortable padding */
+    outline: none; /* Removes the default outline */
+}
+
+/* Focus styles for the Mobile Number input and dropdown */
+#mobileNumber-input:focus,
+#mobileNumber-input-group select:focus {
+    outline: none; /* Removes default outline */
+    border-color: #c89872; /* Highlight border on focus */
+}
+
+/* Styling for the entire Mobile Number input group on hover and focus */
+#mobileNumber-input-group:hover,
+#mobileNumber-input-group:focus-within {
+    background-color: rgba(255, 255, 255, 0.2); /* Highlight background */
+    border-color: #c89872; /* Highlight border */
+}
+/* Specific styling for the "Select Gender" dropdown */
+#gender {
+    width: 100%; /* Full width within its container */
+    max-width: 300px; /* Adjust as needed for consistency */
+    border-radius: 25px; /* Rounded corners */
+    padding: 10px 20px; /* Internal spacing for better usability */
+    background-color: white;
+    border: 1px solid #ddd; /* Light border */
+    color: black; /* White text */
+    font-size: 1rem; /* Uniform font size */
+    box-sizing: border-box; /* Include padding in the total width */
+    appearance: none; /* Removes default arrow styling */
+    transition: all 0.3s ease-in-out; /* Smooth transition for hover/focus */
+}
+
+#confirmPassword {
+    width: 100%; /* Full width within its container */
+    max-width: 300px; /* Consistent with other fields */
+    border-radius: 25px; /* Rounded corners */
+    padding: 10px 20px; /* Internal spacing */
+    background-color: white;
+    border: 1px solid #ddd; /* Light border */
+    color: #fff; /* White text */
+    font-size: 1rem; /* Uniform font size */
+    box-sizing: border-box; /* Include padding in total width */
+    transition: all 0.3s ease-in-out; /* Smooth transitions */
+}
+
+/* Specific styling for <span> elements used for display */
+/* Username, Email Display */
+.userProfileForm span {
+    color: #ddd;
+    font-weight: bold;
+    flex-grow: 1;
+    padding: 5px 10px;
+}
+
+/* Edit Button */
+.edit-btn {
+    border-radius: 50% !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2e464a !important;
+    border: 1.5px solid #c89872 !important;
+    color: white !important;
+    transition: all 0.3s ease-in-out;
+}
+
+.edit-btn i {
+    font-size: 16px;
+    margin: auto;
+}
+
+/* Hover Effect */
+.edit-btn:hover {
+    background-color: #7f604c !important;
+    border-color: white !important;
     color: black !important;
-    background-color: #7F604c!important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
 }
+
+/* Mobile Number Input Group */
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+
+.input-group select {
+    max-width: 35%;
+}
+
+/* Save Changes Button */
+#save-change {
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-weight: bold;
+    background-color: #2e464a !important;
+    border: 1.5px solid #c89872 !important;
+    transition: all 0.3s ease-in-out;
+}
+
+#save-change:hover {
+    background-color: #7f604c !important;
+    color: black !important;
+    border-color: white !important;
+}
+
+
 
 
 /* Responsive Design */
@@ -424,6 +624,11 @@ html, body {
     .signup-container .form-container .signup-btn {
         width: 100%; /* Button takes full width on smaller devices */
         padding: 12px; /* Adjust padding for better appearance */
+    }
+
+    /* Profile-Setting */
+    .profile-section {
+        margin-bottom: 50px;
     }
 }
 
