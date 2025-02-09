@@ -332,13 +332,19 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 - **[SessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) & [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)** improve data retrieval efficiency, keeping pages lightweight.
 - **[Lottie.js](https://airbnb.io/lottie/#/web) animations** enhance user experience and engagement.
 
-## **Assistive AI**
+---
+
+## 🤖 **Assistive AI**
 ### 1. Email Validation using expressions with ChatGPT: 
 ![Email Validation](images/EmailValidation.jpg)
 ### 2. duckduckGo API Implementation with ChatGPT:
 ![duckduckGo](images/duckduckGo.jpg)
+![duckduckGo](images/duckduckGo2.jpg)
 ### 3. Real Time validation for transaction with ChatGPT:
 ![Real Time Validation](images/RealTimeTransactionInput.jpg)
+![Real Time Validation](images/RealTimeTransactionInput2.jpg)
+![Real Time Validation](images/RealTimeTransactionInput3.jpg)
+![Real Time Validation](images/RealTimeTransactionInput4.jpg)
 ### 4. Caesar Cipher Implementation with ChatGPT:
 ![Caesar Cipher](images/caesarCipher.jpg)
 ### 5. Gamification Implementation with ChatGPT :
@@ -350,11 +356,40 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 ![Chat Bot](images/chat-bot-css.png)
 ![Chat Bot](images/chat-bot-css1.png)
 
+---
 
-## **Testing**
+## 🧪 **Testing**
 **This section contains a detailed breakdown of all 16 HTML pages and scenario testing that have not been automated.**  
 
 ⚡ **[CLICK HERE TO SEE ALL TEST SCENARIOS](TEST.md)**  
+
+## 📜 Credits & Acknowledgements
+
+### 📌 Contents
+
+#### Listings
+- All listings, except for user-created ones, are sourced from **[ReverbAPI](https://www.reverb-api.com/docs/getting-started)**.
+
+#### Media Sources
+- **[Canva](https://www.canva.com/)** – for graphic design elements.
+- **[Pexels](https://www.pexels.com/zh-cn/)** – for royalty-free stock images.
+- Other online images retrieved through **[Google](https://www.google.com/)**.
+
+---
+
+### 🎉 Acknowledgements
+We would like to extend our heartfelt gratitude to everyone who contributed to the development of the **MokeSell Interactive Web Application**:
+
+- **Our Lecturer** – for providing invaluable advice, constructive feedback, and motivation throughout the project.
+- **Our Teammates** – for their relentless dedication, hard work, and commitment. This project is a product of our collective effort, and while it may not be perfect, we take pride in what we have built together.
+- **Our Friends** – for inspiring us to implement key features such as the AI Chatbot and Live Chat functionality. Your encouragement pushed us to go the extra mile.
+- **The Open-Source Community** – for the abundance of free resources that made this project possible.
+- **Our Family and Friends** – for supporting us, testing our platform, and offering valuable feedback.
+
+---
+
+Thank you all for your contributions! 🎊
+
 
 ### ✅ **How to Use This Repo**
 1. Repository Link : https://github.com/Justin0526/FED_MokeSellApp_website.zip
