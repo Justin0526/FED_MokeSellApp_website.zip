@@ -332,11 +332,14 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 - **[SessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage) & [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)** improve data retrieval efficiency, keeping pages lightweight.
 - **[Lottie.js](https://airbnb.io/lottie/#/web) animations** enhance user experience and engagement.
 
+## **Assistive AI**
+### 1. Email Validation using expressions: 
+    ![Email Validation](images/EmailValidation.jpg)
+
 ## **Testing**
----
 **This section contains a detailed breakdown of all 16 HTML pages and scenario testing that have not been automated.**  
 
-⚡ **[CLICK HERE TO SEE THE FULL FEATURE BREAKDOWN](TEST.md)**  
+⚡ **[CLICK HERE TO SEE ALL TEST SCENARIOS](TEST.md)**  
 
 ### ✅ **How to Use This Repo**
 1. Repository Link : https://github.com/Justin0526/FED_MokeSellApp_website.zip
