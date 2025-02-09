@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
-  let APIKEY = "67875f7d9e18b182ee6941f0";  // (tryuse) 678fbb8a58174779225315d5(fedassg2) 67972e07f9d2bb46c9181e32(experiment)
-  let leaderboard = "https://experiment-d5c7.restdb.io/rest/leaderboard";  // https://tryuse-a494.restdb.io/rest/leaderboard https://fedassg2-66ea.restdb.io/rest/leaderboard
-  let userProfileUrl = "https://experiment-d5c7.restdb.io/rest/user-profile";  //  https://tryuse-a494.restdb.io/rest/user-profile https://fedassg2-66ea.restdb.io/rest/user-profile
+  let APIKEY = "67875f7d9e18b182ee6941f0";  //  678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
+  let leaderboard = "https://tryuse-a494.restdb.io/rest/leaderboard";  //  https://fedassg2-66ea.restdb.io/rest/leaderboard https://experiment-d5c7.restdb.io/rest/leaderboard
+  let userProfileUrl = "https://tryuse-a494.restdb.io/rest/user-profile";  //   https://fedassg2-66ea.restdb.io/rest/user-profile https://experiment-d5c7.restdb.io/rest/user-profile
 
   let userID = sessionStorage.getItem("userID");
   let userName = sessionStorage.getItem("userName");
