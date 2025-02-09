@@ -339,9 +339,7 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 ## 📌 **Testing Summary**
 The MokeSell website has been tested across multiple browsers and screen sizes to ensure proper functionality, responsiveness, and error handling. Below are the findings based on individual page testing.
 
-# Testing Plan & Bug Reports 🛠️
-
-## Table of Contents
+## Testing Plan & Bug Reports 🛠️
 1. [Homepage](#1-homepage-indexhtml--indexcss)
 2. [Shopping Cart Page](#2-shopping-cart-page-carthtml--cartcss)
 3. [Chat Page](#3-chat-page-chathtml--chatcss)
