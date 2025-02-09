@@ -401,3 +401,6 @@ Thank you all for your contributions! 🎊
 
 ### ✅ **Google Drive Link to Video**
 1. https://drive.google.com/drive/folders/19LY3NYMo5FO-k1i_SNCqqToUxCKjZLaI?usp=drive_link 
+
+###  **Important Notice**
+As this is a free project, the API being used is also a free service. Please note that there is a daily limit of 500 API calls per database. There are two separate APIs available, both utilizing identical databases. The currently active API is labeled **fedassg2**, with its corresponding API keys and links provided.
