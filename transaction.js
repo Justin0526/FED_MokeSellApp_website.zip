@@ -55,9 +55,9 @@ document.addEventListener("DOMContentLoaded", function(){
             return;
         }
 
-        alert("Payment successful! Processing your order...");
         deleteCartItem(transactionData);
 
+        document.getElementById("lottie").style.display = "flex";
         setTimeout(() => {
             location.href = "transaction-receipt.html";
         }, 3000);

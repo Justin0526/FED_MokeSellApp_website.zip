@@ -542,6 +542,7 @@ border-radius: 25px;
     height: 200px;
 }
 
+
 @media (max-width: 480px) {
     /* sign-up page */
     .signup-container .form-container {
