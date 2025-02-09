@@ -166,6 +166,7 @@ document.addEventListener("DOMContentLoaded", function(){
         let existingPassword = caesarDecipher(encryptedPassword, 4);
         console.log("Existing password after encryption: ", existingPassword);
         if (newPassword !== "" && confirmPassword !== ""){
+            let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).+$/; // Ensures that password has at least a letter and number
             if (newPassword === existingPassword){
                 samePasswordError.style.display = "block";
                 saveChanges.disabled = false;
@@ -180,6 +181,11 @@ document.addEventListener("DOMContentLoaded", function(){
                 confirmPasswordError.style.display = 'block';
                 saveChanges.disabled = false;
                 return;
+            }       
+            else if (!passwordRegex.test(password)){
+                passwordLengthError.textContent = "Password must contain at least 1 number and 1 letter";
+                passwordLengthError.style.display = "block";
+                return false;
             }
             else{
                 let newEncryptedPassword = caesarCipher(newPassword, 4);
