@@ -333,8 +333,14 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 - **[Lottie.js](https://airbnb.io/lottie/#/web) animations** enhance user experience and engagement.
 
 ## **Assistive AI**
-### 1. Email Validation using expressions: 
+### 1. Email Validation using expressions with ChatGPT: 
 ![Email Validation](images/EmailValidation.jpg)
+### 2. duckduckGo API Implementation with ChatGPT:
+![duckduckGo](images/duckduckGo.jpg)
+### 3. Real Time validation for transaction with ChatGPT:
+![Real Time Validation](images/RealTimeTransactionInput.jpg)
+### 4. Caesar Cipher Implementation with ChatGPT:
+![Caesar Cipher](images/caesarCipher.jpg)
 
 ## **Testing**
 **This section contains a detailed breakdown of all 16 HTML pages and scenario testing that have not been automated.**  
