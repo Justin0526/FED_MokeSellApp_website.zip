@@ -86,7 +86,8 @@ document.addEventListener("DOMContentLoaded", function(){
         let maxItems = type === "user" ? data.length : 4;
 
         let userProfilePic = sessionStorage.getItem("userProfilePicture");
-        if (!userProfilePic || userProfilePic == null || userProfilePic == undefined){
+        console.log(userProfilePic);
+        if (!userProfilePic || userProfilePic == null || userProfilePic == undefined || userProfilePic == "undefined"){
             userProfilePic = "images/man.jpg"
         }
     
