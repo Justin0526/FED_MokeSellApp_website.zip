@@ -661,7 +661,7 @@ The MokeSell website has been tested across multiple browsers and screen sizes t
   - The **animation should appear immediately**.  
   - It should **loop until the redirection occurs**.  
 ---
-## 9️⃣ About Us Page (about-us.html & about-us.css)
+## 16. About Us Page (about-us.html & about-us.css)
 
 ### Content & Layout
 **Test Scenario 1: Readability & Responsiveness**
