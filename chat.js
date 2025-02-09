@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
-    let APIKEY = "67875f7d9e18b182ee6941f0";  //  678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
-    let userProfileUrl = "https://tryuse-a494.restdb.io/rest/user-profile";  //  https://fedassg2-66ea.restdb.io/rest/user-profile https://experiment-d5c7.restdb.io/rest/user-profile
-    let chatUrl = "https://tryuse-a494.restdb.io/rest/chat"; //  https://fedassg2-66ea.restdb.io/rest/chat https://experiment-d5c7.restdb.io/rest/chat
+    let APIKEY = "678fbb8a58174779225315d5";  // 67875f7d9e18b182ee6941f0
+    let userProfileUrl = "https://fedassg2-66ea.restdb.io/rest/user-profile";  //   https://tryuse-a494.restdb.io/rest/user-profile
+    let chatUrl = "https://fedassg2-66ea.restdb.io/rest/chat"; //  https://tryuse-a494.restdb.io/rest/chat
     let userID = sessionStorage.getItem("userID");
     let sendChat = document.getElementById("sendButton");
     let chatHeaders = document.querySelector(".chat-headers");

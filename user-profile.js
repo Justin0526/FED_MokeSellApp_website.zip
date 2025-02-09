@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
-  let APIKEY = "67875f7d9e18b182ee6941f0";  //  678fbb8a58174779225315d5 67972e07f9d2bb46c9181e32
-  let userProfileUrl = "https://tryuse-a494.restdb.io/rest/user-profile";  //   https://fedassg2-66ea.restdb.io/rest/user-profile https://experiment-d5c7.restdb.io/rest/user-profile
-  let createListingUrl = "https://tryuse-a494.restdb.io/rest/create-listing"; //  https://fedassg2-66ea.restdb.io/rest/create-listing https://experiment-d5c7.restdb.io/rest/create-listing
+  let APIKEY = "678fbb8a58174779225315d5";  // 67875f7d9e18b182ee6941f0
+  let userProfileUrl = "https://fedassg2-66ea.restdb.io/rest/user-profile";  //    https://tryuse-a494.restdb.io/rest/user-profile
+  let createListingUrl = "https://fedassg2-66ea.restdb.io/rest/create-listing"; //    https://tryuse-a494.restdb.io/rest/create-listing
      
   const header = {
       "Content-Type": "application/json",
