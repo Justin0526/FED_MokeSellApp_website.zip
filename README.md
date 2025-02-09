@@ -339,24 +339,27 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 ## 📌 **Testing Summary**
 The MokeSell website has been tested across multiple browsers and screen sizes to ensure proper functionality, responsiveness, and error handling. Below are the findings based on individual page testing.
 
-## 🚀 **Features Tested**
-- [Cart Page](#cart-page)
-- [Chat Page](#chat-page)
-- [Contact Page](#contact-page)
-- [Create Listing Page](#create-listing-page)
-- [Forgot Password Page](#forgot-password-page)
-- [Gamification Page](#gamification-page)
-- [Homepage](#homepage)
-- [Listings Page](#listings-page)
-- [Login Page](#login-page)
-- [Product Details Page](#product-details-page)
-- [Profile Settings Page](#profile-settings-page)
-- [Sign-Up Page](#sign-up-page)
-- [Transaction Page](#transaction-page)
-- [User Profile Page](#user-profile-page)
+# Testing Plan & Bug Reports 🛠️
+
+## Table of Contents
+1. [Homepage](#1-homepage-indexhtml--homecss)
+2. [Shopping Cart Page](#2-shopping-cart-page-carthtml--cartcss)
+3. [Chat Page](#3-chat-page-chathtml--chatcss)
+4. [Contact Page](#4-contact-page-contacthtml--contactcss)
+5. [Product Details Page](#5-product-details-page-product-detailshtml--product-detailscss)
+6. [Profile Settings Page](#6-profile-settings-page-profile-settinghtml--profile-settingcss)
+7. [Sign-Up Page](#7-sign-up-page-sign-uphtml--sign-upcss)
+8. [Transaction Page](#8-transaction-page-transactionhtml--transactioncss)
+9. [Transaction Receipt Page](#9-transaction-receipt-page-transaction-receipthtml--transaction-receiptcss)
+10. [User Profile Page](#10-user-profile-page-user-profilehtml--user-profilecss)
+11. [Create Listing Page](#11-create-listing-page-create-listinghtml--create-listingcss)
+12. [Forgot Password Page](#12-forgot-password-page-forgot-pwhtml--forgot-pwcss)
+13. [Gamification Page](#13-gamification-page-gamificationhtml--gamificationcss)
+14. [Listings Page](#14-listings-page-listingshtml--listingscss)
+15. [Login Page](#15-login-page-loginhtml--logincss)
+16. [About Us Page](#16-about-us-page-about-ushtml--about-uscss)
 
 ---
-
 ## 1. Homepage (index.html & index.css)
 
 ### 🛠 **Navigation and Layout**
