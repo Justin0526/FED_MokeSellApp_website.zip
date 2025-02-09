@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function(){
   let userProfileUrl = "https://experiment-d5c7.restdb.io/rest/user-profile";  //  https://tryuse-a494.restdb.io/rest/user-profile https://fedassg2-66ea.restdb.io/rest/user-profile
   let createListingUrl = "https://experiment-d5c7.restdb.io/rest/create-listing"; // https://tryuse-a494.restdb.io/rest/create-listing https://fedassg2-66ea.restdb.io/rest/create-listing
      
-  let header = {
+  const header = {
       "Content-Type": "application/json",
       "x-apikey": APIKEY,
       "Cache-Control": "no-cache"

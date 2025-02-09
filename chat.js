@@ -139,16 +139,16 @@ document.addEventListener("DOMContentLoaded", function(){
   
       chatBox.innerHTML = `<p class="text-center text-muted">Chat with ${shopName}</p>`;
   
-      // ✅ Ensure input is enabled properly
+      // Ensure input is enabled properly
       userInput.disabled = false;
       sendChat.disabled = false;
   
-      // ✅ Instead of removing listeners, just ensure input is always read correctly
+      // Instead of removing listeners, just ensure input is always read correctly
       sendChat.addEventListener("click", function () {
           sendMessageAI(userInput.value.trim());
       });
   
-      // ✅ Support "Enter" key for sending messages
+      // Support "Enter" key for sending messages
       userInput.addEventListener("keypress", function (e) {
           if (e.key === "Enter") {
               sendMessageAI(userInput.value.trim());
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     
         appendMessage("user", messageText);
-        userInput.value = "";  // ✅ Clear input AFTER reading value
+        userInput.value = "";  // Clear input AFTER reading value
     
         fetch(`https://api.duckduckgo.com/?q=${messageText}&format=json`)
             .then(response => response.json())

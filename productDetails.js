@@ -126,7 +126,6 @@ document.addEventListener("DOMContentLoaded", function(){
         let senderID = userID;
         let receiverID = item["linked-userID"] || null; // Fallback to empty if missing
         let shopName = productData.shopname;
-        let chatUrl = "https://experiment-d5c7.restdb.io/rest/chat"; // Should use chatUrl, not cartUrl
     
         let GETsettings = {
             method: "GET",
