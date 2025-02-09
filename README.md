@@ -342,7 +342,7 @@ The MokeSell website has been tested across multiple browsers and screen sizes t
 # Testing Plan & Bug Reports 🛠️
 
 ## Table of Contents
-1. [Homepage](#1-homepage-indexhtml--homecss)
+1. [Homepage](#1-homepage-indexhtml--indexcss)
 2. [Shopping Cart Page](#2-shopping-cart-page-carthtml--cartcss)
 3. [Chat Page](#3-chat-page-chathtml--chatcss)
 4. [Contact Page](#4-contact-page-contacthtml--contactcss)
