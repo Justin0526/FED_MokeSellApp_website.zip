@@ -319,9 +319,9 @@ This project leverages multiple languages, frameworks, libraries, and tools to b
 ---
 
 ### **📂 Tools & Utilities**
-11. **Session Storage (JavaScript)** – Temporarily stores user session data, such as login details and cart items.
-12. **Fetch API (JavaScript)** – Handles HTTP requests to retrieve and update data from **RestDB.io**.
-13. **WebSockets (Planned for Future Use)** – Could be used for real-time chat updates and leaderboard tracking.
+10. **Session Storage (JavaScript)** – Temporarily stores user session data, such as login details and cart items.
+11. **Fetch API (JavaScript)** – Handles HTTP requests to retrieve and update data from **RestDB.io**.
+12. **WebSockets (Planned for Future Use)** – Could be used for real-time chat updates and leaderboard tracking.
 
 ---
 
