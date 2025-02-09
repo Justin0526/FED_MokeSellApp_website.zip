@@ -56,7 +56,6 @@ MokeSell follows a **mobile-first, fully responsive design** using **Bootstrap 5
 
 ---
 
-## 📌 MokeSell Existing Features and Future Enhancements  
 
 **This section contains a detailed breakdown of all 16 HTML pages and their corresponding functionalities, as well as planned improvements for future releases.**  
 
